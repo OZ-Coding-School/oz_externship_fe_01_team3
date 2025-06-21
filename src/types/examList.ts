@@ -43,6 +43,7 @@ export interface SideBarProps {
 // 유틸리티 타입
 export interface TechIconProps {
   tech: string
+  iconPath?: string
   className?: string
 }
 

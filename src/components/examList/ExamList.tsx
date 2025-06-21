@@ -21,7 +21,7 @@ const mockExamData: ExamData[] = [
     totalScore: 100,
     correctAnswers: 8,
     totalQuestions: 10,
-    icon: 'html',
+    icon: '/examList/html.png',
   },
   {
     id: 'javascript-basic',
@@ -30,7 +30,7 @@ const mockExamData: ExamData[] = [
     technology: 'JavaScript',
     description: 'JavaScript · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'javascript',
+    icon: '/examList/nodejs.png',
   },
   {
     id: 'github-usage',
@@ -39,7 +39,7 @@ const mockExamData: ExamData[] = [
     technology: 'Github',
     description: 'github · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'github',
+    icon: '/examList/github.png',
   },
   {
     id: 'react-basic',
@@ -48,7 +48,7 @@ const mockExamData: ExamData[] = [
     technology: 'React',
     description: 'React · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'react',
+    icon: '/examList/Frame.png',
   },
   {
     id: 'nodejs-basic',
@@ -61,7 +61,7 @@ const mockExamData: ExamData[] = [
     totalScore: 100,
     correctAnswers: 9,
     totalQuestions: 10,
-    icon: 'nodejs',
+    icon: '/examList/nodejs.png',
   },
   {
     id: 'database-basic',
@@ -70,7 +70,7 @@ const mockExamData: ExamData[] = [
     technology: 'Database',
     description: 'Database · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'database',
+    icon: '/examList/amazon-database.png',
   },
   {
     id: 'typescript-basic',
@@ -83,7 +83,7 @@ const mockExamData: ExamData[] = [
     totalScore: 100,
     correctAnswers: 7.5,
     totalQuestions: 10,
-    icon: 'typescript',
+    icon: '/examList/typescript.png',
   },
   {
     id: 'aws-frontend',
@@ -92,7 +92,7 @@ const mockExamData: ExamData[] = [
     technology: 'AWS',
     description: 'AWS · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'aws',
+    icon: '/examList/aws.png',
   },
   {
     id: 'react-native',
@@ -101,7 +101,7 @@ const mockExamData: ExamData[] = [
     technology: 'React Native',
     description: 'React Native · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'react-native',
+    icon: '/examList/Frame.png',
   },
   // 백엔드 과목
   {
@@ -115,7 +115,7 @@ const mockExamData: ExamData[] = [
     totalScore: 100,
     correctAnswers: 8.5,
     totalQuestions: 10,
-    icon: 'python',
+    icon: '/examList/python.png',
   },
   {
     id: 'html-css-backend',
@@ -124,7 +124,7 @@ const mockExamData: ExamData[] = [
     technology: 'HTML/CSS',
     description: 'HTML/CSS · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'html',
+    icon: '/examList/html.png',
   },
   {
     id: 'javascript-backend',
@@ -133,7 +133,7 @@ const mockExamData: ExamData[] = [
     technology: 'JavaScript',
     description: 'JavaScript · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'javascript',
+    icon: '/examList/nodejs.png',
   },
   {
     id: 'database-backend',
@@ -142,7 +142,7 @@ const mockExamData: ExamData[] = [
     technology: 'Database',
     description: 'Database · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'database',
+    icon: '/examList/amazon-database.png',
   },
   {
     id: 'django-basic',
@@ -151,7 +151,7 @@ const mockExamData: ExamData[] = [
     technology: 'Django',
     description: 'Django · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'django',
+    icon: '/examList/django.png',
   },
   {
     id: 'fastapi-basic',
@@ -160,7 +160,7 @@ const mockExamData: ExamData[] = [
     technology: 'FastAPI',
     description: 'FastAPI · 응시하고 점수를 확인해보세요!',
     status: 'notStart',
-    icon: 'fastapi',
+    icon: '/examList/fastapi.png',
   },
   {
     id: 'flask-basic',
