@@ -43,7 +43,7 @@ export default function ExamList() {
       observer.observe(observerRef.current)
     }
     return () => observer.disconnect()
-  }, [data, isFetchingNextPage, hasNextPage])
+  }, [fetchNextPage])
 
   const handleTakeExam = (examId: string): void => {
     console.log('응시하기:', examId)
