@@ -3,19 +3,17 @@ import { User } from 'lucide-react'
 
 export const Header = () => {
   const [showLoginModal, setShowLoginModal] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false) // 로그인 상태 관리
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const toggleLoginModal = () => {
     setShowLoginModal(!showLoginModal)
   }
 
-  // TODO: 로그인 처리 함수
   const handleLogin = () => {
     setIsLoggedIn(true)
     setShowLoginModal(false)
   }
 
-  //  TODO: 로그아웃 처리 함수 (예시)
   const handleLogout = () => {
     setIsLoggedIn(false)
     setShowLoginModal(false)
@@ -24,88 +22,90 @@ export const Header = () => {
   return (
     <header>
       {/* 상단 알림 바 */}
-      <div className="bg-black py-6 text-white text-center px-4 text-[16px]">
+      <div className="bg-[#222222] p-[10px] max-w-[1920px] mx-auto h-[48px] text-center text-[16px] text-[#ffffff]">
         🚨 선착순 모집! 국비지원 받고 4주 완성
       </div>
 
       {/* 메인 헤더 */}
-      <div className="bg-white text-center border-b border-gray-200">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="flex items-center justify-between h-16">
-            {/* 로고 및 메인 메뉴 */}
-            <div className="flex items-center">
-              {/* 로고 */}
-              <div className="flex items-center">
-                <h1>LOGO</h1>
-              </div>
+      <div className="max-w-[1920px] mx-auto h-[64px] bg-white border-b border-gray-200">
+        <div className="max-w-[1200px] mx-auto h-full flex items-center justify-between">
+          {/* 좌측 - 로고 및 메뉴 */}
+          <div className="flex items-center gap-[60px]">
+            <h1 className="font-bold text-lg text-blue-700">LOGO</h1>
+            <nav className="flex gap-[60px]">
+              <a href="#" className="text-gray-700">
+                커뮤니티
+              </a>
+              <a href="#" className="text-gray-700">
+                일일특강
+              </a>
+            </nav>
+          </div>
 
-              {/* 메인 메뉴 */}
-              <nav className="flex px-7">
-                <a href="#" className="text-gray-700 mr-7">
-                  커뮤니티
-                </a>
-                <a href="#" className="text-gray-700">
-                  일일특가
-                </a>
-              </nav>
-            </div>
-
-            {/* 우측 메뉴 */}
-            <div className="flex items-center relative">
-              {/* 로그인 전 - 텍스트 메뉴 */}
-              {!isLoggedIn && (
-                <div className="flex items-center space-x-4 text-sm text-gray-600">
-                  <button onClick={handleLogin}>로그인</button>
-                  <span className="text-gray-300">|</span>
-                  <a href="#">회원가입</a>
-                </div>
-              )}
-
-              {/* 로그인 후 - 유저 아이콘 */}
-              {isLoggedIn && (
+          {/* 우측 메뉴 */}
+          <div className="flex items-center relative h-full">
+            {!isLoggedIn ? (
+              <div className="flex items-center space-x-4 text-sm text-gray-600 h-10">
                 <button
-                  onClick={toggleLoginModal}
-                  className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full hover:bg-purple-300 transition-colors"
+                  onClick={handleLogin}
+                  className="h-10 flex items-center justify-center"
                 >
-                  <User className="w-6 h-6 text-purple-600" />
+                  로그인
                 </button>
-              )}
+                <span className="text-gray-300">|</span>
+                <a href="#" className="h-10 flex items-center justify-center">
+                  회원가입
+                </a>
+              </div>
+            ) : (
+              <button
+                onClick={toggleLoginModal}
+                className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full hover:bg-purple-300 transition-colors"
+              >
+                <User className="w-6 h-6 text-purple-600" />
+              </button>
+            )}
 
-              {/* 로그인 모달 (로그인 후에만 표시) */}
-              {showLoginModal && isLoggedIn && (
-                <>
-                  {/* 모달 오버레이 */}
-                  <div className="fixed inset-0" onClick={toggleLoginModal} />
-                  {/* 모달 콘텐츠 */}
-                  <div className="absolute top-12 right-0 bg-white rounded-lg shadow-lg border border-gray-200 w-80 z-50">
-                    {/* 프로필 섹션 */}
-                    <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 mb-2 text-left">
-                        오즈오즈
-                      </h3>
-                      <p className="text-sm text-gray-500 mb-3 text-left">
-                        ozschool1234@gmail.com
-                      </p>
+            {/* 로그인 모달 */}
+            {showLoginModal && isLoggedIn && (
+              <>
+                {/* 오버레이 */}
+                <div
+                  className="fixed inset-0 z-40"
+                  onClick={toggleLoginModal}
+                />
 
-                      <div className="w-full text-gray-700 font-medium">
-                        <div className="text-gray-700 py-3.5 font-medium cursor-pointer hover:text-purple-600">
-                          수강생 등록
-                        </div>
-                        <div className="text-gray-700 py-3.5 font-medium cursor-pointer hover:text-purple-600">
-                          마이페이지
-                        </div>
-                        <div
-                          className="text-gray-700 py-3.5 font-medium cursor-pointer hover:text-purple-600"
-                          onClick={handleLogout}
-                        >
-                          로그아웃
-                        </div>
-                      </div>
+                {/* 모달 */}
+                <div className="absolute top-20 right-[-160px] z-50 w-[204px] rounded-[12px] bg-white border border-gray-200 shadow-[0px_0px_16px_rgba(160,160,160,0.25)] px-[16px] pt-[24px] pb-[24px] flex flex-col gap-[10px]">
+                  {/* 유저 정보 */}
+                  <div className="w-full">
+                    <h3 className="font-semibold text-[16px] text-[#000000] text-left mb-[4px] leading-[1.4] tracking-[-0.03em]">
+                      오즈오즈
+                    </h3>
+                    <p className="text-[14px] text-gray-400 text-left leading-[1.4] tracking-[-0.03em]">
+                      ozschool1234@gmail.com
+                    </p>
+                    <div className="mt-4 border-b border-[#ECECEC]" />
+                  </div>
+
+                  {/* 메뉴 */}
+                  <div className="flex flex-col text-sm text-gray-700 font-medium">
+                    <div className="py-[8px] px-[10px] bg-[#F3E8FF] text-[#6201E0] font-bold cursor-pointer leading-[1.4] tracking-[-0.03em]">
+                      수강생 등록
+                    </div>
+                    <div className="py-[8px] px-[10px] hover:bg-gray-100 cursor-pointer leading-[1.4] tracking-[-0.03em]">
+                      마이페이지
+                    </div>
+                    <div
+                      className="py-[8px] px-[10px] hover:bg-gray-100 cursor-pointer leading-[1.4] tracking-[-0.03em]"
+                      onClick={handleLogout}
+                    >
+                      로그아웃
                     </div>
                   </div>
-                </>
-              )}
-            </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

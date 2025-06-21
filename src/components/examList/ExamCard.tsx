@@ -79,7 +79,7 @@ export default function ExamCard({
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200">
+    <div className="bg-[#FAFAFA] rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4 flex-1">
           <TechIcon tech={exam.technology} />
@@ -100,10 +100,10 @@ export default function ExamCard({
         <div className="flex-shrink-0 ml-4">
           <button
             onClick={handleButtonClick}
-            className={`px-6 py-2 rounded-lg font-medium text-sm transition-colors duration-200 ${
+            className={`w-[112px] h-[46px] rounded-lg font-medium text-sm transition-colors duration-200 ${
               exam.status === 'completed'
-                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
-                : 'bg-purple-600 text-white hover:bg-purple-700 border border-purple-600'
+                ? 'bg-[#ECECEC] border-1 border-[#BDBDBD] text-[#4D4D4D]'
+                : 'bg-[#EFE6FC] border-1 border-[#6201E0] text-[#4E01B3]'
             }`}
           >
             {exam.status === 'completed' ? '상세보기' : '응시하기'}
