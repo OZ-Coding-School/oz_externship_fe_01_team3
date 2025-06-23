@@ -22,7 +22,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`${className} rounded-[4px] eading-[1.4] tracking-[-00.3]`}
+      className={`${className} rounded-[4px] eading-[1.4] tracking-[-0.03] cursor-pointer`}
       disabled={disabled}
       onClick={onclick}
       type={type}
