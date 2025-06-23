@@ -1,31 +1,61 @@
-type Status = 'default' | 'focus'
+import { useState } from 'react'
 
-interface TextareaProps {
-  value: string
+type QuestionTextareaProps = {
+  id: string
+  maxLength: number
+  height: number
   placeholder: string
-  onChange: (v: string) => void
-  status: Status
+  paddingX: number
+  paddingY: number
+  onChange: (value: string) => void
 }
 
-export default function Textarea({
-  value,
+const QuestionTextarea = ({
+  id,
+  maxLength,
+  height,
   placeholder,
-  status = 'default',
+  paddingX,
+  paddingY,
   onChange,
-}: TextareaProps) {
-  const padding = 'pt-[20px] pr-[16px] pb-[20px] pl-[16px]'
-  const baseClass = `w-[598px] h-[134px] ${padding} rounded-sm border-2 resize-none outline-none`
+}: QuestionTextareaProps) => {
+  const [value, setValue] = useState('')
 
-  const statusClass = {
-    default: 'border-[#BDBDBD] text-[#121212] placeholder-[#BDBDBD]',
-    focus: 'border-[#9D9D9D] text-[#121212] placeholder-[#BDBDBD]',
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(e.target.value)
+    onChange(e.target.value)
   }
+
   return (
-    <textarea
-      placeholder={placeholder}
-      onChange={(e) => onChange(e.target.value)}
-      value={value}
-      className={`${baseClass} ${statusClass[status]}`}
-    />
+    <div>
+      <textarea
+        id={id}
+        style={{
+          height: `${height}px`,
+          padding: `${paddingY}px ${paddingX}px`,
+        }}
+        className="w-[648px] bg-[#F2F3F5] font-medium text-[16px] rounded-[4px] left-[32px] leading-[1.4] tracking-[-0.03em] resize-none overflow-hidden"
+        maxLength={maxLength}
+        value={value}
+        placeholder={placeholder}
+        onChange={handleChange}
+      />
+    </div>
   )
 }
+
+export default QuestionTextarea
+
+/* 
+사용법
+
+<QuestionTextarea
+        id="question-textarea"
+        maxLength={20}
+        height={48}
+        placeholder="20글자 이내로 입력해 주세요"
+        paddingX={10}
+        paddingY={16}
+        onChange={() => {}}
+      />
+*/
