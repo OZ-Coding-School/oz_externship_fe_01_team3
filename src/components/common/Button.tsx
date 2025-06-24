@@ -1,17 +1,12 @@
-type Status = 'button' | 'reset' | 'submit'
+import type { ButtonStatus } from '@/types/common/Button'
 
 interface ButtonProps {
   disabled?: boolean
   onclick?: () => void
-  type: Status
+  type: ButtonStatus
   className: string
   text: string
 }
-
-// rounded-[4px] eading-[1.4] tracking-[-00.3] 공통 css
-/*
-
-*/
 
 export default function Button({
   disabled = false,

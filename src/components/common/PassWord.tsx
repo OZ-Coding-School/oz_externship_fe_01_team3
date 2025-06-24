@@ -1,11 +1,11 @@
+import type { PassWordStatus } from '@/types/common/PassWord'
 import { useState } from 'react'
-type Status = 'default' | 'error' | 'success' | 'focus'
 
 interface PasswordProps {
   value: string
   onChange: (v: string) => void
   placeholder: string
-  status: Status
+  status: PassWordStatus
   error?: string
   success?: string
 }
