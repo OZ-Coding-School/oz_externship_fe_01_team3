@@ -42,3 +42,9 @@ export const SideBarButton = ({
     </button>
   )
 }
+
+/* 
+[사용법 ]
+  <SideBarButton name="버튼" disabled={false} onClick={() => {}} />
+  <SideBarButton name="버튼" disabled />
+*/

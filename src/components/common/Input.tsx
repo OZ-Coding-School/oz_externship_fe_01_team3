@@ -1,57 +1,63 @@
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  status?:
-    | 'default'
-    | 'wrong'
-    | 'correct'
-    | 'textDefault'
-    | 'disabled'
-    | 'checked'
-  type: 'text' | 'checkbox' | 'radio'
-  name?: string
-  message?: string
-  classNames?: string
+type Status = 'default' | 'error' | 'success' | 'focus'
+
+interface InputProps {
+  value: string
+  placeholder: string
+  onChange: (value: string) => void
+  disabled?: boolean
+  status: Status
+  error?: string
+  success?: string
 }
 
 export default function Input({
-  type = 'text',
+  value,
+  placeholder,
+  onChange,
+  disabled = false,
   status = 'default',
-  classNames,
-  ...props
+  success,
+  error,
 }: InputProps) {
-  const styles = {
-    text: {
-      default: '',
-      textDefault:
-        'border border-[#BDBDBD] focus:border-[#6201E0] outline-none',
-      wrong: 'border border-[#EC0037] outline-none',
-      correct: 'border border-[#14C786] focus:border-[#14c786] outline-none',
-      disabled:
-        'bg-[#ECECEC] border border-[#BDBDBD] text-[#BDBDBD] pointer-events-none outline-none',
-    },
-    checkbox: {
-      default: 'appearance-none',
-      checked: 'bg-[#6201E0] border-none',
-    },
-    radio: {
-      default: 'appearance-none rounded-full',
-      checked: 'bg-[#6201E0] border-none',
-    },
+  const padding = 'pt-[10px] pr-[16px] pb-[10px] pl-[16px]'
+
+  const baseClass = `w-[288px] h-[48px] ${padding} rounded-sm border-2 outline-none`
+  const disabledTrue =
+    'border-[#BDBDBD] text-[#BDBDBD] placeholder-[#BDBDBD] bg-[#bdbdbf35]'
+
+  const statusClass = {
+    default: 'border-[#BDBDBD] text-[#121212] placeholder-[#BDBDBD]',
+    focus: 'border-[#6201E0] text-[#121212] placeholder-[#BDBDBD]',
+    error: 'text-[#121212] border-[#EC0037] placeholder-[#BDBDBD]',
+    success: 'text-[#121212] border-[#14C786] placeholder-[#BDBDBD]',
   }
 
-  // 타입 안전한 스타일 접근
-  const styleGroup = styles[type]
-  const appliedStyle = styleGroup[status as keyof typeof styleGroup]
-
   return (
-    <div className="relative">
+    <>
       <input
-        type={type}
-        className={`${appliedStyle} ${classNames}`}
+        type="text"
+        placeholder={placeholder}
         onChange={(e) => {
-          props.onChange?.(e)
+          onChange(e.target.value)
         }}
-        {...props}
+        value={value}
+        disabled={disabled}
+        className={
+          disabled
+            ? `${baseClass} ${disabledTrue}`
+            : `${baseClass} ${statusClass[status]}`
+        }
       />
-    </div>
+      {error && (
+        <span className="font-normal text-base text-[#EC0037] mt-[4px]">
+          *{error}
+        </span>
+      )}
+      {success && (
+        <span className="font-normal text-base text-[#14C786] mt-[4px]">
+          *{success}
+        </span>
+      )}
+    </>
   )
 }

@@ -1,3 +1,7 @@
+/*
+  : 사용법: showToast({message:"내용", type:"success" | "error"})
+*/
+
 interface ToastProps {
   toast: {
     message: string
