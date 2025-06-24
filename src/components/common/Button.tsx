@@ -5,7 +5,7 @@ interface ButtonProps {
   onclick?: () => void
   type: Status
   className: string
-  children: React.ReactNode
+  text: string
 }
 
 // rounded-[4px] eading-[1.4] tracking-[-00.3] 공통 css
@@ -18,7 +18,7 @@ export default function Button({
   onclick,
   type = 'button',
   className,
-  children,
+  text,
 }: ButtonProps) {
   return (
     <button
@@ -27,7 +27,7 @@ export default function Button({
       onClick={onclick}
       type={type}
     >
-      {children}
+      {text}
     </button>
   )
 }
