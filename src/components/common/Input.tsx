@@ -1,16 +1,4 @@
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  status?:
-    | 'default'
-    | 'wrong'
-    | 'correct'
-    | 'textDefault'
-    | 'disabled'
-    | 'checked'
-  type: 'text' | 'checkbox' | 'radio'
-  name?: string
-  message?: string
-  classNames?: string
-}
+import type { InputProps } from '@/types/common/input'
 
 export default function Input({
   type = 'text',
@@ -39,8 +27,8 @@ export default function Input({
   }
 
   // 타입 안전한 스타일 접근
-  const styleGroup = styles[type]
-  const appliedStyle = styleGroup[status as keyof typeof styleGroup]
+  const styleGroup = styles[type] || {}
+  const appliedStyle = styleGroup[status as keyof typeof styleGroup] || ''
 
   return (
     <div className="relative">
