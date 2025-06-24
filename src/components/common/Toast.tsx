@@ -32,7 +32,7 @@ export const Toast = ({ toast }: { toast: ToastProps | null }) => {
 
   return (
     <div
-      className={`fixed top-[204px] left-[836px] flex items-center w-[248px] h-[48px] pl-1 px-3 bg-[#fafafa] border border-[#ECECEC] rounded-md [box-shadow:4px_4px_4px_0_rgba(131,131,131,0.25)] ${toast.className || ''}`}
+      className={`fixed top-[204px] left-[836px] flex items-center w-[248px] h-[48px] pl-2 px-3 bg-[#fafafa] border border-[#ECECEC] rounded-md [box-shadow:4px_4px_4px_0_rgba(131,131,131,0.25)] ${toast.className || ''}`}
     >
       <img src={icon} alt={toast.type} className="w-[24px] h-[24px] mr-1" />
       <span
