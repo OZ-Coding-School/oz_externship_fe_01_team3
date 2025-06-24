@@ -1,13 +1,7 @@
 import './App.css'
-import { Header } from './components/common/Header'
 
 function App() {
-  return (
-    <div>
-      template
-      <Header />
-    </div>
-  )
+  return <div>template</div>
 }
 
 export default App
