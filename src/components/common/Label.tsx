@@ -1,16 +1,16 @@
 import type React from 'react'
 
-type FormBaseProps = {
-  label: string //라벨명
-  required?: boolean //안에 들어갈 input들
+interface LabelProps {
+  label: string
+  required?: boolean
   children: React.ReactNode
 }
 
-export default function FormBase({
+export default function Label({
   label,
   children,
   required = true,
-}: FormBaseProps) {
+}: LabelProps) {
   return (
     <div className="w-[348px] flex flex-col">
       <label className="text-base font-medium text-[#121212] mb-[20px]">
