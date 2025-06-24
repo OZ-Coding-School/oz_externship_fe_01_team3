@@ -18,6 +18,7 @@ import type {
   TechIconProps,
   StatusBadgeProps,
 } from '@/types/examList'
+import Button from '../common/Button'
 
 const TechIcon = ({
   tech,
@@ -116,7 +117,8 @@ export default function ExamCard({
         </div>
 
         <div className="flex-shrink-0 ml-4">
-          <button
+          <Button
+            type="button"
             onClick={handleButtonClick}
             className={`w-[112px] h-[46px] rounded-lg font-medium text-sm transition-colors duration-200 cursor-pointer 
               ${
@@ -127,7 +129,7 @@ export default function ExamCard({
             `}
           >
             {exam.status === 'completed' ? '상세보기' : '응시하기'}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

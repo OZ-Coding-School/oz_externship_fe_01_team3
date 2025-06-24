@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Button from '../common/Button'
 
 const sideTabs = [
   { id: 'exam', label: '쪽지시험' },
@@ -17,7 +18,8 @@ export default function SideBar() {
         <ul className="space-y-1">
           {sideTabs.map((tab) => (
             <li key={tab.id}>
-              <button
+              <Button
+                type="button"
                 onClick={() => setActiveTab(tab.id as SideTab)}
                 className={`w-full text-left block py-3 px-4 relative text-lg focus:outline-none transition-colors duration-200 ${
                   activeTab === tab.id
@@ -29,7 +31,7 @@ export default function SideBar() {
                   <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-1 bg-purple-600 rounded-r"></span>
                 )}
                 {tab.label}
-              </button>
+              </Button>
             </li>
           ))}
         </ul>

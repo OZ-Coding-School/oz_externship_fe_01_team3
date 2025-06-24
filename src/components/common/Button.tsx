@@ -2,27 +2,29 @@ import type { ButtonStatus } from '@/types/common/Button'
 
 interface ButtonProps {
   disabled?: boolean
-  onclick?: () => void
+  onClick?: () => void
   type: ButtonStatus
   className: string
-  text: string
+  text?: string
+  children?: React.ReactNode
 }
 
 export default function Button({
   disabled = false,
-  onclick,
+  onClick,
   type = 'button',
   className,
-  text,
+  text = '',
+  children,
 }: ButtonProps) {
   return (
     <button
-      className={`${className} rounded-[4px] eading-[1.4] tracking-[-0.03] cursor-pointer`}
+      className={`${className} rounded-[4px] leading-[1.4] tracking-[-0.03] cursor-pointer`}
       disabled={disabled}
-      onClick={onclick}
+      onClick={onClick}
       type={type}
     >
-      {text}
+      {text || children}
     </button>
   )
 }

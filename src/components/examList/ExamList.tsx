@@ -3,6 +3,7 @@ import ExamCard from './ExamCard'
 import type { TabId, Tab } from '@/types/examList'
 import { infiniteScrolling } from '@/hooks/examList/useInfiniteScroll'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import Button from '@/components/common/Button'
 
 const TABS: Tab[] = [
   { id: 'all', label: '전체보기' },
@@ -63,7 +64,8 @@ export default function ExamList() {
       <nav className="border-b border-gray-200 mb-6">
         <div className="flex space-x-8">
           {TABS.map((tab) => (
-            <button
+            <Button
+              type="button"
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`text-[20px] whitespace-nowrap py-4 px-1 border-b-2 font-medium focus:outline-none transition-colors duration-200 ${
@@ -73,7 +75,7 @@ export default function ExamList() {
               }`}
             >
               {tab.label}
-            </button>
+            </Button>
           ))}
         </div>
       </nav>

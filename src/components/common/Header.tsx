@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { User } from 'lucide-react'
+import Button from './Button'
 
 export const Header = () => {
   const [showLoginModal, setShowLoginModal] = useState(false)
@@ -46,24 +47,26 @@ export const Header = () => {
           <div className="flex items-center relative h-full">
             {!isLoggedIn ? (
               <div className="flex items-center space-x-4 text-sm text-gray-600 h-10">
-                <button
+                <Button
+                  type="button"
                   onClick={handleLogin}
                   className="h-10 flex items-center justify-center"
                 >
                   로그인
-                </button>
+                </Button>
                 <span className="text-gray-300">|</span>
                 <a href="#" className="h-10 flex items-center justify-center">
                   회원가입
                 </a>
               </div>
             ) : (
-              <button
+              <Button
+                type="button"
                 onClick={toggleLoginModal}
                 className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full hover:bg-purple-300 transition-colors"
               >
                 <User className="w-6 h-6 text-purple-600" />
-              </button>
+              </Button>
             )}
 
             {/* 로그인 모달 */}
