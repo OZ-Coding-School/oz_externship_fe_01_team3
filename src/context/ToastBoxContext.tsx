@@ -1,8 +1,5 @@
 import { createContext } from 'react'
-
-type ToastContextType = {
-  showToast: (options: { message: string; type: 'success' | 'error' }) => void
-}
+import type { ToastContextType } from '@/types/common/Toast'
 
 export const ToastContext = createContext<ToastContextType>({
   showToast: () => {},

@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import { ToastContext } from '@/context/ToastBoxContext'
 import { Toast } from '@/components/common/Toast'
-
-export interface ToastProps {
-  message: string
-  type: 'success' | 'error'
-}
+import type { ToastProps } from '@/types/common/Toast'
 
 interface ToastBoxProviderProps {
   children: React.ReactNode
@@ -14,9 +10,15 @@ interface ToastBoxProviderProps {
 export const ToastBoxProvider = ({ children }: ToastBoxProviderProps) => {
   const [toast, setToast] = useState<ToastProps | null>(null)
 
-  const showToast = ({ message, type }: ToastProps) => {
-    setToast({ message, type })
-    setTimeout(() => setToast(null), 3000)
+  const showToast = ({
+    message,
+    type,
+    className,
+    layout,
+    subMessage,
+  }: ToastProps) => {
+    setToast({ message, type, className, layout, subMessage })
+    setTimeout(() => setToast(null), 4000)
   }
 
   return (
