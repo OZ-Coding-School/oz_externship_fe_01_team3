@@ -1,16 +1,4 @@
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  status?:
-    | 'default'
-    | 'wrong'
-    | 'correct'
-    | 'textDefault'
-    | 'disabled'
-    | 'checked'
-  type: 'text' | 'checkbox' | 'radio'
-  name?: string
-  message?: string
-  classNames?: string
-}
+import type { InputProps } from '@/types/common/input'
 
 export default function Input({
   type = 'text',
