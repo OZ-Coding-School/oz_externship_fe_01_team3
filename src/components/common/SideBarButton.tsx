@@ -1,14 +1,3 @@
-// [디자인 가이드]
-//size 344 * 100
-//padding y-16 x 8
-//radius 4
-//position fixed
-
-//default font-#9d9d9d, bg - x
-//hover font-#6201E0, bg-#efe6fc
-//active font-#6201E0, ml-1 #6201E0
-//disabled font-#bdbdbd, bg-#ececec
-
 export const SideBarButton = ({
   name,
   disabled,
@@ -42,9 +31,3 @@ export const SideBarButton = ({
     </button>
   )
 }
-
-/* 
-[사용법 ]
-  <SideBarButton name="버튼" disabled={false} onClick={() => {}} />
-  <SideBarButton name="버튼" disabled />
-*/

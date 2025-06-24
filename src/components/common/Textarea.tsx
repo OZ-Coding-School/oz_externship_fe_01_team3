@@ -45,17 +45,3 @@ const QuestionTextarea = ({
 }
 
 export default QuestionTextarea
-
-/* 
-사용법
-
-<QuestionTextarea
-        id="question-textarea"
-        maxLength={20}
-        height={48}
-        placeholder="20글자 이내로 입력해 주세요"
-        paddingX={10}
-        paddingY={16}
-        onChange={() => {}}
-      />
-*/
