@@ -1,28 +1,33 @@
-import type { ButtonStatus } from '@/types/common/Button'
+import type { ReactNode } from 'react'
+
+export type ButtonStatus = 'button' | 'reset' | 'submit'
 
 interface ButtonProps {
   disabled?: boolean
-  onclick?: () => void
+  onClick?: () => void
   type: ButtonStatus
   className: string
-  text: string
+  text?: string
+  children?: ReactNode
 }
 
 export default function Button({
   disabled = false,
-  onclick,
+  onClick,
   type = 'button',
   className,
   text,
+  children,
 }: ButtonProps) {
   return (
     <button
       className={`${className} rounded-[4px] eading-[1.4] tracking-[-0.03] cursor-pointer`}
       disabled={disabled}
-      onClick={onclick}
+      onClick={onClick}
       type={type}
     >
       {text}
+      {children}
     </button>
   )
 }
