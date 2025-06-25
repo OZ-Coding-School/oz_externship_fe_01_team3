@@ -8,21 +8,6 @@ interface RadioTypeProps {
   questionId: string
   disabled?: boolean
 }
-/*
-사용법!!
-
-  대략적으로 들어올 배열 아직 어떻게 들어올지 모름 추후 수정 가능
-
-  const test = [
-    { id: 1, test: '나는야 승준티비 대빵이지' },
-    { id: 2, test: '나는야 지향티비 열정걸이지' },
-    { id: 3, test: '나는야 우수티비 매우 우수하지' },
-    { id: 4, test: '나는야 성진티비 입대하지' },
-  ]
-
-      <RadioType options={test} questionId="w"></RadioType>
-
-*/
 
 export default function RadioType({
   options,
