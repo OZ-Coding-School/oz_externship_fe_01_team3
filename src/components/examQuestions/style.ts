@@ -10,3 +10,6 @@ export const flexCenterStyle = 'flex items-center justify-center'
 
 export const roundedPillStyle =
   'rounded-[99px] border border-[#ececec] bg-white'
+
+export const QustionTitleFontStyle =
+  'text-[#121212] leading-[1.4] tracking-[-0.03em]'

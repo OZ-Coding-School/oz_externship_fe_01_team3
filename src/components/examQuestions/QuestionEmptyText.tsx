@@ -7,7 +7,10 @@ interface QuestionEmptyTextProps {
   onChange: (value: string) => void
 }
 
-const QuestionEmptyText = ({ name, onChange }: QuestionEmptyTextProps) => {
+export default function QuestionEmptyText({
+  name,
+  onChange,
+}: QuestionEmptyTextProps) {
   const [value, setValue] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,5 +45,3 @@ const QuestionEmptyText = ({ name, onChange }: QuestionEmptyTextProps) => {
     </div>
   )
 }
-
-export default QuestionEmptyText

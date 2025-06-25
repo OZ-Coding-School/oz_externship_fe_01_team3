@@ -4,7 +4,7 @@ interface TimerProps {
   time?: number
 }
 
-const Timer = ({ time }: TimerProps) => {
+export default function Timer({ time }: TimerProps) {
   const Minutes_In_Ms = time ? time * 60 * 1000 : 0
   const Interval = 1000
   const [timeLeft, setTimeLeft] = useState<number>(Minutes_In_Ms)
@@ -31,5 +31,3 @@ const Timer = ({ time }: TimerProps) => {
     </div>
   )
 }
-
-export default Timer

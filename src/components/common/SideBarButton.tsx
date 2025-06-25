@@ -1,4 +1,4 @@
-export const SideBarButton = ({
+export default function SideBarButton({
   name,
   disabled,
   onClick,
@@ -6,7 +6,7 @@ export const SideBarButton = ({
   name: string
   disabled: boolean
   onClick?: () => void
-}) => {
+}) {
   return (
     <button
       className={`
