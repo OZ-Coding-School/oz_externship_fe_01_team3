@@ -9,12 +9,12 @@ interface QuestionHeaderProps {
   showOption?: boolean
 }
 
-const QuestionHeader = ({
+export default function QuestionHeader({
   title,
   subTitle,
   time,
   showOption,
-}: QuestionHeaderProps) => {
+}: QuestionHeaderProps) {
   const containerClass = containerStyle(showOption || false)
   const leftContainerClass = leftContainerStyle(showOption || false)
 
@@ -39,5 +39,3 @@ const QuestionHeader = ({
     </div>
   )
 }
-
-export default QuestionHeader

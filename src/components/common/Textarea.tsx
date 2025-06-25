@@ -10,7 +10,7 @@ type QuestionTextareaProps = {
   onChange: (value: string) => void
 }
 
-const QuestionTextarea = ({
+export default function QuestionTextarea({
   id,
   maxLength,
   height,
@@ -18,7 +18,7 @@ const QuestionTextarea = ({
   paddingX,
   paddingY,
   onChange,
-}: QuestionTextareaProps) => {
+}: QuestionTextareaProps) {
   const [value, setValue] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -43,5 +43,3 @@ const QuestionTextarea = ({
     </div>
   )
 }
-
-export default QuestionTextarea
