@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react'
-import ShowOptionHeader from './examQuestionsCompo/showOptionHeader'
+import ShowOptionHeader from './examQuestionUI/showOptionHeader'
+import { containerStyle, leftContainerStyle } from './style'
 
 interface QuestionHeaderProps {
   title: string
@@ -14,11 +15,8 @@ const QuestionHeader = ({
   time,
   showOption,
 }: QuestionHeaderProps) => {
-  const containerClass = `flex ${
-    showOption ? 'justify-around items-center' : 'items-center justify-start'
-  } max-w-screen h-[128px] bg-[#fafafa] border-b border-[#bdbdbd] px-4`
-
-  const leftContainerClass = `flex gap-5 ${!showOption && `relative left-[360px]`}`
+  const containerClass = containerStyle(showOption || false)
+  const leftContainerClass = leftContainerStyle(showOption || false)
 
   return (
     <div className={containerClass}>
@@ -28,8 +26,12 @@ const QuestionHeader = ({
         </div>
 
         <div className="flex flex-col gap-4">
-          <h1 className={titleStyle}>{title}</h1>
-          <h2 className={subTitleStyle}>{subTitle}</h2>
+          <h1 className="text-[20px] text-[#000000] font-semibold leading-[1.4] tracking-[-0.03em]">
+            {title}
+          </h1>
+          <h2 className="text-[16px] text-[#4d4d4d] font-medium leading-[1.4] tracking-[-0.03em]">
+            {subTitle}
+          </h2>
         </div>
       </div>
 
@@ -37,16 +39,5 @@ const QuestionHeader = ({
     </div>
   )
 }
-
-/* text, border, lineheight */
-
-const titleStyle =
-  'text-[20px] text-[#000000] font-semibold leading-[1.4] tracking-[-0.03em]'
-const subTitleStyle =
-  'text-[16px] text-[#4d4d4d] font-medium leading-[1.4] tracking-[-0.03em]'
-
-/* 스타일 파일 하나 더 만들어서 따로 처리 하는 것도 좋음 */
-
-//flex items-center, justify-center
 
 export default QuestionHeader
