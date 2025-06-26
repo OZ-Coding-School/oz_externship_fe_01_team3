@@ -5,26 +5,32 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ExampleListContainer from './components/examList/ExampleContainer'
 import RadioType from './components/examQuestions/RadioType'
 import CheckBoxType from './components/examQuestions/CheckBoxType'
-import ReorderQuestion from './components/examQuestions/ReorderQuestion'
 import { router } from './pages/routes'
 import OxType from './components/examQuestions/OxType'
 import QuestionTitle from './components/examQuestions/QuestionTitle'
 import QusetionWrapper from './components/examQuestions/QuestionWrapper'
+import ExamWrapper from './components/examQuestions/ExamWrapper'
 
 function App() {
   const queryClient = new QueryClient()
   const test = [
-    { id: 1, test: '나는야 승준티비 대빵이지' },
-    { id: 2, test: '나는야 지향티비 열정걸이지' },
-    { id: 3, test: '나는야 우수티비 매우 우수하지' },
-    { id: 4, test: '나는야 성진티비 입대하지' },
+    {
+      question_id: 3,
+      type: '라디오',
+      question: 'React에서 상태(state)를 선언할 때 사용하는 Hook은?',
+      options: ['useEffect', 'useState', 'useRef', 'useMemo'],
+      point: 5,
+    },
   ]
 
   const test3 = [
-    { id: 1, test: '나는야 승준티비 대빵이지', label: 'A' },
-    { id: 2, test: '나는야 지향티비 열정걸이지', label: 'B' },
-    { id: 3, test: '나는야 소연티비 잘긁지', label: 'C' },
-    { id: 4, test: '나는야 성진티비 입대하지', label: 'D' },
+    {
+      question_id: 2,
+      type: 'O/X',
+      question: 'CSS는 프로그래밍 언어이다.',
+      options: ['O', 'X'],
+      point: 5,
+    },
   ]
 
   const test2 = [
@@ -56,22 +62,46 @@ function App() {
       <br />
       <br />
       <br />
-      <QusetionWrapper>
-        <QuestionTitle
-          score={test2[0].point}
-          question={test2[0].question}
-          type={test2[0].type}
-          number={test2[0].question_id}
-        ></QuestionTitle>
-        <CheckBoxType
-          options={test2[0].options}
-          question_Id={test2[0].question_id}
-        ></CheckBoxType>
-      </QusetionWrapper>
-      <br />
-      <br />
-      <br />
-      <ReorderQuestion options={test} questionId="s"></ReorderQuestion>
+      <div className="p-[40px]">
+        <ExamWrapper>
+          <QusetionWrapper>
+            <QuestionTitle
+              score={test2[0].point}
+              question={test2[0].question}
+              type={test2[0].type}
+              number={test2[0].question_id}
+            ></QuestionTitle>
+            <CheckBoxType
+              options={test2[0].options}
+              question_Id={test2[0].question_id}
+            ></CheckBoxType>
+          </QusetionWrapper>
+          <QusetionWrapper>
+            <QuestionTitle
+              score={test3[0].point}
+              question={test3[0].question}
+              type={test3[0].type}
+              number={test3[0].question_id}
+            ></QuestionTitle>
+            <OxType
+              question_Id={test3[0].question_id}
+              options={test3[0].options}
+            />
+          </QusetionWrapper>
+          <QusetionWrapper>
+            <QuestionTitle
+              score={test[0].point}
+              question={test[0].question}
+              type={test[0].type}
+              number={test[0].question_id}
+            ></QuestionTitle>
+            <RadioType
+              question_Id={test[0].question_id}
+              options={test[0].options}
+            />
+          </QusetionWrapper>
+        </ExamWrapper>
+      </div>
     </div>
   )
 }
