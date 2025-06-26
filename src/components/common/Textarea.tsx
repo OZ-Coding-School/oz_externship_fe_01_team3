@@ -34,7 +34,7 @@ export default function QuestionTextarea({
           height: `${height}px`,
           padding: `${paddingY}px ${paddingX}px`,
         }}
-        className="w-[648px] bg-[#F2F3F5] font-medium text-[16px] rounded-[4px] left-[32px] leading-[1.4] tracking-[-0.03em] resize-none overflow-hidden"
+        className="left-[32px] w-[648px] resize-none overflow-hidden rounded-[4px] bg-[#F2F3F5] text-[16px] leading-[1.4] font-medium tracking-[-0.03em]"
         maxLength={maxLength}
         value={value}
         placeholder={placeholder}

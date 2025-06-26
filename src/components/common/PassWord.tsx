@@ -41,7 +41,7 @@ export default function Password({
           className={`${baseClass} ${statusClass[status]}`}
         />
         <div
-          className="absolute right-[12px] top-1/2 transform -translate-y-1/2 cursor-pointer "
+          className="absolute top-1/2 right-[12px] -translate-y-1/2 transform cursor-pointer"
           onClick={() => setVisble(!visible)}
         >
           {visible ? '숨기' : '보기'}
@@ -49,12 +49,12 @@ export default function Password({
       </div>
 
       {error && (
-        <span className="font-normal text-base text-[#EC0037] mt-[4px]">
+        <span className="mt-[4px] text-base font-normal text-[#EC0037]">
           *{error}
         </span>
       )}
       {success && (
-        <span className="font-normal text-base text-[#14C786] mt-[4px]">
+        <span className="mt-[4px] text-base font-normal text-[#14C786]">
           *{success}
         </span>
       )}

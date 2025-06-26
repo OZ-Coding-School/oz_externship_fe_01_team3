@@ -12,17 +12,17 @@ export const Toast = ({ toast }: { toast: ToastProps | null }) => {
 
   if (toast.layout === 'centered') {
     return (
-      <div className="fixed flex flex-col items-center gap-2 justify-center w-[396px] h-[128px] top-[422px] left-[762px] bg-[#ffffff] rounded-[12px] text-center ">
-        <div className="w-[24px] h-[24px]">
-          <img src={icon} alt={toast.type} className="w-full h-full" />
+      <div className="fixed top-[422px] left-[762px] flex h-[128px] w-[396px] flex-col items-center justify-center gap-2 rounded-[12px] bg-[#ffffff] text-center">
+        <div className="h-[24px] w-[24px]">
+          <img src={icon} alt={toast.type} className="h-full w-full" />
         </div>
         <div
-          className={`text-[20px] ${centeredTitleColor} font-bold leading-[1.4] tracking-[-0.03em]`}
+          className={`text-[20px] ${centeredTitleColor} leading-[1.4] font-bold tracking-[-0.03em]`}
         >
           {toast.message}
         </div>
         {toast.subMessage && (
-          <div className="text-sm text-[#4d4d4d] leading-[1.4] tracking-[-0.03em]">
+          <div className="text-sm leading-[1.4] tracking-[-0.03em] text-[#4d4d4d]">
             {toast.subMessage}
           </div>
         )}
@@ -32,11 +32,11 @@ export const Toast = ({ toast }: { toast: ToastProps | null }) => {
 
   return (
     <div
-      className={`fixed top-[204px] left-[836px] flex items-center w-[248px] h-[48px] pl-2 px-3 bg-[#fafafa] border border-[#ECECEC] rounded-md [box-shadow:4px_4px_4px_0_rgba(131,131,131,0.25)] ${toast.className || ''}`}
+      className={`fixed top-[204px] left-[836px] flex h-[48px] w-[248px] items-center rounded-md border border-[#ECECEC] bg-[#fafafa] px-3 pl-2 [box-shadow:4px_4px_4px_0_rgba(131,131,131,0.25)] ${toast.className || ''}`}
     >
-      <img src={icon} alt={toast.type} className="w-[24px] h-[24px] mr-1" />
+      <img src={icon} alt={toast.type} className="mr-1 h-[24px] w-[24px]" />
       <span
-        className={`text-[14px] font-medium leading-[1.4] tracking-[-0.03em] ${defaultTextColor} whitespace-nowrap`}
+        className={`text-[14px] leading-[1.4] font-medium tracking-[-0.03em] ${defaultTextColor} whitespace-nowrap`}
       >
         {toast.message}
       </span>

@@ -24,14 +24,14 @@ export const Header = () => {
   return (
     <header>
       {/* 상단 알림 바 */}
-      <div className="bg-black py-6 text-white text-center px-4 text-[16px]">
+      <div className="bg-black px-4 py-6 text-center text-[16px] text-white">
         🚨 선착순 모집! 국비지원 받고 4주 완성
       </div>
 
       {/* 메인 헤더 */}
-      <div className="bg-white text-center border-b border-gray-200">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="flex items-center justify-between h-16">
+      <div className="border-b border-gray-200 bg-white text-center">
+        <div className="mx-auto max-w-[1200px]">
+          <div className="flex h-16 items-center justify-between">
             {/* 로고 및 메인 메뉴 */}
             <div className="flex items-center">
               {/* 로고 */}
@@ -41,7 +41,7 @@ export const Header = () => {
 
               {/* 메인 메뉴 */}
               <nav className="flex px-7">
-                <a href="#" className="text-gray-700 mr-7">
+                <a href="#" className="mr-7 text-gray-700">
                   커뮤니티
                 </a>
                 <a href="#" className="text-gray-700">
@@ -51,7 +51,7 @@ export const Header = () => {
             </div>
 
             {/* 우측 메뉴 */}
-            <div className="flex items-center relative">
+            <div className="relative flex items-center">
               {/* 로그인 전 - 텍스트 메뉴 */}
               {!isLoggedIn && (
                 <div className="flex items-center space-x-4 text-sm text-gray-600">
@@ -65,9 +65,9 @@ export const Header = () => {
               {isLoggedIn && (
                 <button
                   onClick={toggleLoginModal}
-                  className="flex items-center justify-center w-10 h-10 bg-purple-200 rounded-full hover:bg-purple-300 transition-colors"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-200 transition-colors hover:bg-purple-300"
                 >
-                  <User className="w-6 h-6 text-purple-600" />
+                  <User className="h-6 w-6 text-purple-600" />
                 </button>
               )}
 
@@ -77,25 +77,25 @@ export const Header = () => {
                   {/* 모달 오버레이 */}
                   <div className="fixed inset-0" onClick={toggleLoginModal} />
                   {/* 모달 콘텐츠 */}
-                  <div className="absolute top-12 right-0 bg-white rounded-lg shadow-lg border border-gray-200 w-80 z-50">
+                  <div className="absolute top-12 right-0 z-50 w-80 rounded-lg border border-gray-200 bg-white shadow-lg">
                     {/* 프로필 섹션 */}
                     <div className="p-4">
-                      <h3 className="font-semibold text-gray-900 mb-2 text-left">
+                      <h3 className="mb-2 text-left font-semibold text-gray-900">
                         오즈오즈
                       </h3>
-                      <p className="text-sm text-gray-500 mb-3 text-left">
+                      <p className="mb-3 text-left text-sm text-gray-500">
                         ozschool1234@gmail.com
                       </p>
 
-                      <div className="w-full text-gray-700 font-medium">
-                        <div className="text-gray-700 py-3.5 font-medium cursor-pointer hover:text-purple-600">
+                      <div className="w-full font-medium text-gray-700">
+                        <div className="cursor-pointer py-3.5 font-medium text-gray-700 hover:text-purple-600">
                           수강생 등록
                         </div>
-                        <div className="text-gray-700 py-3.5 font-medium cursor-pointer hover:text-purple-600">
+                        <div className="cursor-pointer py-3.5 font-medium text-gray-700 hover:text-purple-600">
                           마이페이지
                         </div>
                         <div
-                          className="text-gray-700 py-3.5 font-medium cursor-pointer hover:text-purple-600"
+                          className="cursor-pointer py-3.5 font-medium text-gray-700 hover:text-purple-600"
                           onClick={handleLogout}
                         >
                           로그아웃

@@ -6,7 +6,7 @@ export type ExampleQuestion = {
   question_id: number
   type: string
   question: string
-  options: string[]
+  options?: string[]
   point: number
 }
 

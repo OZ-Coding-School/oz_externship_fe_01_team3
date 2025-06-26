@@ -7,13 +7,14 @@ interface ModalProps {
 }
 
 export default function ExamListModal({ setIsModalClose }: ModalProps) {
+  const MAX_LENGTH = 6
   const [examCode, setExamCode] = useState('')
   const [error, setError] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const navigate = useNavigate()
   const { data, isSuccess, isError } = useExamModalQuery(
     examCode,
-    submitted && examCode.length === 6
+    submitted && examCode.length === MAX_LENGTH
   )
 
   useEffect(() => {
@@ -52,12 +53,12 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 ">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-[#121212] opacity-50" />
       {/* 모달 */}
       <form
         onSubmit={handleSubmit}
-        className="relative z-10 w-[396px] h-[360px] bg-white rounded-[12px] flex flex-col items-center justify-center shadow-lg p-6"
+        className="relative z-10 flex h-[360px] w-[396px] flex-col items-center justify-center rounded-[12px] bg-white p-6 shadow-lg"
       >
         <button
           type="button"
@@ -69,20 +70,20 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
         <img
           src="/src/assets/examList/python.png"
           alt="python"
-          className="h-8 mb-4"
+          className="mb-4 h-8"
         />
         {/* 시험명 */}
-        <h2 className="text-lg font-semibold text-[#121212] my-4">
+        <h2 className="my-4 text-lg font-semibold text-[#121212]">
           Python 심화
         </h2>
         {/* 문항수, 제한시간 */}
-        <p className="text-sm text-[#303030] mb-9 text-center">
+        <p className="mb-9 text-center text-sm text-[#303030]">
           총 10문항 · <span className="text-[#6201E0]">제한시간 20분</span>
         </p>
         {/* 참가 코드 입력 */}
         <label
           htmlFor="examCode"
-          className="self-start w-full text-[#222] font-medium"
+          className="w-full self-start font-medium text-[#222]"
         >
           참가 코드입력
         </label>
@@ -96,15 +97,15 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
           }}
           placeholder="6자리를 입력해주세요"
           maxLength={6}
-          className={`w-full h-12 border ${error ? 'border-[#EC0037] text-[#EC0037]' : 'border-[#E0E0E0]'} rounded-lg px-4 mb-2 text-lg focus:outline-[#6C47FF]`}
+          className={`h-12 w-full border ${error ? 'border-[#EC0037] text-[#EC0037]' : 'border-[#E0E0E0]'} mb-2 rounded-lg px-4 text-lg focus:outline-[#6C47FF]`}
         />
         {error && (
-          <div className="w-full mb-4 text-sm text-[#EC0037]">
+          <div className="mb-4 w-full text-sm text-[#EC0037]">
             * 코드번호가 일치하지 않습니다.
           </div>
         )}
         {/* 시험시작 버튼 */}
-        <button className="w-full h-[48px] bg-[#6201E0] text-white text-[16px] font-semibold rounded-[4px]">
+        <button className="h-[48px] w-full rounded-[4px] bg-[#6201E0] text-[16px] font-semibold text-white">
           시험시작
         </button>
       </form>
