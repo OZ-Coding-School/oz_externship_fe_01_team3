@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-function Register() {
+export default function Register() {
   const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
   const onSubmit = (data: any) => {
     console.log('제출된 데이터:', data); // 여기에 서버로 보내는 로직을 추가하면 돼
@@ -323,4 +323,3 @@ const isPasswordMatch = passwordValue === passwordConfirmValue;
   );
 }
 
-export default Register;
