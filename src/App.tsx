@@ -1,7 +1,12 @@
 import { RouterProvider } from 'react-router'
 import './App.css'
 import { Header } from '@/components/common/Header'
+import RadioType from '@/components/examQuestions/RadioType'
+import CheckBoxType from './components/examQuestions/CheckBoxType'
+import OxType from './components/examQuestions/OxType'
+import ReorderQuestion from './components/examQuestions/ReorderQuestion'
 import { router } from './pages/routes'
+<<<<<<< HEAD
 <<<<<<< HEAD
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import ExampleListContainer from './components/examList/ExampleContainer'
@@ -10,6 +15,8 @@ function App() {
   const queryClient = new QueryClient()
 =======
 import RadioType from './components/examQuestions/RadioType'
+=======
+>>>>>>> f251cb9 (리베이스 충돌 해결 #2)
 
 function App() {
   const test = [
@@ -20,6 +27,10 @@ function App() {
   ]
 >>>>>>> 5395a56 (리베이스 충돌 해결)
 
+  const test2 = [
+    { id: 1, OX: true, test: '맞아요' },
+    { id: 2, OX: false, test: '아니에요' },
+  ]
   return (
     <div>
       template
@@ -32,8 +43,26 @@ function App() {
 =======
       <RouterProvider router={router} />
       <Header />
+      <br />
+      <br />
+      <br />
       <RadioType options={test} questionId="w"></RadioType>
+<<<<<<< HEAD
 >>>>>>> 5395a56 (리베이스 충돌 해결)
+=======
+      <br />
+      <br />
+      <br />
+      <CheckBoxType options={test} questionId="a"></CheckBoxType>
+      <br />
+      <br />
+      <br />
+      <OxType options={test2} questionId="w"></OxType>
+      <br />
+      <br />
+      <br />
+      <ReorderQuestion options={test} questionId="s"></ReorderQuestion>
+>>>>>>> f251cb9 (리베이스 충돌 해결 #2)
     </div>
   )
 }

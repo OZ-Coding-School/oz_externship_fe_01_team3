@@ -6,6 +6,7 @@ interface Option {
 interface RadioTypeProps {
   options: Option[]
   questionId: string
+  disabled?: boolean
 }
 /*
 사용법!!
@@ -20,10 +21,14 @@ interface RadioTypeProps {
   ]
 
       <RadioType options={test} questionId="w"></RadioType>
-      
+
 */
 
-export default function RadioType({ options, questionId }: RadioTypeProps) {
+export default function RadioType({
+  options,
+  questionId,
+  disabled = false,
+}: RadioTypeProps) {
   return (
     <div className="w-[1000px] h-[144px] pr-[26px] pl-[32px] flex flex-col">
       {options.map((option, index) => {
@@ -46,6 +51,7 @@ export default function RadioType({ options, questionId }: RadioTypeProps) {
                   checked:bg-[#6200FF] checked:border-[#6200FF]
                   peer
                 "
+                disabled={disabled}
               />
               {/* 내부 원 기본 형태 */}
               <div
@@ -70,7 +76,7 @@ export default function RadioType({ options, questionId }: RadioTypeProps) {
               "
               ></div>
             </div>
-            <span className="text-base font-medium">{option.test}</span>
+            <span className={`text-base font-medium`}>{option.test}</span>
           </label>
         )
       })}
