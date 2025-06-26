@@ -8,6 +8,8 @@ import CheckBoxType from './components/examQuestions/CheckBoxType'
 import ReorderQuestion from './components/examQuestions/ReorderQuestion'
 import { router } from './pages/routes'
 import OxType from './components/examQuestions/OxType'
+import QuestionTitle from './components/examQuestions/QuestionTitle'
+import QusetionWrapper from './components/examQuestions/QuestionWrapper'
 
 function App() {
   const queryClient = new QueryClient()
@@ -26,9 +28,21 @@ function App() {
   ]
 
   const test2 = [
-    { id: 1, OX: true, test: '맞아요' },
-    { id: 2, OX: false, test: '틀려요' },
+    {
+      question_id: 1,
+      type: '객관식',
+      question: 'HTML의 기본 구조를 이루는 태그는?',
+      options: ['<html>', '<head>', '<body>', '<div>'],
+      point: 5,
+    },
   ]
+
+  /*
+    number: number
+  question: string
+  score: number
+  type: string
+  */
   return (
     <div>
       template
@@ -42,15 +56,18 @@ function App() {
       <br />
       <br />
       <br />
-      <RadioType options={test} questionId="w"></RadioType>
-      <br />
-      <br />
-      <br />
-      <CheckBoxType options={test} questionId="a"></CheckBoxType>
-      <br />
-      <br />
-      <br />
-      <OxType options={test2} questionId="d" />
+      <QusetionWrapper>
+        <QuestionTitle
+          score={test2[0].point}
+          question={test2[0].question}
+          type={test2[0].type}
+          number={test2[0].question_id}
+        ></QuestionTitle>
+        <CheckBoxType
+          options={test2[0].options}
+          question_Id={test2[0].question_id}
+        ></CheckBoxType>
+      </QusetionWrapper>
       <br />
       <br />
       <br />

@@ -8,6 +8,7 @@ interface Option {
 
 interface ReorderQuestionProps {
   options: Option[]
+  question_Id: number
 }
 
 export default function ReorderQuestion({ options }: ReorderQuestionProps) {
