@@ -16,29 +16,28 @@ function Join() {
       <br />
       <br />
 
-      {/* 카카오로 회원 가입 버튼  */}
-      <SocialButton
-        bgColor="#FEE500"
-        txtColor="#391C1A"
-        iconSrc="src/assets/kakao_brown.svg"
-        iconAlt="카카오"
-        marginBottom="16px"
-        onClick={() => alert('카카오 로그인 클릭됨')}
-      >
-        카카오로 3초만에 가입하기
-      </SocialButton>
+            {/* 카카오로 회원 가입 버튼  */}
+            <SocialButton
+                bgColor="#FEE500"
+                txtColor="#391C1A"
+                iconSrc="src/assets/kakao_brown.svg"
+                iconAlt="카카오"
+                marginBottom="16px"
+                onClick={() => alert("카카오 로그인 클릭됨")}>
+                    카카오로 3초만에 가입하기
+            </SocialButton>
 
-      {/* 네이버로 회원 가입 버튼  */}
-      <SocialButton
-        bgColor="#03C75A"
-        txtColor="#FFFFFF"
-        iconSrc="src/assets/naver_white.svg"
-        iconAlt="네이버"
-        marginBottom="25px"
-        onClick={() => alert('네이버 로그인 클릭됨')}
-      >
-        네이버로 가입하기
-      </SocialButton>
+            {/* 네이버로 회원 가입 버튼  */}
+            <SocialButton
+                bgColor="#03C75A"
+                txtColor="#FFFFFF"
+                iconSrc="src/assets/naver_white.svg"
+                iconAlt="네이버"
+                marginBottom="25px"
+                onClick={() => alert("네이버 로그인 클릭됨")}>
+                    네이버로 가입하기
+            </SocialButton>
+
 
       <p className="text-[#4D4D4D] underline"> 일반회원 가입</p>
     </div>
