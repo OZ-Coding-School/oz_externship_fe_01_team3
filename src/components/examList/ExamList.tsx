@@ -1,122 +1,120 @@
-import { useEffect, useRef, useState } from 'react'
-import ExamCard from './ExamCard'
-import { useInfiniteQuery } from '@tanstack/react-query'
-import type { Tab, TabId } from '@/types/examList/examList'
-import { infiniteScrolling } from '@/hooks/examList/useInfiniteScroll'
+import { useState, useMemo } from 'react'
+import ExamCard from '@/components/examList/ExamCard'
+import type { TabId, Tab } from '@/types/examList/examList'
+import { useExamListQuery } from '@/hooks/examList/useExamListQuery'
 
-const TABS: Tab[] = [
-  { id: 'all', label: '전체보기' },
-  { id: 'completed', label: '응시완료' },
-  { id: 'notStart', label: '미응시' },
+const tabs: Tab[] = [
+  { id: 'all', label: '전체' },
+  { id: 'submitted', label: '응시완료' },
+  { id: 'not_submitted', label: '미응시' },
 ]
 
 export default function ExamList() {
   const [activeTab, setActiveTab] = useState<TabId>('all')
-  const observerRef = useRef<HTMLDivElement>(null)
+  const { data: examList, isLoading, error } = useExamListQuery()
 
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetchingNextPage,
-    hasNextPage,
-    fetchNextPage,
-  } = useInfiniteQuery({
-    queryKey: ['exam', activeTab],
-    queryFn: ({ pageParam = 1 }) => infiniteScrolling(pageParam, activeTab, 5),
-    getNextPageParam: (lastPage) => lastPage.nextPage,
-    initialPageParam: 1,
-  })
+  // 탭에 따라 필터링된 시험 목록
+  const filteredExams = useMemo(() => {
+    if (!examList) return []
 
-  const allExams = data?.pages.flatMap((p) => p.data) ?? []
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage()
-        }
-      },
-      { threshold: 0.1 }
-    )
-    if (observerRef.current) {
-      observer.observe(observerRef.current)
+    switch (activeTab) {
+      case 'submitted':
+        return examList.filter((exam) => exam.submission_status === 'submitted')
+      case 'not_submitted':
+        return examList.filter(
+          (exam) => exam.submission_status === 'not_submitted'
+        )
+      default:
+        return examList
     }
-    return () => observer.disconnect()
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage])
+  }, [examList, activeTab])
 
-  const handleTakeExam = (examId: string): void => {
+  const handleTakeExam = (examId: number) => {
     console.log('응시하기:', examId)
+    // TODO: 시험 응시 로직 구현
   }
 
-  const handleViewDetails = (examId: string): void => {
+  const handleViewDetails = (examId: number) => {
+    // TODO: 상세 결과 보기 로직 구현
     console.log('상세보기:', examId)
   }
 
-  if (isLoading) return <p>Loading...</p>
-  if (isError) return <p>Error..</p>
-  return (
-    <div className="flex-1">
-      <h2 className="mb-6 text-[32px] font-bold">쪽지시험</h2>
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-lg text-gray-500">시험 목록을 불러오는 중...</div>
+      </div>
+    )
+  }
 
+  if (error) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <div className="text-lg text-red-500">
+          시험 목록을 불러오는데 실패했습니다.
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
       {/* 탭 네비게이션 */}
-      <nav className="mb-6 border-b border-gray-200">
-        <div className="flex space-x-8">
-          {TABS.map((tab) => (
+      <div className="border-b border-gray-200">
+        <nav className="-mb-px flex space-x-8">
+          {tabs.map((tab) => (
             <button
-              type="button"
               key={tab.id}
+              type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`border-b-2 px-1 py-4 text-[20px] font-medium whitespace-nowrap transition-colors duration-200 focus:outline-none ${
+              className={`border-b-2 px-1 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-200 ${
                 activeTab === tab.id
-                  ? 'border-purple-600 text-purple-600'
+                  ? 'border-purple-500 text-purple-600'
                   : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
               }`}
             >
               {tab.label}
+              {examList && (
+                <span className="ml-2 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-900">
+                  {tab.id === 'all'
+                    ? examList.length
+                    : tab.id === 'submitted'
+                      ? examList.filter(
+                          (exam) => exam.submission_status === 'submitted'
+                        ).length
+                      : examList.filter(
+                          (exam) => exam.submission_status === 'not_submitted'
+                        ).length}
+                </span>
+              )}
             </button>
           ))}
-        </div>
-      </nav>
-
-      {/* 시험 카드 리스트 */}
-      <div className="space-y-4">
-        {allExams.length > 0 ? (
-          <>
-            {allExams.map((exam) => (
-              <ExamCard
-                key={exam.id}
-                exam={exam}
-                onTakeExam={handleTakeExam}
-                onViewDetails={handleViewDetails}
-              />
-            ))}
-
-            {/* 로딩 인디케이터 */}
-            {isFetchingNextPage && (
-              <div className="py-8 text-center">
-                <div className="inline-block h-8 w-8 animate-spin rounded-full border-b-2 border-purple-600"></div>
-                <p className="mt-2 text-gray-500">
-                  더 많은 시험을 불러오는 중...
-                </p>
-              </div>
-            )}
-
-            {/* 마지막 페이지 표시 */}
-            {!hasNextPage && allExams.length > 0 && (
-              <div className="py-8 text-center">
-                <p className="text-gray-500">모든 시험을 불러왔습니다.</p>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="py-12 text-center">
-            <p className="text-lg text-gray-500">해당하는 시험이 없습니다.</p>
-          </div>
-        )}
+        </nav>
       </div>
 
-      <div ref={observerRef} className="h-4" />
+      {/* 시험 목록 */}
+      <div className="space-y-4">
+        {filteredExams.length === 0 ? (
+          <div className="py-12 text-center">
+            <div className="text-gray-500">
+              {activeTab === 'all'
+                ? '등록된 시험이 없습니다.'
+                : activeTab === 'submitted'
+                  ? '응시완료한 시험이 없습니다.'
+                  : '미응시 시험이 없습니다.'}
+            </div>
+          </div>
+        ) : (
+          filteredExams.map((exam) => (
+            <ExamCard
+              key={exam.test_id}
+              exam={exam}
+              onTakeExam={handleTakeExam}
+              onViewDetails={handleViewDetails}
+            />
+          ))
+        )}
+      </div>
     </div>
   )
 }
