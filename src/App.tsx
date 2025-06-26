@@ -3,8 +3,6 @@ import './App.css'
 import { Header } from '@/components/common/Header'
 import RadioType from '@/components/examQuestions/RadioType'
 import CheckBoxType from './components/examQuestions/CheckBoxType'
-import OxType from './components/examQuestions/OxType'
-import ReorderQuestion from './components/examQuestions/ReorderQuestion'
 import { router } from './pages/routes'
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -28,8 +26,8 @@ function App() {
 >>>>>>> 5395a56 (리베이스 충돌 해결)
 
   const test2 = [
-    { id: 1, OX: true, test: '맞아요' },
-    { id: 2, OX: false, test: '아니에요' },
+    { id: 1, OX: 'O', test: '맞아요' },
+    { id: 2, OX: 'X', test: '틀려요' },
   ]
   return (
     <div>
@@ -53,11 +51,7 @@ function App() {
       <br />
       <br />
       <br />
-      <CheckBoxType options={test} questionId="a"></CheckBoxType>
-      <br />
-      <br />
-      <br />
-      <OxType options={test2} questionId="w"></OxType>
+      <CheckBoxType options={test2} questionId="a"></CheckBoxType>
       <br />
       <br />
       <br />
