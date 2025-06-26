@@ -1,23 +1,19 @@
-// 기본 타입 정의
-export type ExamStatus = 'completed' | 'notStart'
-export type ExamCategory = 'frontend' | 'backend'
-export type TabId = 'all' | 'completed' | 'notStart'
-export type SideTabId = 'exam' | 'info' | 'password'
-
-// 시험 데이터 인터페이스
-export interface ExamData {
-  id: string
-  title: string
-  category: ExamCategory
-  technology: string
-  description: string
-  status: ExamStatus
+/** response type */
+export type ExamListResponseItem = {
+  test_id: number
+  test_title: string
+  thumbnail_img_url: string
+  subject_title: string
+  question_count: number
+  total_score: number
+  submission_status: 'submitted' | 'not_submitted'
   score?: number
-  totalScore?: number
-  correctAnswers?: number
-  totalQuestions?: number
-  icon: string
+  correct_count?: number
 }
+
+// UI 관련 타입들
+export type TabId = 'all' | 'submitted' | 'not_submitted'
+export type SideTabId = 'exam' | 'info' | 'password'
 
 export interface Tab {
   id: TabId
@@ -29,24 +25,18 @@ export interface SideTab {
   label: string
 }
 
-export interface ExamCardProps {
-  exam: ExamData
-  onTakeExam: (examId: string) => void
-  onViewDetails: (examId: string) => void
-}
-
 export interface SideBarProps {
   activeTab?: SideTabId
   onTabChange?: (tabId: SideTabId) => void
 }
 
-// 유틸리티 타입
+// 유틸리티 컴포넌트 Props
 export interface TechIconProps {
-  tech: string
-  iconPath?: string
+  title: string
+  thumbnailUrl?: string
   className?: string
 }
 
 export interface StatusBadgeProps {
-  status: ExamStatus
+  status: 'submitted' | 'not_submitted'
 }
