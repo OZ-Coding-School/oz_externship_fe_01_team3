@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useExamModalQuery } from '@/hooks/examList/useExamModalQuery'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router'
 
 interface ModalProps {
   setIsModalClose: (isModalOpen: boolean) => void
@@ -7,7 +9,38 @@ interface ModalProps {
 export default function ExamListModal({ setIsModalClose }: ModalProps) {
   const [examCode, setExamCode] = useState('')
   const [error, setError] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const navigate = useNavigate()
+  const { data, isSuccess, isError } = useExamModalQuery(
+    examCode,
+    submitted && examCode.length === 6
+  )
 
+  useEffect(() => {
+    if (isSuccess && data) {
+      navigate(`/exam/${data.test_id}`, { state: data })
+    }
+  }, [isSuccess, data, navigate])
+
+  useEffect(() => {
+    if (isError && submitted) {
+      setError(true)
+      setSubmitted(false)
+    }
+  }, [isError, submitted])
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // TODO: 참가 코드를 입력 시, POST 요청 후 데이터를 받아서 navigate로 보내주기
+    e.preventDefault()
+
+    if (examCode.length !== 6) {
+      setError(true)
+      setExamCode('')
+      return
+    }
+    setError(false)
+    setSubmitted(true)
+  }
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Regex:숫자만 허용하고 6자리까지만 제한
     const regex = /^[0-9]*$/
@@ -16,17 +49,6 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
       setError(false)
       return
     }
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // TODO: 참가 코드를 입력 시, POST 요청 후 데이터를 받아서 navigate로 보내주기
-    e.preventDefault()
-    if (examCode.length !== 6) {
-      setError(true)
-      setExamCode('')
-      return
-    }
-    setError(false)
   }
 
   return (
