@@ -23,55 +23,48 @@ body {
   --text-title-xsm: 16px;
 }
 
-@layer components {
-  /* Qustion 메인 컨테이너 */
-  .container-style {
-    @apply flex h-[128px] max-w-screen items-center border-b border-[#bdbdbd] bg-[#fafafa] px-4;
-  }
+/* Qustion 메인 컨테이너 */
+@utility container-style {
+  @apply flex h-[128px] max-w-screen items-center border-b border-[#bdbdbd] bg-[#fafafa] px-4;
+}
 
-  .container-style-option {
-    @apply justify-around;
-  }
+@utility container-style-option {
+  @apply justify-around;
+}
 
-  .container-style-no-option {
-    @apply justify-start;
-  }
+@utility container-style-no-option {
+  @apply justify-start;
+}
+/* 왼쪽 컨테이너 */
+@utility left-container-style {
+  @apply flex gap-5;
+}
 
-  /* 왼쪽 컨테이너 */
-  .left-container-style {
-    @apply flex gap-5;
-  }
+@utility left-container-no-option {
+  @apply relative left-[360px];
+}
+/* flex 형태 버튼 통합 */
+@utility pill-button {
+  @apply flex items-center justify-center rounded-[99px] border border-[#ececec] bg-white;
+}
 
-  .left-container-no-option {
-    @apply relative left-[360px];
-  }
-
-  /* flex + pill 형태 버튼 통합 */
-  .pill-button {
-    @apply flex items-center justify-center rounded-[99px] border border-[#ececec] bg-white;
-  }
-
-  /* 질문 타이틀 폰트 */
-  .question-title {
-    @apply leading-[1.4] tracking-[-0.03em] text-[#121212];
-  }
-
-  /* 자간, 줄 간격격 */
-  .text-balance {
-    @apply leading-[1.4] tracking-[-0.03em];
-  }
-
-  /* 문제 번호, 타이틀 */
-  .exam-title {
-    @apply text-[20px] font-bold text-[#121212];
-  }
-
-  /* 문제 점수, 선택 */
-  .exam-type-label {
-    @apply rounded-[2px] bg-gray-100 text-xs font-normal text-[#121212];
-  }
-
-  .quiz-option {
-    @apply text-[16px] font-normal text-[#222222];
-  }
+/* 질문 타이틀 폰트 */
+@utility question-title {
+  @apply leading-[1.4] tracking-[-0.03em] text-[#121212];
+}
+/* 자간, 줄 간격격 */
+@utility text-balance {
+  @apply leading-[1.4] tracking-[-0.03em];
+}
+/* 문제 번호, 타이틀 */
+@utility exam-title {
+  @apply text-[20px] font-bold text-[#121212];
+}
+/* 문제 점수, 선택 */
+@utility exam-type-label {
+  @apply rounded-[2px] bg-gray-100 text-xs font-normal text-[#121212];
+}
+/* 라디오, 체크박스 옆에 들어가는 텍스트트 */
+@utility quiz-option {
+  @apply text-[16px] font-normal text-[#222222];
 }
