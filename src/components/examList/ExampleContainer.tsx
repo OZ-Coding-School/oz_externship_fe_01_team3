@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Modal from '@/components/examListModal/Modal'
+import ExamListModal from '@/components/examListModal/ExamListModal'
 import ExamList from '@/components/examList/ExamList'
 import SideBar from '@/components/examList/SideBar'
 
@@ -24,7 +24,7 @@ export default function ExampleListContainer() {
         </div>
       </div>
 
-      {!isModalOpen && <Modal setIsModalClose={setIsModalOpen} />}
+      {!isModalOpen && <ExamListModal setIsModalClose={setIsModalOpen} />}
     </div>
   )
 }
