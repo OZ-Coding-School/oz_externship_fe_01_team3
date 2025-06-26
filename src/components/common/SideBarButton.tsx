@@ -9,18 +9,7 @@ export default function SideBarButton({
 }) {
   return (
     <button
-      className={`
-      text-left
-      w-[180px] h-[32px]
-      px-[12px]
-      mb-[1px]
-      text-[18px] text-[#9d9d9d]
-      font-semibold
-      tracking-[-0.03em] leading-[1.4]
-    hover:text-[#6201E0] hover:bg-[#efe6fc]
-      ${!disabled ? 'active:text-[#6201E0] active:ml-[2px] active:border-l active:border-[#6201E0] active:bg-transparent' : ''}
-      disabled:text-[#bdbdbd] disabled:bg-[#ececec] 
-  `}
+      className={`mb-[1px] h-[32px] w-[180px] px-[12px] text-left text-[18px] leading-[1.4] font-semibold tracking-[-0.03em] text-[#9d9d9d] hover:bg-[#efe6fc] hover:text-[#6201E0] ${!disabled ? 'active:ml-[2px] active:border-l active:border-[#6201E0] active:bg-transparent active:text-[#6201E0]' : ''} disabled:bg-[#ececec] disabled:text-[#bdbdbd]`}
       disabled={disabled}
       onClick={() => {
         if (disabled) return

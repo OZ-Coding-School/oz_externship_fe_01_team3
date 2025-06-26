@@ -21,15 +21,15 @@ export default function QuestionHeader({
   return (
     <div className={containerClass}>
       <div className={leftContainerClass}>
-        <div className="w-6 h-6 cursor-pointer mt-[2px]">
+        <div className="mt-[2px] h-6 w-6 cursor-pointer">
           <ArrowLeft size={24} />
         </div>
 
         <div className="flex flex-col gap-4">
-          <h1 className="text-[20px] text-[#000000] font-semibold leading-[1.4] tracking-[-0.03em]">
+          <h1 className="text-[20px] leading-[1.4] font-semibold tracking-[-0.03em] text-[#000000]">
             {title}
           </h1>
-          <h2 className="text-[16px] text-[#4d4d4d] font-medium leading-[1.4] tracking-[-0.03em]">
+          <h2 className="text-[16px] leading-[1.4] font-medium tracking-[-0.03em] text-[#4d4d4d]">
             {subTitle}
           </h2>
         </div>

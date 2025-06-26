@@ -23,12 +23,12 @@ export default function QuestionTitle({
       </div>
       <div className="flex flex-row items-center gap-2.5">
         <div
-          className={`${QustionTitleFontStyle} w-[42px] h-[24px] text-[12px]  font-medium bg-[#ececec] rounded-[2px] text-center`}
+          className={`${QustionTitleFontStyle} h-[24px] w-[42px] rounded-[2px] bg-[#ececec] text-center text-[12px] font-medium`}
         >
           {score}점
         </div>
         <div
-          className={`${QustionTitleFontStyle} w-[65px] h-[24px] text-[12px]  font-medium bg-[#ececec] rounded-[2px] text-center`}
+          className={`${QustionTitleFontStyle} h-[24px] w-[65px] rounded-[2px] bg-[#ececec] text-center text-[12px] font-medium`}
         >
           {type}
         </div>

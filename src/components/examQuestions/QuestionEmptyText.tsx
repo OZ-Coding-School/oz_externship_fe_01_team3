@@ -30,8 +30,8 @@ export default function QuestionEmptyText({
         </p>
       </div> */}
 
-      <div className="flex items-center bg-[#f2f3f5] w-[288px] h-[48px] rounded-[4px] px-[12px]">
-        <span className="text-[18px] font-semibold bg-[#f2f3f5] text-[#222222] mr-[12px] leading-[1.4] tracking-[-0.03em]">
+      <div className="flex h-[48px] w-[288px] items-center rounded-[4px] bg-[#f2f3f5] px-[12px]">
+        <span className="mr-[12px] bg-[#f2f3f5] text-[18px] leading-[1.4] font-semibold tracking-[-0.03em] text-[#222222]">
           {name}
         </span>
         <Input
