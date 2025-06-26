@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import ExamListModal from '@/components/examListModal/ExamListModal'
 import ExamList from '@/components/examList/ExamList'
 import SideBar from '@/components/examList/SideBar'
+import ExamListModal from '@/components/examList/ExamListModal'
 
 export default function ExampleListContainer() {
   const [isModalOpen, setIsModalOpen] = useState(false)

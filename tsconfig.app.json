@@ -32,7 +32,8 @@
       "@/types/*": ["src/types/*"],
       "@/lib/*": ["src/lib/*"],
       "@/assets/*": ["src/assets/*"],
-      "@/context/*": ["src/context/*"]
+      "@/context/*": ["src/context/*"],
+      "@/mock/*": ["src/mock/*"]
     }
   },
   "include": ["src"]
