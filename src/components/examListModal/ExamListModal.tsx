@@ -4,31 +4,33 @@ interface ModalProps {
   setIsModalClose: (isModalOpen: boolean) => void
 }
 
-export default function Modal({ setIsModalClose }: ModalProps) {
+export default function ExamListModal({ setIsModalClose }: ModalProps) {
   const [examCode, setExamCode] = useState('')
+  const [error, setError] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Regex:숫자만 허용하고 6자리까지만 제한
     const regex = /^[0-9]*$/
     if (regex.test(e.target.value) && e.target.value.length <= 6) {
       setExamCode(e.target.value)
+      setError(false)
+      return
     }
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // TODO: 참가 코드를 입력 시, POST 요청 후 데이터를 받아서 navigate로 보내주기
     e.preventDefault()
     if (examCode.length !== 6) {
-      alert('6자리 숫자를 입력해주세요')
+      setError(true)
+      setExamCode('')
       return
     }
-
-    // TODO: 시험 시작 로직
-    console.log('시험 시작:', examCode)
+    setError(false)
   }
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 ">
-      {/* 어두운 배경 */}
       <div className="absolute inset-0 bg-[#121212] opacity-50" />
       {/* 모달 */}
       <form
@@ -42,7 +44,6 @@ export default function Modal({ setIsModalClose }: ModalProps) {
         >
           x
         </button>
-        {/* 시험 아이콘 */}
         <img
           src="/src/assets/examList/python.png"
           alt="python"
@@ -65,13 +66,21 @@ export default function Modal({ setIsModalClose }: ModalProps) {
         </label>
         <input
           id="examCode"
-          type="password"
+          type="text"
           value={examCode}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e)
+            setError(false)
+          }}
           placeholder="6자리를 입력해주세요"
           maxLength={6}
-          className="w-full h-12 border border-[#E0E0E0] rounded-lg px-4 mb-6 text-lg focus:outline-[#6C47FF]"
+          className={`w-full h-12 border ${error ? 'border-[#EC0037] text-[#EC0037]' : 'border-[#E0E0E0]'} rounded-lg px-4 mb-2 text-lg focus:outline-[#6C47FF]`}
         />
+        {error && (
+          <div className="w-full mb-4 text-sm text-[#EC0037]">
+            * 코드번호가 일치하지 않습니다.
+          </div>
+        )}
         {/* 시험시작 버튼 */}
         <button className="w-full h-[48px] bg-[#6201E0] text-white text-[16px] font-semibold rounded-[4px]">
           시험시작
