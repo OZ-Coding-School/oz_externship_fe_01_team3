@@ -3,7 +3,7 @@ import type { ModalSuccessResponse } from '@/types/examList/examModal'
 export const mockModalSuccessResponse: ModalSuccessResponse = {
   test_id: 4,
   title: '프론트엔드 기초 쪽지시험',
-  thumbnail_img_url: 'https://...',
+  thumbnail_img_url: '/images/examList/html.png',
   elapsed_time: 30,
   cheating_count: 0,
   questions: [
