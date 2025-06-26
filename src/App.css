@@ -1,1 +1,77 @@
 @import 'tailwindcss';
+
+body {
+  font-family: 'Pretendard Variable', sans-serif;
+}
+
+@theme {
+  --color-purple-primary: #6201e0;
+  --color-purple-100: #efe6fc;
+  --color-green-primary: #a1e9cf4d;
+  --color-red-primary: #fce5e8;
+  --color-gray-primary: #f2f3f5;
+  --color-gray-100: #ececec;
+  --color-gray-200: #bdbdbd;
+
+  --font-red-primary: #ec0037;
+  --font-green-primary: #14c786;
+  --font-orange-primary: #f85402;
+
+  --text-title-lg: 32px;
+  --text-title-md: 20px;
+  --text-title-sm: 18px;
+  --text-title-xsm: 16px;
+}
+
+@layer components {
+  /* Qustion 메인 컨테이너 */
+  .container-style {
+    @apply flex h-[128px] max-w-screen items-center border-b border-[#bdbdbd] bg-[#fafafa] px-4;
+  }
+
+  .container-style-option {
+    @apply justify-around;
+  }
+
+  .container-style-no-option {
+    @apply justify-start;
+  }
+
+  /* 왼쪽 컨테이너 */
+  .left-container-style {
+    @apply flex gap-5;
+  }
+
+  .left-container-no-option {
+    @apply relative left-[360px];
+  }
+
+  /* flex + pill 형태 버튼 통합 */
+  .pill-button {
+    @apply flex items-center justify-center rounded-[99px] border border-[#ececec] bg-white;
+  }
+
+  /* 질문 타이틀 폰트 */
+  .question-title {
+    @apply leading-[1.4] tracking-[-0.03em] text-[#121212];
+  }
+
+  /* 자간, 줄 간격격 */
+  .text-balance {
+    @apply leading-[1.4] tracking-[-0.03em];
+  }
+
+  /* 문제 번호, 타이틀 */
+  .exam-title {
+    @apply text-[20px] font-bold text-[#121212];
+  }
+
+  /* 문제 점수, 선택 */
+  .exam-type-label {
+    @apply rounded-[2px] bg-gray-100 text-xs font-normal text-[#121212];
+  }
+
+  .quiz-option {
+    @apply text-[16px] font-normal text-[#222222];
+  }
+}
