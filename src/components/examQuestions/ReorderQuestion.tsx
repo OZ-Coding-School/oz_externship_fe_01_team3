@@ -5,7 +5,7 @@ interface Option {
   test: string
   label: string
 }
-
+// api 어떻게 올지 정확히 모름
 interface ReorderQuestionProps {
   options: Option[]
   question_Id: number
