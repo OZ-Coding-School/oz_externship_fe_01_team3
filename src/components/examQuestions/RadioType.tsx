@@ -1,17 +1,21 @@
-interface Option {
-  id: number
-  test: string
-}
-
 interface RadioTypeProps {
-  options: Option[]
-  questionId: string
+  options: string[]
+  question_Id: number
   disabled?: boolean
 }
 
+/*     {
+      "question_id": 3,
+      "type": "라디오",
+      "question": "React에서 상태(state)를 선언할 때 사용하는 Hook은?",
+      "options": ["useEffect", "useState", "useRef", "useMemo"],
+      "point": 5
+    },
+    */
+
 export default function RadioType({
   options,
-  questionId,
+  question_Id,
   disabled = false,
 }: RadioTypeProps) {
   return (
@@ -19,14 +23,13 @@ export default function RadioType({
       {options.map((option, index) => {
         return (
           <label
-            key={option.id}
             className={`flex items-center cursor-pointer w-[942px] h-[27px] ${index !== 0 ? 'mt-3' : ''}`}
           >
             <div className="relative w-[18px] h-[18px] mt-[4.5px] mb-[4.5px] mr-[12px]">
               <input
                 type="radio"
-                name={questionId}
-                value={option.id}
+                name={`question-${question_Id}`}
+                value={option}
                 className="
                   appearance-none
                   w-full h-full
@@ -61,7 +64,7 @@ export default function RadioType({
               "
               ></div>
             </div>
-            <span className={`text-base font-medium`}>{option.test}</span>
+            <span className={`text-base font-medium`}>{option}</span>
           </label>
         )
       })}

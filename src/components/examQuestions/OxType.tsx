@@ -2,22 +2,26 @@ import { X } from 'lucide-react'
 
 type Status = 'default' | 'correct' | 'wrong'
 
-interface Option {
-  id: number
-  test: string
-  OX: boolean
-}
-
 interface OxTypeProps {
-  options: Option[]
-  questionId: string
+  options: string[]
+  question_Id: number
   disabled?: boolean
   Answer?: Status
 }
 
+/*
+{
+  "question_id": 2,
+  "type": "O/X",
+  "question": "CSS는 프로그래밍 언어이다.",
+  "options": ["O", "X"],
+  "point": 5
+}
+*/
+
 export default function OxType({
   options,
-  questionId,
+  question_Id,
   disabled = false,
 }: OxTypeProps) {
   const padding = 'pt-[10px] pr-[16px] pb-[10px] pl-[16px]'
@@ -25,36 +29,37 @@ export default function OxType({
   return (
     <div className="w-[340px] h-auto pl-[32px] flex flex-col">
       {options.map((option, index) => {
-        const inputId = `${questionId}-${option.id}`
-
+        const inputId = `question-${question_Id}-${index}`
         return (
           <div
-            key={option.id}
+            key={inputId}
             className={`w-[308px] h-[48px] ${index !== 0 ? 'mt-3' : ''}`}
           >
             <input
-              type="radio"
               id={inputId}
-              name={questionId}
-              value={option.id}
+              type="radio"
+              name={`question-${question_Id}`}
+              value={option}
               disabled={disabled}
               className="peer hidden"
             />
             <label
               htmlFor={inputId}
               className={`flex items-center cursor-pointer justify-between rounded-[4px] ${padding}
-                bg-[#F2F3F5] 
-                peer-checked:bg-[#EFE6FC] 
-                transition-colors duration-200 group`}
+          bg-[#F2F3F5] 
+          peer-checked:bg-[#EFE6FC] 
+          transition-colors duration-200 group`}
             >
               <div className="flex flex-row justify-center items-center">
-                {option.OX ? (
-                  <div className=" w-[16px] h-[16px] mr-[8px] bg-[#F2F3F5] border-3 border-[#BDBDBD] group-peer-checked:border-[#14C786] rounded-full"></div>
+                {option === 'O' ? (
+                  <div className="w-[16px] h-[16px] mr-[8px] bg-[#F2F3F5] border-[3px] border-[#BDBDBD] group-peer-checked:border-[#14C786] rounded-full"></div>
                 ) : (
                   <X className="group-peer-checked:text-[#EC0037] text-[#BDBDBD] w-[20px] h-[20px] mr-[4px]" />
                 )}
 
-                <span className="font-medium text-base">{option.test}</span>
+                <span className="font-medium text-base">
+                  {option === 'O' ? '맞아요' : '아니에요'}
+                </span>
               </div>
 
               <div className="flex items-center">
