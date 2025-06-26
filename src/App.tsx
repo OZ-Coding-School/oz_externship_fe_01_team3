@@ -16,6 +16,7 @@ function App() {
         <Header />
         <ExampleListContainer />
       </QueryClientProvider>
+      <div className="flex w-full flex-col gap-10 px-12 py-5"></div>
     </div>
   )
 }
