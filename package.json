@@ -11,7 +11,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dnd-kit/sortable": "^10.0.0",
     "@tailwindcss/vite": "^4.1.10",
     "@tanstack/react-query": "^5.80.7",
     "axios": "^1.10.0",
@@ -20,7 +19,6 @@
     "react-dom": "^19.1.0",
     "react-router": "^7.6.2",
     "tailwindcss": "^4.1.10",
-    "vite-plugin-svgr": "^4.3.0",
     "zustand": "^5.0.5"
   },
   "devDependencies": {

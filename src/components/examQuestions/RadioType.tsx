@@ -42,7 +42,7 @@ export default function RadioType({
                 transition-opacity duration-200
                 peer-checked:opacity-0
               "
-              ></div>
+              />
               {/* 내부 원 클릭 형태 */}
               <div
                 className="
@@ -53,7 +53,7 @@ export default function RadioType({
                 transition-opacity duration-200
                 opacity-0 peer-checked:opacity-100
               "
-              ></div>
+              />
             </div>
             <span className={`text-base font-medium`}>{option}</span>
           </label>
