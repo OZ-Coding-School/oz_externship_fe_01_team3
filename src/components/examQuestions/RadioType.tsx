@@ -4,15 +4,6 @@ interface RadioTypeProps {
   disabled?: boolean
 }
 
-/*     {
-      "question_id": 3,
-      "type": "라디오",
-      "question": "React에서 상태(state)를 선언할 때 사용하는 Hook은?",
-      "options": ["useEffect", "useState", "useRef", "useMemo"],
-      "point": 5
-    },
-    */
-
 export default function RadioType({
   options,
   question_Id,
