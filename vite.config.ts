@@ -16,6 +16,10 @@ export default defineConfig({
       '@/lib': path.resolve(__dirname, './src/lib'),
       '@/assets': path.resolve(__dirname, './src/assets'),
       '@/context': path.resolve(__dirname, './src/context'),
+      '@examQuestions': path.resolve(
+        __dirname,
+        './src/components/examQuestions'
+      ),
     },
   },
 })
