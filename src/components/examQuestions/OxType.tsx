@@ -9,15 +9,6 @@ interface OxTypeProps {
   Answer?: Status
 }
 
-/*
-{
-  "question_id": 2,
-  "type": "O/X",
-  "question": "CSS는 프로그래밍 언어이다.",
-  "options": ["O", "X"],
-  "point": 5
-}
-*/
 
 export default function OxType({
   options,

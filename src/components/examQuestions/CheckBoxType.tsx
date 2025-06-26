@@ -3,15 +3,6 @@ interface CheckBoxTypeProps {
   question_Id: number
   disabled?: boolean
 }
-/*
- {
-      "question_id": 1,
-      "type": "객관식",
-      "question": "HTML의 기본 구조를 이루는 태그는?",
-      "options": ["<html>", "<head>", "<body>", "<div>"],
-      "point": 5
-    }
-*/
 
 export default function CheckBoxType({
   options,
