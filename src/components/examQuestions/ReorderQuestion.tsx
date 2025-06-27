@@ -1,24 +1,34 @@
 import { useState } from 'react'
-
+//TODO: isworng,iscorrect studentAnswer 
 interface Option {
   id: number
   test: string
   label: string
 }
-// api 어떻게 올지 정확히 모름
+
 interface ReorderQuestionProps {
   options: Option[]
   question_Id: number
+  student_answer?: string
+  correct_answer?: string
+  is_correct?: boolean
 }
 
 export default function ReorderQuestion({ options }: ReorderQuestionProps) {
   const [draggingItem, setDraggingItem] = useState<Option | null>(null)
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null)
   const [droppedAnswers, setDroppedAnswers] = useState<(Option | null)[]>(
     Array(options.length).fill(null)
   )
 
   const handleDragStart = (item: Option) => {
     setDraggingItem(item)
+  }
+
+  const handleDragOver = (index: number, e: React.DragEvent) => {
+    e.preventDefault()
+    setDragOverIndex(index)
+    e.dataTransfer.dropEffect = 'move' 
   }
 
   const handleDrop = (index: number) => {
@@ -31,6 +41,7 @@ export default function ReorderQuestion({ options }: ReorderQuestionProps) {
 
     if (existingIndex === index) {
       setDraggingItem(null)
+      setDragOverIndex(null)
       return
     }
 
@@ -44,44 +55,41 @@ export default function ReorderQuestion({ options }: ReorderQuestionProps) {
 
     setDroppedAnswers(newAnswers)
     setDraggingItem(null)
+    setDragOverIndex(null)
   }
 
-  const padding = 'pt-[20px] pb-[20px] pr-[16px] pl-[16px]'
   const answerString = droppedAnswers.map((ans) => ans?.id ?? '').join(',')
-
   return (
     <div className="w-[680px] h-[310px] ml-[30px] mb-[100px]">
       {/* 상단 보기 박스 */}
-      <div
-        className={`w-[648px] h-[228px] ml-[32px] bg-[#F2F3F5] mb-[20px] rounded-[4px] ${padding}`}
-      >
+      <div className={`w-[648px] h-[228px] ml-8 bg-[#F2F3F5] mb-5 rounded-[4px] pt-5 pb-5 pr-4 pl-4`}>
         <div className="w-[276px] h-[188px] flex justify-start flex-col">
           {options.map((option, index) => (
             <div
               key={option.id}
               draggable
               onDragStart={() => handleDragStart(option)}
-              className={`w-[276px] h-[32px] flex flex-row items-center ${index !== 0 ? 'mt-[20px]' : ''} cursor-pointer`}
+              className={`w-[276px] h-8 flex flex-row items-center ${index !== 0 ? 'mt-5' : ''} cursor-pointer`}
             >
-              <div className="w-[32px] h-[32px] bg-[#EFE6FC] mr-[8px] rounded-[4px] flex justify-center text-[#6201E0] items-center">
+              <div className="w-8 h-8 bg-[#EFE6FC] mr-2 rounded-[4px] flex justify-center text-[#6201E0] items-center">
                 {option.label}
               </div>
-              <span className="font-medium text-base flex justify-start items-center">
-                {option.test}
-              </span>
+              <span className="font-medium text-base">{option.test}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* 하단 드롭 박스 */}
-      <div className="w-[680px] h-[62px] pl-[32px] flex flex-row">
+      <div className="w-[680px] h-[62px] pl-8 flex flex-row">
         {droppedAnswers.map((answer, index) => (
           <div
             key={index}
-            onDragOver={(e) => e.preventDefault()}
+            onDragOver={(e) => handleDragOver(index, e)}
+            onDragLeave={() => setDragOverIndex(null)}
             onDrop={() => handleDrop(index)}
-            className="w-[62px] h-[62px] bg-[#F2F3F5] mr-[10px] rounded-[4px] flex justify-center items-center border border-gray-300"
+            className={`w-[62px] h-[62px] mr-[10px] rounded-[4px] flex justify-center items-center border 
+              ${dragOverIndex === index ? 'bg-[#D0F5E8] border-[#14C786]' : 'bg-[#F2F3F5] border-gray-300'}`}
             draggable={!!answer}
             onDragStart={() => answer && handleDragStart(answer)}
           >
@@ -89,6 +97,7 @@ export default function ReorderQuestion({ options }: ReorderQuestionProps) {
           </div>
         ))}
       </div>
+
       <input type="hidden" name="answer" value={answerString} />
     </div>
   )
