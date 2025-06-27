@@ -8,14 +8,14 @@ body {
   --color-purple-primary: #6201e0;
   --color-purple-100: #efe6fc;
   --color-green-primary: #a1e9cf4d;
+  --color-green-correct: #14c786;
   --color-red-primary: #fce5e8;
+  --color-red-danger: #ec0037;
   --color-gray-primary: #f2f3f5;
   --color-gray-100: #ececec;
   --color-gray-200: #bdbdbd;
 
-  --font-red-primary: #ec0037;
-  --font-green-primary: #14c786;
-  --font-orange-primary: #f85402;
+  --text-orange-primary: #f85402;
 
   --text-title-lg: 32px;
   --text-title-md: 20px;
@@ -67,4 +67,29 @@ body {
 /* 라디오, 체크박스 옆에 들어가는 텍스트트 */
 @utility quiz-option {
   @apply text-[16px] font-normal text-[#222222];
+}
+
+/* submit 버튼 */
+@utility submit-btn {
+  @apply text-title-xsm bg-purple-primary h-12 w-87 font-normal;
+}
+
+/* 결과 페이지 틀린 문제 설명 박스 */
+@utility result-wrong-box {
+  @apply bg-red-primary text-title-xsm font-normal text-balance;
+}
+
+/* 결과 페이지 맞춘 문제 설명 박스 */
+@utility result-correct-box {
+  @apply bg-green-primary text-title-xsm font-normal text-balance;
+}
+
+/* 오답 부분 텍스트 */
+@utility wrong-text {
+  @apply text-red-danger text-title-xsm font-normal text-balance;
+}
+
+/* 정답 부분 텍스트*/
+@utility correct-text {
+  @apply text-green-correct text-titem-xsm font-normal text-balance;
 }
