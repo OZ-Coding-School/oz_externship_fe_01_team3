@@ -1,12 +1,13 @@
 import { X } from 'lucide-react'
 
-type Status = 'default' | 'correct' | 'wrong'
 
 interface OxTypeProps {
   options: string[]
   question_Id: number
   disabled?: boolean
-  Answer?: Status
+  student_answer?: string
+  correct_answer?: string
+  is_correct?: boolean
 }
 
 
@@ -18,13 +19,13 @@ export default function OxType({
   const padding = 'pt-[10px] pr-[16px] pb-[10px] pl-[16px]'
 
   return (
-    <div className="w-[340px] h-auto pl-[32px] flex flex-col">
+    <div className="w-[340px] h-auto pl-8 flex flex-col">
       {options.map((option, index) => {
         const inputId = `question-${question_Id}-${index}`
         return (
           <div
             key={inputId}
-            className={`w-[308px] h-[48px] ${index !== 0 ? 'mt-3' : ''}`}
+            className={`w-[308px] h-12 ${index !== 0 ? 'mt-3' : ''}`}
           >
             <input
               id={inputId}
@@ -43,9 +44,9 @@ export default function OxType({
             >
               <div className="flex flex-row justify-center items-center">
                 {option === 'O' ? (
-                  <div className="w-[16px] h-[16px] mr-[8px] bg-[#F2F3F5] border-[3px] border-[#BDBDBD] group-peer-checked:border-[#14C786] rounded-full"></div>
+                  <div className="w-[16px] h-[16px] mr-2 bg-[#F2F3F5] border-[3px] border-[#BDBDBD] group-peer-checked:border-[#14C786] rounded-full"></div>
                 ) : (
-                  <X className="group-peer-checked:text-[#EC0037] text-[#BDBDBD] w-[20px] h-[20px] mr-[4px]" />
+                  <X className="group-peer-checked:text-[#EC0037] text-[#BDBDBD] w-5 h-5 mr-[4px]" />
                 )}
 
                 <span className="font-medium text-base">
@@ -56,11 +57,11 @@ export default function OxType({
               <div className="flex items-center">
                 <img
                   src="/src/assets/check-OX.svg"
-                  className="w-[20px] group-peer-checked:hidden"
+                  className="w-5 group-peer-checked:hidden"
                 />
                 <img
                   src="/src/assets/check-OX-answer.svg"
-                  className="w-[20px] hidden group-peer-checked:block"
+                  className="w-5 hidden group-peer-checked:block"
                 />
               </div>
             </label>
