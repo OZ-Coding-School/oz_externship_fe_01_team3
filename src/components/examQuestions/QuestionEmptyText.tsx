@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import Input from '@/components/common/Input'
 
 interface QuestionEmptyTextProps {
   placeholder: string
   name: string
+  student_answer?: string
+  correct_answer?: string
+  is_correct?: boolean
   onChange: (value: string) => void
 }
 
@@ -34,12 +36,12 @@ export default function QuestionEmptyText({
         <span className="mr-[12px] bg-[#f2f3f5] text-[18px] leading-[1.4] font-semibold tracking-[-0.03em] text-[#222222]">
           {name}
         </span>
-        <Input
+        <input
           type="text"
           value={value}
           placeholder="정답을 입력해 주세요."
           onChange={handleChange}
-          classNames="w-[272px] h-[48px] bg-[#f2f3f5] rounded-[4px] outline-none"
+          className="w-[272px] h-[48px] bg-[#f2f3f5] rounded-[4px] outline-none"
         />
       </div>
     </div>
