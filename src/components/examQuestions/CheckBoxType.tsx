@@ -2,6 +2,9 @@ interface CheckBoxTypeProps {
   options: string[]
   question_Id: number
   disabled?: boolean
+  student_answer?: string
+  correct_answer?: string
+  is_correct?: boolean
 }
 
 export default function CheckBoxType({
@@ -10,14 +13,14 @@ export default function CheckBoxType({
   disabled = false,
 }: CheckBoxTypeProps) {
   return (
-    <div className="w-[1000px] h-[144px] pr-[26px] pl-[32px] flex flex-col">
+    <div className="w-[1000px] h-[144px] pr-[26px] pl-8 flex flex-col">
       {options.map((option, index) => {
         return (
           <label
             key={question_Id}
             className={`flex items-center cursor-pointer w-[942px] h-[27px] ${index !== 0 ? 'mt-3' : ''}`}
           >
-            <div className="relative w-[18px] h-[18px] mt-[4.5px] mb-[4.5px] mr-[12px]">
+            <div className="relative w-[18px] h-[18px] mt-[4.5px] mb-[4.5px] mr-3">
               <input
                 type="checkbox"
                 name={option}
