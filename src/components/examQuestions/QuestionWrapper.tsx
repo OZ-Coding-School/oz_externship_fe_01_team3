@@ -6,6 +6,6 @@ interface QusetionWrapperProps {
 
 export default function QusetionWrapper({ children }: QusetionWrapperProps) {
   return (
-    <div className="w-[1000px] h-auto flex flex-col gap-[20px]">{children}</div>
+    <div className="w-[1000px] h-auto flex flex-col gap-5">{children}</div>
   )
 }
