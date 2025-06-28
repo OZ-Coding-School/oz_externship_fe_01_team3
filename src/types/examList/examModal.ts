@@ -2,20 +2,31 @@
 export type ModalRequest = { access_code: string }
 
 /** 200 OK: ModalSuccessResponse Types */
-export type ExampleQuestion = {
+export type QuestionSnapshot = {
   question_id: number
-  type: string
+  type: 'multiple_choice' | 'ox' | 'ordering' | 'fill_in_blank'
   question: string
-  options?: string[]
+  prompt: string | null
+  blank_count: number | null
+  options_json: string[]
   point: number
 }
 
 /** 200 OK: ModalSuccessResponse Types */
 export type ModalSuccessResponse = {
-  test_id: number
-  title: string
+  id: number
+  generation: {
+    id: number
+  }
   thumbnail_img_url: string
-  elapsed_time: number
-  cheating_count: number
-  questions: ExampleQuestion[]
+  test: {
+    id: number
+    title: string
+    subject: {
+      id: number
+      title: string
+    }
+  }
+  duration_time: number
+  questions_snapshot_json: QuestionSnapshot[]
 }
