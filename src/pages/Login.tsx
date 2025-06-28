@@ -2,8 +2,18 @@ import SocialButton from "@/components/common/SocialButton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-function FindIdModal() {
+function FindModal({onClose}) {
+    return(
+        <div className="fixed inset-0 flex justify-center items-center"
+             style={{ backgroundColor: 'rgba(18, 18, 18, 0.6)' }}>
 
+            <div className="bg-white w-[396px] h-[522px]" >
+                <h2>안녕하세요! 👋</h2>
+                <p>우선 테스트 용으로 만들어보기</p>
+                <button onClick={onClose}>닫기</button>
+            </div>
+        </div>
+    )
 }
 
 
@@ -95,9 +105,10 @@ export default function Login() {
                     />
                     </div>
                         <div className="flex justify-start  w-full text-sm text-[#4D4D4D]">
-                            <p className="mr-[8px]">아이디 찾기</p>
+                            <button onClick={()=>setIsModalOpen(true)} className="mr-[8px]">아이디 찾기</button>
+                            {isModalOpen && <FindModal onClose={()=>setIsModalOpen(false)} />}
                             <p className="mr-[8px]">|</p>
-                            <p>비밀번호 찾기</p>
+                            <button>비밀번호 찾기</button>
 
                         </div>
 
