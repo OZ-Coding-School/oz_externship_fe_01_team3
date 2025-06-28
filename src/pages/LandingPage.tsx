@@ -37,7 +37,7 @@ export default function LandingPage() {
   return (
     <>
       <Header />
-      <div className="h-287 min-w-screen flex-col bg-[#fafafb]">
+      <div className="h-287 max-w-screen flex-col bg-[#fafafb]">
         <div className="relative top-27 flex flex-col items-center">
           <div className="mb-14 text-center text-5xl leading-[1.5] font-bold whitespace-pre-line text-[#121212]">
             {TOGGLETEXT[toggle]}
