@@ -15,11 +15,6 @@ export type ExamListResponseItem = {
 export type TabId = 'all' | 'submitted' | 'not_submitted'
 export type SideTabId = 'exam' | 'info' | 'password'
 
-export interface Tab {
-  id: TabId
-  label: string
-}
-
 export interface SideTab {
   id: SideTabId
   label: string
