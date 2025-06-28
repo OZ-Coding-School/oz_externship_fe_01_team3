@@ -18,13 +18,13 @@ export default function ExampleListContainer() {
 
           <div className="flex-1 lg:min-h-screen">
             <div className="px-4 py-6 sm:px-6 lg:px-8">
-              <ExamList />
+              <ExamList setIsModalOpen={setIsModalOpen} />
             </div>
           </div>
         </div>
       </div>
 
-      {!isModalOpen && <ExamListModal setIsModalClose={setIsModalOpen} />}
+      {isModalOpen && <ExamListModal setIsModalClose={setIsModalOpen} />}
     </div>
   )
 }
