@@ -1,6 +1,7 @@
 import ExampleListContainer from '@/components/examList/ExampleContainer'
 import ProtectedRoute from '@/components/ProtectedRoute'
 import { createBrowserRouter, Navigate } from 'react-router'
+import LandingPage from './LandingPage'
 
 // TODO: 임시 컴포넌트들 - 실제 컴포넌트 구현 후 교체 예정입니다. (각자 파트로 교체 해주세요 😀)
 const AuthPage = () => <div>Auth Page - 구현 예정</div>
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
       // 메인 페이지
       {
         index: true,
-        element: <Navigate to="/auth" replace />,
+        element: <LandingPage />,
       },
       // 로그인/회원가입 - 로그인 안한 사람만
       {
