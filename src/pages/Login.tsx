@@ -2,15 +2,155 @@ import SocialButton from "@/components/common/SocialButton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-function FindModal({onClose}) {
+function CommonButton({onClick, text}) {
+
     return(
+        <button onClick={onClick} className="bg-[#6201E0] h-[52px] w-[348px] rounded-[4px] text-[#EFE6FC] mb-[24px]">
+            {text}
+        </button>
+    )
+}
+
+function FindIdContent({onClick, text}){
+    const { register, handleSubmit, formState: { errors }, watch, setValue,} = useForm()
+    const nameValue = watch('name')
+    const phoneValue = watch('phone')
+    const phoneCodeValue = watch('phoneCode')
+
+    const [errorMessage, setErrorMessage] = useState('');
+
+    //백엔드 전 임시 (오류메세지 설정용)
+    const findId = (data: any) => {
+        console.log('제출된 데이터:', data);
+      
+        if (data.name === '홍길동') {
+          setErrorMessage('');
+          // 성공 시 처리
+        } else {
+          setErrorMessage('입력한 이름과 휴대폰 번호로 등록된\n 이메일이 존재하지 않습니다. ');
+        }
+      };
+      
+
+
+    return(
+        <div>
+            <div className="flex justify-center mt-[10px] flex-col items-center ">
+                <img src="src/assets/FindIdicon.png" alt="find" className="w-[28px] h-[28px]" />
+                <p className="text-[#121212] mt-[16px] text-[20px] font-semibold">아이디 찾기</p>
+                {errorMessage && (
+                <p className="text-center text-sm text-[#EC0037] whitespace-pre-line">{errorMessage}</p>
+                )}
+            </div>
+            <div className="flex justify-center flex-col mr-[24px] ml-[24px] mt-[40px]">
+
+                    <div className="flex items-center">
+                    <label
+                    htmlFor="name"
+                    className="mr-[16px] mb-[20px] text-[#121212] text-[16px]"
+                    >
+                    이름<span className="text-[#EC0037]">*</span>
+                    </label>
+                </div>
+                <div>
+                    <input
+                    {...register('name', { required: '이름은 필수입니다.' })}
+                    className={`mb-[32px] h-[48px] w-[348px] rounded-[4px] border-[1px] pt-[10px] pr-[16px] pb-[10px] pl-[16px] text-[#333] placeholder-[#BDBDBD] ${errors.name ? 'border-[#EC0037]' : nameValue ? 'border-[#14C786]' : 'border-[#BDBDBD]'} focus:border-[#6201E0] focus:outline-none`}
+                    placeholder="이름을 입력해주세요"
+                    />
+                    {errors.name && (
+                    <p className="text-sm text-red-500">{errors.name.message}</p>
+                    )}
+
+
+                    {/*휴대전화*/}
+
+          <div className="flex items-center">
+            <label
+              htmlFor="phone"
+              className="mr-[16px] mb-[20px] text-[#121212] text-[16px]" 
+            >
+              휴대전화<span className="text-[#EC0037]">*</span>
+            </label>
+          </div>
+          <div className="flex">
+            <div className="mb-[16px] flex items-center">
+              <input
+                {...register('phone', {
+                  required: '번호를 입력해주세요.',
+                  pattern: {
+                    value: /^[0-9]{11}$/,
+                    message: '11자리 숫자를 입력해주세요.',
+                  },
+                })}
+                maxLength={11}
+                inputMode="numeric"
+                onInput={(e) =>
+                  (e.target.value = e.target.value.replace(/[^0-9]/g, ''))
+                }
+                className=" h-[48px] w-[228px] rounded border border-[#BDBDBD] placeholder-[#BDBDBD] pt-[10px] pr-[16px] pb-[10px] pl-[16px] placeholder:text-[14px]"
+                placeholder="숫자만 입력해주세요"
+              />
+              
+            </div>
+            <button
+              className={`ml-[8px] h-[48px] w-[112px] rounded-[4px] border ${phoneCodeValue ? 'border-[#6201E0] bg-[#EFE6FC] text-[#6201E0]' : 'border-[#BDBDBD] bg-[#ECECEC] text-[#888]'} `}
+            >
+              인증번호전송
+            </button>
+          </div>
+          {errors.phone && (
+            <p className="text-sm text-red-500">{errors.phone.message}</p>
+          )}
+
+          {/*휴대전화 인증 번호*/}
+
+          <div className="flex">
+            <input
+              {...register('phoneCode', {
+                required: '인증코드를 입력해주세요.',
+              })}
+              className={`mb-[40px] h-[48px] w-[228px] rounded-[4px] border-[1px] border-[#BDBDBD] pt-[10px] pr-[16px] pb-[10px] pl-[16px] text-[#333] placeholder-[#BDBDBD] focus:border-[#6201E0] focus:outline-none`}
+              placeholder="인증번호 6자리를 입력해주세요"
+            />
+            <button
+              className={`ml-[8px] h-[48px] w-[112px] rounded-[4px] border ${phoneCodeValue ? 'border-[#6201E0] bg-[#EFE6FC] text-[#6201E0]' : 'border-[#BDBDBD] bg-[#ECECEC] text-[#888]'} `}
+            >
+              인증번호확인
+            </button>
+          </div>
+          {errors.phoneCode && (
+            <p className="text-sm text-red-500">{errors.phoneCode.message}</p>
+          )}
+                </div>
+                <CommonButton onClick={handleSubmit(findId)} text="아이디 찾기" />
+
+            </div>
+            
+
+        </div>
+    )
+}
+
+function FindModal({onClose, children}) {
+    return(
+        
         <div className="fixed inset-0 flex justify-center items-center"
              style={{ backgroundColor: 'rgba(18, 18, 18, 0.6)' }}>
 
-            <div className="bg-white w-[396px] h-[522px]" >
-                <h2>안녕하세요! 👋</h2>
-                <p>우선 테스트 용으로 만들어보기</p>
-                <button onClick={onClose}>닫기</button>
+            {/* 모달 내용 박스  */}
+            <div className="bg-white w-[396px] rounded-[12px]"
+                style={{
+                    top: "280px",
+                    bottom: "278px",
+                    left: "762px",
+                    right: "762px",
+                }} >
+                    <div className="flex justify-end mt-[24px] mr-[24px] ml-[24px] mb-[24px]">
+                        <img src="src/assets/closeIcon.png" alt="close" onClick={onClose} className="w-[12px] h-[12px]" />
+                    </div>
+                    {children}
+
             </div>
         </div>
     )
@@ -106,8 +246,10 @@ export default function Login() {
                     </div>
                         <div className="flex justify-start  w-full text-sm text-[#4D4D4D]">
                             <button onClick={()=>setIsModalOpen(true)} className="mr-[8px]">아이디 찾기</button>
-                            {isModalOpen && <FindModal onClose={()=>setIsModalOpen(false)} />}
+                            {isModalOpen && <FindModal onClose={()=>setIsModalOpen(false)}>{<FindIdContent/>}</FindModal>}
+
                             <p className="mr-[8px]">|</p>
+
                             <button>비밀번호 찾기</button>
 
                         </div>
