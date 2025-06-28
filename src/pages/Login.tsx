@@ -1,5 +1,10 @@
 import SocialButton from "@/components/common/SocialButton";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+
+function FindIdModal() {
+
+}
 
 
 export default function Login() {
@@ -14,6 +19,9 @@ export default function Login() {
   const isAllFieldsFilled =
     emailValue?.trim() &&
     passwordValue?.trim() 
+
+    //모달 관련 상태
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
 
     return(
@@ -86,13 +94,21 @@ export default function Login() {
                         placeholder="비밀번호 (6~15자의 영문 대소문자, 숫자, 특수문자)"
                     />
                     </div>
+                        <div className="flex justify-start  w-full text-sm text-[#4D4D4D]">
+                            <p className="mr-[8px]">아이디 찾기</p>
+                            <p className="mr-[8px]">|</p>
+                            <p>비밀번호 찾기</p>
+
+                        </div>
+
+
                     {/* 일반회원 로그인 버튼 */}
-            <button
-                type="submit"
-                className={`mt-[52px] h-[52px] w-[348px] gap-2 rounded-[4px] ${isAllFieldsFilled ? 'bg-[#6201E0] text-white' : 'bg-[#ECECEC] text-[#BDBDBD]'} `}
-            >
-                일반회원 로그인
-            </button>
+                    <button
+                        type="submit"
+                        className={`mt-[52px] h-[52px] w-[348px] gap-2 rounded-[4px] ${isAllFieldsFilled ? 'bg-[#6201E0] text-white' : 'bg-[#ECECEC] text-[#BDBDBD]'} `}
+                    >
+                        일반회원 로그인
+                    </button>
         </form>
 
             </div>
