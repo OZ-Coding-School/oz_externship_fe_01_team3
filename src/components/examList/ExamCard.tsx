@@ -85,8 +85,10 @@ export default function ExamCard({
   onTakeExam,
   onViewDetails,
 }: ExamCardProps) {
+  const isCompleted = exam.submission_status === 'submitted'
+
   const handleButtonClick = () => {
-    if (exam.submission_status === 'submitted') {
+    if (isCompleted) {
       onViewDetails(exam.test_id)
     } else {
       onTakeExam(exam.test_id)
@@ -94,7 +96,7 @@ export default function ExamCard({
   }
 
   const getDescriptionText = (): string => {
-    if (exam.submission_status === 'submitted') {
+    if (isCompleted) {
       // 응시완료된 시험의 점수 정보 표시
       const scoreInfo = exam.score
         ? `${exam.score}점/${exam.total_score}점`
@@ -118,7 +120,13 @@ export default function ExamCard({
   }
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-6 transition-all duration-200 hover:border-gray-300 hover:shadow-md">
+    <div
+      className={`rounded-lg border p-6 transition-all duration-200 ${
+        isCompleted
+          ? 'cursor-not-allowed border-gray-200 bg-gray-50'
+          : 'cursor-pointer border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
+      }`}
+    >
       <div className="flex items-center justify-between">
         <div className="flex flex-1 items-center space-x-4">
           <TechIcon
@@ -128,12 +136,20 @@ export default function ExamCard({
 
           <div className="min-w-0 flex-1">
             <div className="mb-1 flex items-center space-x-2">
-              <h3 className="truncate text-lg font-semibold text-gray-900">
+              <h3
+                className={`truncate text-lg font-semibold ${
+                  isCompleted ? 'text-gray-500' : 'text-gray-900'
+                }`}
+              >
                 {exam.test_title}
               </h3>
               <StatusBadge status={exam.submission_status} />
             </div>
-            <p className="truncate text-sm text-gray-600">
+            <p
+              className={`truncate text-sm ${
+                isCompleted ? 'text-gray-400' : 'text-gray-600'
+              }`}
+            >
               {getDescriptionText()}
             </p>
           </div>
@@ -143,13 +159,14 @@ export default function ExamCard({
           <button
             type="button"
             onClick={handleButtonClick}
-            className={`h-[46px] w-[112px] cursor-pointer rounded-lg border text-sm font-medium transition-all duration-200 hover:shadow-sm ${
-              exam.submission_status === 'submitted'
-                ? 'border-[#BDBDBD] bg-[#ECECEC] text-[#4D4D4D] hover:bg-[#E0E0E0]'
-                : 'border-[#6201E0] bg-[#EFE6FC] text-[#4E01B3] hover:bg-[#E6D9F9]'
+            disabled={isCompleted}
+            className={`h-[46px] w-[112px] rounded-lg border text-sm font-medium transition-all duration-200 ${
+              isCompleted
+                ? 'cursor-not-allowed border-[#BDBDBD] bg-[#ECECEC] text-[#4D4D4D] opacity-60'
+                : 'cursor-pointer border-[#6201E0] bg-[#EFE6FC] text-[#4E01B3] hover:bg-[#E6D9F9] hover:shadow-sm'
             }`}
           >
-            {exam.submission_status === 'submitted' ? '상세보기' : '응시하기'}
+            {isCompleted ? '상세보기' : '응시하기'}
           </button>
         </div>
       </div>

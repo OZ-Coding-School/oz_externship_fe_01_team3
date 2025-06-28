@@ -1,7 +1,16 @@
 import { useState, useMemo } from 'react'
 import ExamCard from '@/components/examList/ExamCard'
-import type { TabId, Tab } from '@/types/examList/examList'
+import type { TabId } from '@/types/examList/examList'
 import { useExamListQuery } from '@/hooks/examList/useExamListQuery'
+
+interface Tab {
+  id: TabId
+  label: string
+}
+
+interface ExamListProps {
+  setIsModalOpen: (isModalOpen: boolean) => void
+}
 
 const tabs: Tab[] = [
   { id: 'all', label: '전체' },
@@ -9,7 +18,7 @@ const tabs: Tab[] = [
   { id: 'not_submitted', label: '미응시' },
 ]
 
-export default function ExamList() {
+export default function ExamList({ setIsModalOpen }: ExamListProps) {
   const [activeTab, setActiveTab] = useState<TabId>('all')
   const { data: examList, isLoading, error } = useExamListQuery()
 
@@ -31,12 +40,14 @@ export default function ExamList() {
 
   const handleTakeExam = (examId: number) => {
     console.log('응시하기:', examId)
-    // TODO: 시험 응시 로직 구현
+    // 미응시 시험의 응시하기 버튼 클릭 시 모달 열기
+    setIsModalOpen(true)
   }
 
   const handleViewDetails = (examId: number) => {
-    // TODO: 상세 결과 보기 로직 구현
     console.log('상세보기:', examId)
+    // 응시완료된 시험의 상세보기 - 페이지 이동 또는 상세 모달
+    // TODO: 상세 결과 보기 로직 구현 (페이지 이동 또는 별도 모달)
   }
 
   if (isLoading) {
@@ -74,19 +85,6 @@ export default function ExamList() {
               }`}
             >
               {tab.label}
-              {examList && (
-                <span className="ml-2 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-900">
-                  {tab.id === 'all'
-                    ? examList.length
-                    : tab.id === 'submitted'
-                      ? examList.filter(
-                          (exam) => exam.submission_status === 'submitted'
-                        ).length
-                      : examList.filter(
-                          (exam) => exam.submission_status === 'not_submitted'
-                        ).length}
-                </span>
-              )}
             </button>
           ))}
         </nav>

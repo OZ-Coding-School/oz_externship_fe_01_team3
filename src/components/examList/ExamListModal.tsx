@@ -1,13 +1,15 @@
 import { useExamModalQuery } from '@/hooks/examList/useExamModalQuery'
+import { X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
+import Button from '../common/Button'
 
 interface ModalProps {
   setIsModalClose: (isModalOpen: boolean) => void
 }
+const MAX_LENGTH = 6
 
 export default function ExamListModal({ setIsModalClose }: ModalProps) {
-  const MAX_LENGTH = 6
   const [examCode, setExamCode] = useState('')
   const [error, setError] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -34,7 +36,7 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
     // TODO: 참가 코드를 입력 시, POST 요청 후 데이터를 받아서 navigate로 보내주기
     e.preventDefault()
 
-    if (examCode.length !== 6) {
+    if (examCode.length !== MAX_LENGTH) {
       setError(true)
       setExamCode('')
       return
@@ -60,13 +62,12 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
         onSubmit={handleSubmit}
         className="relative z-10 flex h-[360px] w-[396px] flex-col items-center justify-center rounded-[12px] bg-white p-6 shadow-lg"
       >
-        <button
-          type="button"
+        <Button
           className="absolute top-6 right-6 text-2xl text-[#9D9D9D]"
-          onClick={() => setIsModalClose(true)}
+          onClick={() => setIsModalClose(false)}
         >
-          x
-        </button>
+          <X />
+        </Button>
         <img
           src="/src/assets/examList/python.png"
           alt="python"
