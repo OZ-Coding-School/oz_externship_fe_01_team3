@@ -1,3 +1,4 @@
+import ExampleListContainer from '@/components/examList/ExampleContainer'
 import ProtectedRoute from '@/components/ProtectedRoute'
 import { createBrowserRouter, Navigate } from 'react-router'
 
@@ -10,6 +11,7 @@ const ExamListPage = () => <div>Exam List Page - 구현 예정</div>
 const QuizParticipation = () => <div>Quiz Participation - 구현 예정</div>
 const QuizExam = () => <div>Quiz Exam - 구현 예정</div>
 const QuizResult = () => <div>Quiz Result - 구현 예정</div>
+const ExamPage = () => <div>Exam Page - 구현 예정</div>
 
 export const router = createBrowserRouter([
   {
@@ -52,8 +54,8 @@ export const router = createBrowserRouter([
       {
         path: 'my-quiz',
         element: (
-          <ProtectedRoute requireAuth>
-            <MyPageLayout />
+          <ProtectedRoute requireAuth={false}>
+            <ExampleListContainer />
           </ProtectedRoute>
         ),
         children: [
@@ -74,6 +76,15 @@ export const router = createBrowserRouter([
             element: <ExamListPage />,
           },
         ],
+      },
+      // 시험 응시 페이지 - 로그인 필요
+      {
+        path: 'exam/:id',
+        element: (
+          <ProtectedRoute requireAuth>
+            <ExamPage />
+          </ProtectedRoute>
+        ),
       },
       // 쪽지시험 참여 - 로그인 필요
       {
