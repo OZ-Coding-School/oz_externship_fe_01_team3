@@ -2,6 +2,7 @@ import SocialButton from "@/components/common/SocialButton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+// 아이디 찾기, 비밀번호 찾기 공통 보라색 버튼 컴포넌트
 function CommonButton({onClick, text}) {
 
     return(
@@ -10,7 +11,7 @@ function CommonButton({onClick, text}) {
         </button>
     )
 }
-
+// 아이디 찾기 내용 컴포넌트 
 function FindIdContent({onClick, text}){
     const { register, handleSubmit, formState: { errors }, watch, setValue,} = useForm()
     const nameValue = watch('name')
@@ -35,6 +36,20 @@ function FindIdContent({onClick, text}){
           setSuccessFindId(false)
         }
       };
+
+      // 이메일 도메인 마스킹 처리하는 함수 
+      function maskEmailDomain(email) {
+        const [localPart, domain] = email.split("@");
+      
+        // domain 예: example.com
+        // domain을 '.' 기준으로 나눠서 앞부분과 뒷부분 분리
+        const [domainName, domainExt] = domain.split(".");
+      
+        // domainName은 앞 3글자만 남기고 나머지는 *로 마스킹
+        const maskedDomainName = domainName.slice(0, 3) + "*".repeat(domainName.length - 3);
+      
+        return `${localPart}@${maskedDomainName}.${domainExt}`;
+      }
       
 
 
@@ -53,7 +68,7 @@ function FindIdContent({onClick, text}){
             {successFindId? (
                 <div className="flex justify-center items-center flex-col ">
                     <div className="bg-[#ECECEC] border border-[#BDBDBD] w-[348px] h-[93px] flex justify-center items-center rounded-[4px] mb-[24px] px-4 py-10">
-                        <p className="text-[#121212] text-[18px] font-semibold">{foundId}</p>
+                        <p className="text-[#121212] text-[18px] font-semibold">{maskEmailDomain(foundId)}</p>
                     </div>
                     <div className="flex mb-[24px]">
                         <button className="w-[168px] h-[48px] border border-[#6201E0] text-[16px] text-[#6201E0] font-semibold rounded-[4px] mr-[12px]">로그인</button>
@@ -162,6 +177,7 @@ function FindIdContent({onClick, text}){
     )
 }
 
+//공통 모달 컴포넌트 
 function FindModal({onClose, children}) {
     return(
         
