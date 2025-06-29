@@ -18,6 +18,8 @@ function FindIdContent({onClick, text}){
     const phoneCodeValue = watch('phoneCode')
 
     const [errorMessage, setErrorMessage] = useState('');
+    const [successFindId, setSuccessFindId] = useState(false) //성공시 모달 보여줄 용
+    const [foundId, setFoundId] = useState('') //백엔드 연결 전 가짜 아이디 저장용
 
     //백엔드 전 임시 (오류메세지 설정용)
     const findId = (data: any) => {
@@ -25,9 +27,12 @@ function FindIdContent({onClick, text}){
       
         if (data.name === '홍길동') {
           setErrorMessage('');
+          setSuccessFindId(true)
+          setFoundId('hong123@ozcoding.com')
           // 성공 시 처리
         } else {
           setErrorMessage('입력한 이름과 휴대폰 번호로 등록된\n 이메일이 존재하지 않습니다. ');
+          setSuccessFindId(false)
         }
       };
       
@@ -36,96 +41,121 @@ function FindIdContent({onClick, text}){
     return(
         <div>
             <div className="flex justify-center mt-[10px] flex-col items-center ">
-                <img src="src/assets/FindIdicon.png" alt="find" className="w-[28px] h-[28px]" />
-                <p className="text-[#121212] mt-[16px] text-[20px] font-semibold">아이디 찾기</p>
+                <img src="src/assets/FindIdicon.png" alt="find" className="w-[28px] h-[28px] mb-[16px] " />
+                <p className="text-[#121212]  text-[20px] font-bold mb-[16px] leading-none ">아이디 찾기</p>
+                {foundId && (
+                <p className="text-center text-sm  whitespace-pre-line 4 leading-none mb-[32px]">입력하신 정보와 일치하는 아이디입니다.</p>
+                )}
                 {errorMessage && (
                 <p className="text-center text-sm text-[#EC0037] whitespace-pre-line">{errorMessage}</p>
                 )}
             </div>
-            <div className="flex justify-center flex-col mr-[24px] ml-[24px] mt-[40px]">
+            {successFindId? (
+                <div className="flex justify-center items-center flex-col ">
+                    <div className="bg-[#ECECEC] border border-[#BDBDBD] w-[348px] h-[93px] flex justify-center items-center rounded-[4px] mb-[24px] px-4 py-10">
+                        <p className="text-[#121212] text-[18px] font-semibold">{foundId}</p>
+                    </div>
+                    <div className="flex mb-[24px]">
+                        <button className="w-[168px] h-[48px] border border-[#6201E0] text-[16px] text-[#6201E0] font-semibold rounded-[4px] mr-[12px]">로그인</button>
+                        <button className="w-[168px] h-[48px] bg-[#6201E0] text-[#FAFAFA] text-[16px] font-semibold rounded-[4px]">비밀번호 찾기</button>
 
-                    <div className="flex items-center">
-                    <label
-                    htmlFor="name"
-                    className="mr-[16px] mb-[20px] text-[#121212] text-[16px]"
-                    >
-                    이름<span className="text-[#EC0037]">*</span>
-                    </label>
+                    </div>
+              </div>
+                
+
+
+
+
+            ):(
+
+
+
+
+                <div className="flex justify-center flex-col mr-[24px] ml-[24px]">
+    
+                        <div className="flex items-center">
+                        <label
+                        htmlFor="name"
+                        className="mr-[16px] mb-[20px] text-[#121212] text-[16px]"
+                        >
+                        이름<span className="text-[#EC0037]">*</span>
+                        </label>
+                    </div>
+                    <div>
+                        <input
+                        {...register('name', { required: '이름은 필수입니다.' })}
+                        className={`mb-[32px] h-[48px] w-[348px] rounded-[4px] border-[1px] pt-[10px] pr-[16px] pb-[10px] pl-[16px] text-[#333] placeholder-[#BDBDBD] ${errors.name ? 'border-[#EC0037]' : nameValue ? 'border-[#14C786]' : 'border-[#BDBDBD]'} focus:border-[#6201E0] focus:outline-none`}
+                        placeholder="이름을 입력해주세요"
+                        />
+                        {errors.name && (
+                        <p className="text-sm text-red-500">{errors.name.message}</p>
+                        )}
+    
+    
+                        {/*휴대전화*/}
+    
+              <div className="flex items-center">
+                <label
+                  htmlFor="phone"
+                  className="mr-[16px] mb-[20px] text-[#121212] text-[16px]" 
+                >
+                  휴대전화<span className="text-[#EC0037]">*</span>
+                </label>
+              </div>
+              <div className="flex">
+                <div className="mb-[16px] flex items-center">
+                  <input
+                    {...register('phone', {
+                      required: '번호를 입력해주세요.',
+                      pattern: {
+                        value: /^[0-9]{11}$/,
+                        message: '11자리 숫자를 입력해주세요.',
+                      },
+                    })}
+                    maxLength={11}
+                    inputMode="numeric"
+                    onInput={(e) =>
+                      (e.target.value = e.target.value.replace(/[^0-9]/g, ''))
+                    }
+                    className=" h-[48px] w-[228px] rounded border border-[#BDBDBD] placeholder-[#BDBDBD] pt-[10px] pr-[16px] pb-[10px] pl-[16px] placeholder:text-[14px]"
+                    placeholder="숫자만 입력해주세요"
+                  />
+                  
                 </div>
-                <div>
-                    <input
-                    {...register('name', { required: '이름은 필수입니다.' })}
-                    className={`mb-[32px] h-[48px] w-[348px] rounded-[4px] border-[1px] pt-[10px] pr-[16px] pb-[10px] pl-[16px] text-[#333] placeholder-[#BDBDBD] ${errors.name ? 'border-[#EC0037]' : nameValue ? 'border-[#14C786]' : 'border-[#BDBDBD]'} focus:border-[#6201E0] focus:outline-none`}
-                    placeholder="이름을 입력해주세요"
-                    />
-                    {errors.name && (
-                    <p className="text-sm text-red-500">{errors.name.message}</p>
-                    )}
-
-
-                    {/*휴대전화*/}
-
-          <div className="flex items-center">
-            <label
-              htmlFor="phone"
-              className="mr-[16px] mb-[20px] text-[#121212] text-[16px]" 
-            >
-              휴대전화<span className="text-[#EC0037]">*</span>
-            </label>
-          </div>
-          <div className="flex">
-            <div className="mb-[16px] flex items-center">
-              <input
-                {...register('phone', {
-                  required: '번호를 입력해주세요.',
-                  pattern: {
-                    value: /^[0-9]{11}$/,
-                    message: '11자리 숫자를 입력해주세요.',
-                  },
-                })}
-                maxLength={11}
-                inputMode="numeric"
-                onInput={(e) =>
-                  (e.target.value = e.target.value.replace(/[^0-9]/g, ''))
-                }
-                className=" h-[48px] w-[228px] rounded border border-[#BDBDBD] placeholder-[#BDBDBD] pt-[10px] pr-[16px] pb-[10px] pl-[16px] placeholder:text-[14px]"
-                placeholder="숫자만 입력해주세요"
-              />
-              
-            </div>
-            <button
-              className={`ml-[8px] h-[48px] w-[112px] rounded-[4px] border ${phoneCodeValue ? 'border-[#6201E0] bg-[#EFE6FC] text-[#6201E0]' : 'border-[#BDBDBD] bg-[#ECECEC] text-[#888]'} `}
-            >
-              인증번호전송
-            </button>
-          </div>
-          {errors.phone && (
-            <p className="text-sm text-red-500">{errors.phone.message}</p>
-          )}
-
-          {/*휴대전화 인증 번호*/}
-
-          <div className="flex">
-            <input
-              {...register('phoneCode', {
-                required: '인증코드를 입력해주세요.',
-              })}
-              className={`mb-[40px] h-[48px] w-[228px] rounded-[4px] border-[1px] border-[#BDBDBD] pt-[10px] pr-[16px] pb-[10px] pl-[16px] text-[#333] placeholder-[#BDBDBD] focus:border-[#6201E0] focus:outline-none`}
-              placeholder="인증번호 6자리를 입력해주세요"
-            />
-            <button
-              className={`ml-[8px] h-[48px] w-[112px] rounded-[4px] border ${phoneCodeValue ? 'border-[#6201E0] bg-[#EFE6FC] text-[#6201E0]' : 'border-[#BDBDBD] bg-[#ECECEC] text-[#888]'} `}
-            >
-              인증번호확인
-            </button>
-          </div>
-          {errors.phoneCode && (
-            <p className="text-sm text-red-500">{errors.phoneCode.message}</p>
-          )}
+                <button
+                  className={`ml-[8px] h-[48px] w-[112px] rounded-[4px] border ${phoneCodeValue ? 'border-[#6201E0] bg-[#EFE6FC] text-[#6201E0]' : 'border-[#BDBDBD] bg-[#ECECEC] text-[#888]'} `}
+                >
+                  인증번호전송
+                </button>
+              </div>
+              {errors.phone && (
+                <p className="text-sm text-red-500">{errors.phone.message}</p>
+              )}
+    
+              {/*휴대전화 인증 번호*/}
+    
+              <div className="flex">
+                <input
+                  {...register('phoneCode', {
+                    required: '인증코드를 입력해주세요.',
+                  })}
+                  className={`mb-[40px] h-[48px] w-[228px] rounded-[4px] border-[1px] border-[#BDBDBD] pt-[10px] pr-[16px] pb-[10px] pl-[16px] text-[#333] placeholder-[#BDBDBD] focus:border-[#6201E0] focus:outline-none`}
+                  placeholder="인증번호 6자리를 입력해주세요"
+                />
+                <button
+                  className={`ml-[8px] h-[48px] w-[112px] rounded-[4px] border ${phoneCodeValue ? 'border-[#6201E0] bg-[#EFE6FC] text-[#6201E0]' : 'border-[#BDBDBD] bg-[#ECECEC] text-[#888]'} `}
+                >
+                  인증번호확인
+                </button>
+              </div>
+              {errors.phoneCode && (
+                <p className="text-sm text-red-500">{errors.phoneCode.message}</p>
+              )}
+                    </div>
+                    <CommonButton onClick={handleSubmit(findId)} text="아이디 찾기" />
+    
                 </div>
-                <CommonButton onClick={handleSubmit(findId)} text="아이디 찾기" />
-
-            </div>
+            )}
             
 
         </div>
