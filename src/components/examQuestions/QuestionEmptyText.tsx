@@ -1,49 +1,78 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface QuestionEmptyTextProps {
-  placeholder: string
-  name: string
-  student_answer?: string
-  correct_answer?: string
-  is_correct?: boolean
-  onChange: (value: string) => void
+  placeholder?: string
+  blank_count: number
+  prompt: string
+  disabled?: boolean
+  student_answer?: string[]
+  correct_answer?: string[]
+  is_crrect?: boolean
+  onChange: (value: string[]) => void
 }
 
 export default function QuestionEmptyText({
-  name,
+  prompt,
+  blank_count,
+  placeholder = '정답을 입력해 주세요.',
+  disabled = false,
+  student_answer,
+  correct_answer,
+  is_crrect = false,
   onChange,
 }: QuestionEmptyTextProps) {
-  const [value, setValue] = useState('')
+  const [values, setValues] = useState<string[]>(
+    student_answer ?? Array(blank_count).fill('')
+  )
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value)
-    onChange(e.target.value)
+  useEffect(() => {
+    if (student_answer) {
+      setValues(student_answer)
+    }
+  }, [student_answer])
+
+  const handleChange = (index: number, value: string) => {
+    const updated = [...values]
+    updated[index] = value
+    setValues(updated)
+    onChange(updated)
   }
-  return (
-    <div className="flex flex-col gap-[16px]">
-      {/* <div className="flex flex-col gap-[16px]">
-        <p>
-          1. 변수나 함수의 매개변수, 반환값에 타입을 명시하는 것을
-          (A)______이라고 한다.
-        </p>
-        <p>
-          2. interface 또는 type 키워드를 사용하여 객체의 구조를 정의할 수
-          있는데, 이렇게 만든 타입을 (B)______이라고 부른다.
-        </p>
-      </div> */}
 
-      <div className="flex h-[48px] w-[288px] items-center rounded-[4px] bg-[#f2f3f5] px-[12px]">
-        <span className="mr-[12px] bg-[#f2f3f5] text-[18px] leading-[1.4] font-semibold tracking-[-0.03em] text-[#222222]">
-          {name}
-        </span>
-        <input
-          type="text"
-          value={value}
-          placeholder="정답을 입력해 주세요."
-          onChange={handleChange}
-          className="w-[272px] h-[48px] bg-[#f2f3f5] rounded-[4px] outline-none"
-        />
-      </div>
+  const getTextColor = (value: string, correct?: string) => {
+    if (!is_crrect || value.trim() === '') return 'text-black'
+    return value === correct ? 'text-[#14C786]' : 'text-[#EC0037]'
+  }
+
+  const getAlphaLabel = (i: number) => String.fromCharCode(65 + i)
+
+  return (
+    <div className="flex flex-col gap-[16px] pl-8">
+      <p className="mb-5 h-auto w-[486px] rounded bg-[#F9F9FA] pt-5 pr-4 pb-5 pl-4 text-[16px] leading-[1.5] text-[#222222]">
+        {prompt}
+      </p>
+
+      {Array.from({ length: blank_count }).map((_, index) => (
+        <div
+          key={index}
+          className="flex h-[48px] w-[288px] items-center rounded-[4px] bg-[#f2f3f5] px-[12px]"
+        >
+          <span className="mr-[12px] text-[18px] leading-[1.4] font-semibold tracking-[-0.03em] text-[#222222]">
+            {getAlphaLabel(index)}
+          </span>
+          <input
+            type="text"
+            value={values[index]}
+            onChange={(e) => handleChange(index, e.target.value)}
+            placeholder={placeholder}
+            disabled={disabled}
+            maxLength={20}
+            className={`h-[48px] w-[240px] rounded-[4px] bg-[#f2f3f5] text-[16px] outline-none ${getTextColor(
+              values[index],
+              correct_answer?.[index]
+            )}`}
+          />
+        </div>
+      ))}
     </div>
   )
 }
