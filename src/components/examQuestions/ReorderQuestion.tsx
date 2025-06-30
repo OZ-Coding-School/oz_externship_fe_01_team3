@@ -19,12 +19,12 @@ interface Option {
 export default function ReorderQuestion({
   disabled = false,
   options_json,
-  // question 여기선 div에는 필요없음 나중에 보낼때 어캐 보낼지 생각
+  // 제출 미구현 id 미사용
   question_id,
   student_answer = [],
   correct_answer = [],
   is_result = false,
-  onSelect
+  onSelect,
 }: ReorderQuestionProps) {
   const options: Option[] = options_json.map((text, index) => ({
     id: index.toString(),
@@ -40,7 +40,9 @@ export default function ReorderQuestion({
 
   useEffect(() => {
     if (student_answer.length > 0) {
-      const filled = student_answer.map((test) => options.find((opt) => opt.test === test) || null)
+      const filled = student_answer.map(
+        (test) => options.find((opt) => opt.test === test) || null
+      )
       setDroppedAnswers(filled)
     }
   }, [student_answer])
@@ -61,7 +63,9 @@ export default function ReorderQuestion({
     if (disabled || !draggingItem) return
 
     const newAnswers = [...droppedAnswers]
-    const existingIndex = newAnswers.findIndex((answer) => answer?.id === draggingItem.id)
+    const existingIndex = newAnswers.findIndex(
+      (answer) => answer?.id === draggingItem.id
+    )
 
     if (existingIndex === index) {
       setDraggingItem(null)
@@ -112,39 +116,43 @@ export default function ReorderQuestion({
   }
 
   return (
-    <div className="w-[680px] h-[310px] ml-[30px] mb-[100px]">
+    <div className="mb-[100px] ml-[30px] h-[310px] w-[680px]">
       {/* 상단 보기 박스 */}
-      <div className="w-[648px] h-[228px] ml-8 bg-[#F2F3F5] mb-5 rounded-[4px] pt-5 pb-5 pr-4 pl-4">
-        <div className="w-[276px] h-[188px] flex justify-start flex-col">
+      <div className="mb-5 ml-8 h-[228px] w-[648px] rounded-[4px] bg-[#F2F3F5] pt-5 pr-4 pb-5 pl-4">
+        <div className="flex h-[188px] w-[276px] flex-col justify-start">
           {options.map((option, index) => (
             <div
               key={option.id}
               draggable={!disabled}
               onDragStart={() => handleDragStart(option)}
-              className={`w-[276px] h-8 flex flex-row items-center ${index !== 0 ? 'mt-5' : ''} cursor-pointer`}
+              className={`flex h-8 w-[276px] flex-row items-center ${index !== 0 ? 'mt-5' : ''} cursor-pointer`}
             >
-              <div className="w-8 h-8 bg-[#EFE6FC] mr-2 rounded-[4px] flex justify-center text-[#6201E0] items-center">
+              <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#EFE6FC] text-[#6201E0]">
                 {option.label}
               </div>
-              <span className="font-medium text-base">{option.test}</span>
+              <span className="text-base font-medium">{option.test}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* 하단 드롭 박스 */}
-      <div className="w-[680px] h-[62px] pl-8 flex flex-row">
+      <div className="flex h-[62px] w-[680px] flex-row pl-8">
         {droppedAnswers.map((answer, index) => (
           <div
             key={index}
             onDragOver={(e) => handleDragOver(index, e)}
             onDragLeave={() => setDragOverIndex(null)}
             onDrop={() => handleDrop(index)}
-            className={`w-[62px] h-[62px] mr-[10px] rounded-[4px] flex justify-center items-center border border-gray-300 ${getBackgroundColor(index)}`}
+            className={`mr-[10px] flex h-[62px] w-[62px] items-center justify-center rounded-[4px] border border-gray-300 ${getBackgroundColor(index)}`}
             draggable={!disabled && !!answer}
             onDragStart={() => answer && handleDragStart(answer)}
           >
-            {answer ? <span className={`font-bold ${getTextColor(index)}`}>{answer.label}</span> : null}
+            {answer ? (
+              <span className={`font-bold ${getTextColor(index)}`}>
+                {answer.label}
+              </span>
+            ) : null}
           </div>
         ))}
       </div>

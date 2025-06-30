@@ -7,7 +7,8 @@ interface QuestionEmptyTextProps {
   disabled?: boolean
   student_answer?: string[]
   correct_answer?: string[]
-  is_crrect?: boolean
+  is_result?: boolean
+
   onChange: (value: string[]) => void
 }
 
@@ -18,7 +19,7 @@ export default function QuestionEmptyText({
   disabled = false,
   student_answer,
   correct_answer,
-  is_crrect = false,
+  is_result = false,
   onChange,
 }: QuestionEmptyTextProps) {
   const [values, setValues] = useState<string[]>(
@@ -39,7 +40,7 @@ export default function QuestionEmptyText({
   }
 
   const getTextColor = (value: string, correct?: string) => {
-    if (!is_crrect || value.trim() === '') return 'text-black'
+    if (!is_result || value.trim() === '') return 'text-black'
     return value === correct ? 'text-[#14C786]' : 'text-[#EC0037]'
   }
 
