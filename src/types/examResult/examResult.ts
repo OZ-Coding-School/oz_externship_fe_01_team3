@@ -1,22 +1,28 @@
 export type ExamResult = {
   id: number
-  title: string
-  thumbnail?: string
-  totalQuestions: number
-  questions: ExamQuestion[]
-  cheatingCount: number
+  cheating_count: number
+  answers_json: {
+    [questionId: string]: string[]
+  }
+  deployment: {
+    id: number
+    test: {
+      id: number
+      title: string
+      thumbnail_img_url: string
+    }
+    questions_snapshot_json: ExamQuestion[]
+  }
 }
 
 export type ExamQuestion = {
-  questionId: number
+  question_id: number
   type: string
   question: string
-  prompt?: string | null
-  blankCount?: number | null
-  options?: string[]
-  studentAnswer: string[]
-  correctAnswer: string[]
+  prompt: string | null
+  blank_count: number | null
+  options_json: string[]
+  answer: string[]
   point: number
   explanation: string
-  isCorrect: boolean
 }
