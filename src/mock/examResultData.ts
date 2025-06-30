@@ -2,136 +2,103 @@ import type { ExamResult } from '@/types/examResult/examResult'
 
 const examResultData: ExamResult = {
   id: 1,
-  title: 'TypeScript 쪽지시험',
-  thumbnail: '',
-  totalQuestions: 7,
-  questions: [
-    {
-      questionId: 101,
-      type: 'multiple_choice',
-      question:
-        'TypeScript 타입 좁히기 규칙에서, 안전하게 협동하는 상황에 타입 간 값 할당 방식은 무엇인가요?',
-      prompt: null,
-      options: [
-        '타입 간 관계가 없으면 할당이 불가',
-        '타입이 같은 경우만 할당 가능',
-        '값의 타입이 대상 타입의 서브 타입이면 할당 가능',
-        '값의 타입이 대상 타입의 슈퍼 타입이면 할당 가능',
-      ],
-      studentAnswer: ['값의 타입이 대상 타입의 슈퍼 타입이면 할당 가능'],
-      correctAnswer: ['값의 타입이 대상 타입의 서브 타입이면 할당 가능'],
-      point: 10,
-      explanation:
-        '값의 타입이 대상 타입의 서브 타입이어야 안전하게 할당됩니다. 반대의 경우 런타임 오류 가능성이 있습니다.',
-      isCorrect: false,
+  cheating_count: 1,
+  answers_json: {
+    '1': ['A'],
+    '2': ['x'],
+    '3': ['<html>', '<head>', '<body>', '<title>'],
+    '4': ['title'],
+    '5': [''],
+  },
+  deployment: {
+    id: 10,
+    test: {
+      id: 5,
+      title: 'CSS 기초 진단 평가',
+      thumbnail_img_url: 'https://example.com/images/css-test.jpg',
     },
-    {
-      questionId: 102,
-      type: 'single_choice',
-      question: '다음 중 TypeScript의 특징으로 올바른 것을 모두 골라주세요.',
-      prompt: null,
-      options: [
-        '동적 타입 검사',
-        '런타임에 타입 검사',
-        '인터프리터 기반 실행',
-        '자바스크립트와의 완벽한 호환',
-      ],
-      studentAnswer: ['자바스크립트와의 완벽한 호환'],
-      correctAnswer: ['자바스크립트와의 완벽한 호환'],
-      point: 10,
-      explanation:
-        'TypeScript는 컴파일 시점에 정적 타입 검사를 하며, 자바스크립트로 트랜스파일되어 호환됩니다.',
-      isCorrect: true,
-    },
-    {
-      questionId: 103,
-      type: 'multiple_choice',
-      question:
-        'TypeScript 타입 좁히기 규칙에서, 안전하게 협동하는 상황에 타입 간 값 할당 방식은 무엇인가요? 안전하게 허용되는 값-속성 타입 간의 관계는 무엇인가요?',
-      prompt: null,
-      options: [
-        '동일 타입일 때만 가능',
-        '값의 타입이 대상 타입의 서브 타입일 때 가능',
-        '값의 타입이 대상 타입의 슈퍼 타입일 때 가능',
-        '어떤 타입이든 가능',
-      ],
-      studentAnswer: [
-        '값의 타입이 대상 타입의 서브 타입일 때 가능',
-        '값의 타입이 대상 타입의 슈퍼 타입일 때 가능',
-      ],
-      correctAnswer: [
-        '값의 타입이 대상 타입의 서브 타입일 때 가능',
-        '값의 타입이 대상 타입의 슈퍼 타입일 때 가능',
-      ],
-      point: 10,
-      explanation: '안전한 타입 할당을 위해선 서브타입 관계가 필요합니다.',
-      isCorrect: true,
-    },
-    {
-      questionId: 104,
-      type: 'subjective',
-      question:
-        'TypeScript 타입 좁히기 규칙에서, 안전하게 협동하는 상황에 타입 간 값 할당 방식은 무엇인가요?',
-      prompt: null,
-      studentAnswer: ['값의 타입이 대상 타입의 슈퍼 타입이면 가능하다'],
-      correctAnswer: ['값의 타입이 대상 타입의 서브 타입일 때 가능하다'],
-      point: 10,
-      explanation:
-        '값의 타입이 대상 타입의 서브타입일 때 안전한 협동이 가능하므로 올바른 답변이 아닙니다.',
-      isCorrect: false,
-    },
-    {
-      questionId: 105,
-      type: 'subjective',
-      question:
-        'TypeScript 타입 좁히기 규칙에서, 안전하게 협동하는 상황에 타입 간 값 할당 방식은 무엇인가요?',
-      prompt: null,
-      blankCount: 2,
-      studentAnswer: [
-        '할당이 항상 허용되려면, 타입간의 관계가 있어야 한다',
-        'interface 또는 type 키워드를 사용하여 구조를 명확히 해야 함',
-      ],
-      correctAnswer: [
-        '값의 타입이 대상 타입의 서브 타입이면 가능하다',
-        'interface 또는 type 키워드를 사용하여 구조를 명확히 해야 함',
-      ],
-      point: 10,
-      explanation: '서브타입 관계 및 구조 정의가 타입 협동의 핵심입니다.',
-      isCorrect: true,
-    },
-    {
-      questionId: 106,
-      type: 'ox',
-      question: 'TypeScript에서 any 타입을 사용하면 모든 타입과 호환된다.',
-      prompt: null,
-      options: ['O', 'X'],
-      studentAnswer: ['O'],
-      correctAnswer: ['O'],
-      point: 5,
-      explanation: '`any`는 모든 타입과 호환되지만, 타입 안정성을 해칩니다.',
-      isCorrect: true,
-    },
-    {
-      questionId: 107,
-      type: 'multiple_choice',
-      question:
-        '코드가 실행되기까지의 과정을 순서 없이 모아놨어요. 올바른 순서를 정렬해볼까요?',
-      prompt: null,
-      options: [
-        '자바스크립트 코드 실행',
-        'TypeScript 파일 작성',
-        'TypeScript 파일 저장',
-        'TypeScript 파일 컴파일',
-      ],
-      studentAnswer: ['A', 'C', 'B', 'D'],
-      correctAnswer: ['B', 'C', 'D', 'A'],
-      point: 10,
-      explanation:
-        'TypeScript는 작성 → 저장 → 컴파일 → 실행의 순서로 동작합니다.',
-      isCorrect: false,
-    },
-  ],
-  cheatingCount: 0,
+    questions_snapshot_json: [
+      {
+        question_id: 1,
+        type: 'multiple_choice_single', // 객관식 단일 선택
+        question: 'HTML의 기본 구조를 이루는 태그는?',
+        prompt: null,
+        blank_count: null,
+        options_json: ['A. <html>', 'B. <head>', 'C. <body>', 'D. <div>'],
+        answer: ['A'],
+        point: 5,
+        explanation:
+          'HTML 문서는 항상 <html> 태그로 시작하여 웹페이지의 전체 구조를 감쌉니다. 이 태그는 문서의 루트 요소로, <head>와 <body>를 포함합니다.',
+      },
+      {
+        question_id: 2,
+        type: 'ox', // ox문제
+        question: 'CSS는 프로그래밍 언어이다.',
+        prompt: null,
+        blank_count: null,
+        options_json: ['O', 'X'],
+        answer: ['X'],
+        point: 5,
+        explanation:
+          'CSS는 스타일을 정의하는 선언형 언어이며, 조건문이나 반복문과 같은 로직을 포함하지 않아 일반적으로 프로그래밍 언어로 분류되지 않습니다.',
+      },
+      {
+        question_id: 3,
+        type: 'ordering', // 순서 정렬
+        question:
+          '다음 HTML 요소들을 웹 페이지에 표시되는 순서대로 정렬하세요.',
+        prompt: null,
+        blank_count: null,
+        options_json: ['<head>', '<html>', '<body>', '<title>'],
+        answer: ['<html>', '<head>', '<body>', '<title>'],
+        point: 10,
+        explanation:
+          'HTML 문서는 <html> 태그로 시작하고, 그 안에 <head>와 <body>가 위치합니다. 일반적으로 <head>는 <body>보다 먼저 선언되며, <title>은 <head> 내부에 들어가므로 <html> → <head> → <body> → <title> 순서로 표시되면 안 되고, 구조상 <title>은 <head> 안에 먼저 위치해야 합니다. 정답은 문서 구조의 논리적 순서를 반영해야 합니다.',
+      },
+      {
+        question_id: 4,
+        type: 'fill_in_blank', // 빈칸 채우기
+        question: '다음 문장의 빈칸을 채우세요.',
+        prompt: 'HTML에서 문서의 제목을 설정할 때 사용하는 태그는 <____>이다.',
+        blank_count: 1,
+        options_json: [],
+        answer: ['title'],
+        point: 5,
+        explanation:
+          '<title> 태그는 웹 브라우저의 탭이나 검색 엔진 결과에 표시되는 문서의 제목을 정의하는 데 사용됩니다. 이 태그는 <head> 태그 내부에 위치해야 합니다.',
+      },
+      {
+        question_id: 5,
+        type: 'short_answer', // 주관식 단답형
+        question: '다음 문장의 빈칸을 채우세요.',
+        prompt:
+          'HTML의 <____> 태그는 문서의 제목을 정의하고, <____> 태그 안에 위치한다.',
+        blank_count: 2,
+        options_json: [],
+        answer: ['<title>', '<head>'],
+        point: 5,
+        explanation:
+          'color 속성은 HTML 요소의 텍스트 색상을 지정하는 데 사용됩니다. 예를 들어, color: red;는 텍스트 색상을 빨간색으로 설정합니다.',
+      },
+      {
+        question_id: 6,
+        type: 'multiple_choice_multiple',
+        question: '다음 중 CSS에서 글자 색상과 관련된 속성을 모두 고르세요.',
+        prompt: null,
+        blank_count: null,
+        options_json: [
+          'A. color',
+          'B. background-color',
+          'C. font-size',
+          'D. text-align',
+        ],
+        answer: ['A', 'B'],
+        point: 5,
+        explanation:
+          'color는 글자 색상을 지정하고, background-color는 배경 색상을 지정합니다. font-size와 text-align은 각각 글자 크기와 정렬에 관한 속성입니다.',
+      },
+    ],
+  },
 }
 
 export default examResultData
