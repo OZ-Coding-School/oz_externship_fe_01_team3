@@ -16,16 +16,11 @@ body {
   --color-gray-200: #bdbdbd;
 
   --text-orange-primary: #f85402;
-
-  --text-title-lg: 32px;
-  --text-title-md: 20px;
-  --text-title-sm: 18px;
-  --text-title-xsm: 16px;
 }
 
 /* Qustion 메인 컨테이너 */
 @utility container-style {
-  @apply flex h-[128px] max-w-screen items-center border-b border-[#bdbdbd] bg-[#fafafa] px-4;
+  @apply flex h-32 max-w-screen items-center border-b border-[#bdbdbd] bg-[#fafafa] px-4;
 }
 
 @utility container-style-option {
@@ -62,7 +57,7 @@ body {
 }
 /* 문제 점수, 선택 */
 @utility exam-type-label {
-  @apply rounded-[2px] bg-gray-100 text-xs font-normal text-[#121212];
+  @apply rounded-[2px] bg-gray-100 text-[16px] font-normal text-[#121212];
 }
 /* 라디오, 체크박스 옆에 들어가는 텍스트트 */
 @utility quiz-option {
@@ -71,25 +66,25 @@ body {
 
 /* submit 버튼 */
 @utility submit-btn {
-  @apply text-title-xsm bg-purple-primary h-12 w-87 font-normal;
+  @apply bg-purple-primary h-16 text-[18px] font-normal;
 }
 
 /* 결과 페이지 틀린 문제 설명 박스 */
 @utility result-wrong-box {
-  @apply bg-red-primary text-title-xsm font-normal text-balance;
+  @apply bg-red-primary text-[16px] font-normal text-balance;
 }
 
 /* 결과 페이지 맞춘 문제 설명 박스 */
 @utility result-correct-box {
-  @apply bg-green-primary text-title-xsm font-normal text-balance;
+  @apply bg-green-primary text-[16px] font-normal text-balance;
 }
 
 /* 오답 부분 텍스트 */
 @utility wrong-text {
-  @apply text-red-danger text-title-xsm font-normal text-balance;
+  @apply text-red-danger font-normal text-balance;
 }
 
 /* 정답 부분 텍스트*/
 @utility correct-text {
-  @apply text-green-correct text-titem-xsm font-normal text-balance;
+  @apply text-green-correct font-normal text-balance;
 }
