@@ -2,6 +2,32 @@ import SocialButton from "@/components/common/SocialButton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+
+
+// 비밀번호 찾기 내용 컴포넌트
+function FindPwContent() {
+     const [foundPw, setFoundPw] = useState('') //백엔드 연결 전 가짜 정보 저장용 - 비밀번호 찾기용
+
+    return(
+        <div>
+             <div className="flex justify-center mt-[10px] flex-col items-center ">
+                <img src="src/assets/FindPwicon.png" alt="find" className="w-[28px] h-[28px] mb-[16px] " />
+                <p className="text-[#121212]  text-[20px] font-bold mb-[16px] leading-none">
+                    {foundPw ? "비밀번호 찾기" : "비밀번호 재설정"}
+                </p>
+                <p className="text-[#121212]  text-[20px] font-bold mb-[16px] leading-none">
+                    {foundPw ? "비밀번호 찾기" : "비밀번호 재설정"}
+                </p>
+
+                
+            </div>
+
+        </div>
+
+    )
+}
+
+
 // 아이디 찾기, 비밀번호 찾기 공통 보라색 버튼 컴포넌트
 function CommonButton({onClick, text}) {
 
@@ -12,7 +38,7 @@ function CommonButton({onClick, text}) {
     )
 }
 // 아이디 찾기 내용 컴포넌트 
-function FindIdContent({onClick, text}){
+function FindIdContent({onClick, text, setModalContentType }){
     const { register, handleSubmit, formState: { errors }, watch, setValue,} = useForm()
     const nameValue = watch('name')
     const phoneValue = watch('phone')
@@ -21,6 +47,11 @@ function FindIdContent({onClick, text}){
     const [errorMessage, setErrorMessage] = useState('');
     const [successFindId, setSuccessFindId] = useState(false) //성공시 모달 보여줄 용
     const [foundId, setFoundId] = useState('') //백엔드 연결 전 가짜 아이디 저장용
+
+    //누르면, 비밀번호 찾기 화면 상태로 바꾸는 함수
+    const handleClickFindPw = () => {
+        setModalContentType("findPwType");
+    }
 
     //백엔드 전 임시 (오류메세지 설정용)
     const findId = (data: any) => {
@@ -72,7 +103,8 @@ function FindIdContent({onClick, text}){
                     </div>
                     <div className="flex mb-[24px]">
                         <button className="w-[168px] h-[48px] border border-[#6201E0] text-[16px] text-[#6201E0] font-semibold rounded-[4px] mr-[12px]">로그인</button>
-                        <button className="w-[168px] h-[48px] bg-[#6201E0] text-[#FAFAFA] text-[16px] font-semibold rounded-[4px]">비밀번호 찾기</button>
+                        <button className="w-[168px] h-[48px] bg-[#6201E0] text-[#FAFAFA] text-[16px] font-semibold rounded-[4px]" 
+                                onClick={handleClickFindPw}>비밀번호 찾기</button>
 
                     </div>
               </div>
@@ -219,6 +251,8 @@ export default function Login() {
     //모달 관련 상태
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [modalContentType, setModalContentType] = useState<'findIdType'|'findPwType'>('findIdType'); //모달에 어떤  찾기 화면 보여줄지 상태(아이디찾기, 비밀번호 찾기)
+
 
     return(
             < div className="flex flex-col items-center pt-20">
@@ -291,12 +325,17 @@ export default function Login() {
                     />
                     </div>
                         <div className="flex justify-start  w-full text-sm text-[#4D4D4D]">
-                            <button onClick={()=>setIsModalOpen(true)} className="mr-[8px]">아이디 찾기</button>
-                            {isModalOpen && <FindModal onClose={()=>setIsModalOpen(false)}>{<FindIdContent/>}</FindModal>}
+                            <button onClick={()=>{setIsModalOpen(true); setModalContentType('findIdType');}} className="mr-[8px]">아이디 찾기</button>
+                            {isModalOpen && 
+                            <FindModal onClose={()=>setIsModalOpen(false)}>
+                                {modalContentType === 'findIdType' && (<FindIdContent setModalContentType ={setModalContentType} />)}
+                                {modalContentType === 'findPwType' && (<FindPwContent />)}
+
+                            </FindModal>}
 
                             <p className="mr-[8px]">|</p>
 
-                            <button>비밀번호 찾기</button>
+                            <button onClick={()=>{setIsModalOpen(true); setModalContentType('findPwType')}}>비밀번호 찾기</button>
 
                         </div>
 
