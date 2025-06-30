@@ -7,6 +7,7 @@ interface CheckBoxTypeProps {
   student_answer?: string[]
   correct_answer?: string[]
   is_result?: boolean
+  exam_h: string
   onSelect?: (selected: string[]) => void
 }
 
@@ -15,6 +16,7 @@ export default function CheckBoxType({
   question_Id,
   disabled = false,
   is_result = false,
+  exam_h,
   student_answer = [],
   correct_answer = [],
   onSelect,
@@ -38,7 +40,7 @@ export default function CheckBoxType({
     if (onSelect) onSelect(newSelected)
   }
   return (
-    <div className="flex h-[144px] w-[1000px] flex-col pr-[26px] pl-8">
+    <div className={`flex ${exam_h} w-[1000px] flex-col pr-[26px] pl-8`}>
       {options.map((option, index) => {
         const ISCHECKED = is_result && student_answer.includes(option)
         const ISCORRECT = correct_answer.includes(option)
