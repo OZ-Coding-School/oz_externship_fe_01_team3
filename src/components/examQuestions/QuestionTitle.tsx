@@ -14,7 +14,7 @@ export default function QuestionTitle({
   type,
 }: QuestionTitleProps) {
   return (
-    <div className="flex flex-row gap-2">
+    <div className="mb-5 flex flex-row gap-2">
       <div className={`${QustionTitleFontStyle} text-[20px] font-bold`}>
         {number}.{' '}
       </div>
