@@ -51,60 +51,69 @@ export default function CheckBoxType({
   const ISWRONG = is_result && !ISCORRECT
 
   return (
-    <div className="flex h-[144px] w-[1000px] flex-col pr-[26px] pl-8">
-      {options.map((option, index) => {
-        const optionKey = getOptionKey(option)
-        /* 결과 창일 때 체크 여부 확인 */
-        const ISCHECKED = is_result
-          ? student_answer.includes(optionKey)
-          : selected.includes(optionKey)
+    <>
+      <div className="flex h-[144px] w-[1000px] flex-col pr-[26px] pl-8">
+        {options.map((option, index) => {
+          const optionKey = getOptionKey(option)
+          /* 결과 창일 때 체크 여부 확인 */
+          const ISCHECKED = is_result
+            ? student_answer.includes(optionKey)
+            : selected.includes(optionKey)
 
-        const ISCORRECT_OPTION = is_result && correct_answer.includes(optionKey)
-        const ISWRONG_OPTION = is_result && ISCHECKED && !ISCORRECT_OPTION
+          const ISCORRECT_OPTION =
+            is_result && correct_answer.includes(optionKey)
+          const ISWRONG_OPTION = is_result && ISCHECKED && !ISCORRECT_OPTION
 
-        const TEXTCOLOR = ISCORRECT_OPTION
-          ? 'text-[#14c786]'
-          : ISWRONG_OPTION
-            ? 'text-[#ec0037]'
-            : 'text-[#222222]'
+          const TEXTCOLOR = ISCORRECT_OPTION
+            ? 'text-[#14c786]'
+            : ISWRONG_OPTION
+              ? 'text-[#ec0037]'
+              : 'text-[#222222]'
 
-        const checkboxId = `${question_Id}-${index}`
-        return (
-          <div key={checkboxId}>
-            <label
-              key={checkboxId}
-              htmlFor={checkboxId}
-              className={`flex h-[27px] w-[942px] cursor-pointer items-center ${index !== 0 ? 'mt-3' : ''}`}
-            >
-              <div className="relative mt-[4.5px] mr-3 mb-[4.5px] h-[18px] w-[18px]">
-                <input
-                  checked={is_result ? ISCHECKED : selected.includes(option)}
-                  id={checkboxId}
-                  type="checkbox"
-                  name={`question-${question_Id}`}
-                  value={option}
-                  onChange={() => {
-                    handelChange(option)
-                  }}
-                  className="peer h-full w-full cursor-pointer appearance-none rounded-[2px] border border-[#BDBDBD] checked:border-[#6200FF] checked:bg-[#6200FF]"
-                  disabled={disabled}
-                />
-                <div className="absolute top-1/2 left-1/2 w-4 -translate-x-1/2 -translate-y-1/2 transform opacity-0 transition-opacity duration-200 peer-checked:opacity-100">
-                  <img src="/src/assets/check.svg " className="h-full w-full" />
+          const checkboxId = `${question_Id}-${index}`
+          return (
+            <div key={checkboxId}>
+              <label
+                key={checkboxId}
+                htmlFor={checkboxId}
+                className={`flex h-[27px] w-[942px] cursor-pointer items-center ${index !== 0 ? 'mt-3' : ''}`}
+              >
+                <div className="relative mt-[4.5px] mr-3 mb-[4.5px] h-[18px] w-[18px]">
+                  <input
+                    checked={is_result ? ISCHECKED : selected.includes(option)}
+                    id={checkboxId}
+                    type="checkbox"
+                    name={`question-${question_Id}`}
+                    value={option}
+                    onChange={() => {
+                      handelChange(option)
+                    }}
+                    className="peer h-full w-full cursor-pointer appearance-none rounded-[2px] border border-[#BDBDBD] checked:border-[#6200FF] checked:bg-[#6200FF]"
+                    disabled={disabled}
+                  />
+                  <div className="absolute top-1/2 left-1/2 w-4 -translate-x-1/2 -translate-y-1/2 transform opacity-0 transition-opacity duration-200 peer-checked:opacity-100">
+                    <img
+                      src="/src/assets/check.svg "
+                      className="h-full w-full"
+                    />
+                  </div>
                 </div>
-              </div>
-              <span className={`text-base font-medium ${TEXTCOLOR}`}>
-                {option}
-              </span>
-            </label>
-          </div>
-        )
-      })}
-      {ISWRONG && (
-        <div className="mt-2 ml-7 rounded-md bg-[#FFEFF0] p-2 text-sm text-[#ec0037]">
+                <span className={`text-base font-medium ${TEXTCOLOR}`}>
+                  {option}
+                </span>
+              </label>
+            </div>
+          )
+        })}
+      </div>
+      <div
+        className={`mt-5 ml-8 flex h-20 w-242 items-center px-6 py-4 ${ISWRONG ? 'wrong-text result-wrong-box' : 'correct-text result-correct-box'}`}
+      >
+        <div className="mr-3 shrink-0 text-2xl">{ISWRONG ? '❌' : '🟢'}</div>
+        <div className="text-base leading-[1.4] tracking-[-0.03em] break-words">
           {explanation}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   )
 }
