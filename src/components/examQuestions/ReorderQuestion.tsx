@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
+import ExamResultExplanation from './examQuestionUI/ExamResultExplanation'
 
 interface ReorderQuestionProps {
   disabled?: boolean
   options_json: string[]
-  question_id: number
+  question_Id: number
   student_answer?: string[]
   correct_answer?: string[]
+  explanation?: string
   is_result?: boolean
   onSelect?: (answer: string[]) => void
 }
@@ -20,7 +22,7 @@ export default function ReorderQuestion({
   disabled = false,
   options_json,
   // 제출 미구현 id 미사용
-  question_id,
+  explanation,
   student_answer = [],
   correct_answer = [],
   is_result = false,
@@ -115,49 +117,59 @@ export default function ReorderQuestion({
     return 'bg-[#F2F3F5]'
   }
 
+  const IS_WRONG_CHECK = droppedAnswers.some((_, index) => isWrongAnswer(index))
+
   return (
-    <div className="mb-[100px] ml-[30px] h-[310px] w-[680px]">
-      {/* 상단 보기 박스 */}
-      <div className="mb-5 ml-8 h-[228px] w-[648px] rounded-[4px] bg-[#F2F3F5] pt-5 pr-4 pb-5 pl-4">
-        <div className="flex h-[188px] w-[276px] flex-col justify-start">
-          {options.map((option, index) => (
-            <div
-              key={option.id}
-              draggable={!disabled}
-              onDragStart={() => handleDragStart(option)}
-              className={`flex h-8 w-[276px] flex-row items-center ${index !== 0 ? 'mt-5' : ''} cursor-pointer`}
-            >
-              <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#EFE6FC] text-[#6201E0]">
-                {option.label}
+    <>
+      <div className="mb-[100px] ml-[30px] h-[310px] w-[680px]">
+        {/* 상단 보기 박스 */}
+        <div className="mb-5 ml-8 h-[228px] w-[648px] rounded-[4px] bg-[#F2F3F5] pt-5 pr-4 pb-5 pl-4">
+          <div className="flex h-[188px] w-[276px] flex-col justify-start">
+            {options.map((option, index) => (
+              <div
+                key={option.id}
+                draggable={!disabled}
+                onDragStart={() => handleDragStart(option)}
+                className={`flex h-8 w-[276px] flex-row items-center ${index !== 0 ? 'mt-5' : ''} cursor-pointer`}
+              >
+                <div className="mr-2 flex h-8 w-8 items-center justify-center rounded-[4px] bg-[#EFE6FC] text-[#6201E0]">
+                  {option.label}
+                </div>
+                <span className="text-base font-medium">{option.test}</span>
               </div>
-              <span className="text-base font-medium">{option.test}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* 하단 드롭 박스 */}
+        <div className="flex h-[62px] w-[680px] flex-row pl-8">
+          {droppedAnswers.map((answer, index) => (
+            <div
+              key={index}
+              onDragOver={(e) => handleDragOver(index, e)}
+              onDragLeave={() => setDragOverIndex(null)}
+              onDrop={() => handleDrop(index)}
+              className={`mr-[10px] flex h-[62px] w-[62px] items-center justify-center rounded-[4px] border border-gray-300 ${getBackgroundColor(index)}`}
+              draggable={!disabled && !!answer}
+              onDragStart={() => answer && handleDragStart(answer)}
+            >
+              {answer ? (
+                <span className={`font-bold ${getTextColor(index)}`}>
+                  {answer.label}
+                </span>
+              ) : null}
             </div>
           ))}
         </div>
+
+        <input type="hidden" name="answer" value={answerString} />
       </div>
 
-      {/* 하단 드롭 박스 */}
-      <div className="flex h-[62px] w-[680px] flex-row pl-8">
-        {droppedAnswers.map((answer, index) => (
-          <div
-            key={index}
-            onDragOver={(e) => handleDragOver(index, e)}
-            onDragLeave={() => setDragOverIndex(null)}
-            onDrop={() => handleDrop(index)}
-            className={`mr-[10px] flex h-[62px] w-[62px] items-center justify-center rounded-[4px] border border-gray-300 ${getBackgroundColor(index)}`}
-            draggable={!disabled && !!answer}
-            onDragStart={() => answer && handleDragStart(answer)}
-          >
-            {answer ? (
-              <span className={`font-bold ${getTextColor(index)}`}>
-                {answer.label}
-              </span>
-            ) : null}
-          </div>
-        ))}
-      </div>
-
-      <input type="hidden" name="answer" value={answerString} />
-    </div>
+      <ExamResultExplanation
+        IS_WRONG_CHECK={IS_WRONG_CHECK}
+        explanation={explanation}
+        is_result={is_result}
+      />
+    </>
   )
 }

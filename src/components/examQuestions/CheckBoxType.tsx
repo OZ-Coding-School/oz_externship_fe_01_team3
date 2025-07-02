@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react'
+import ExamResultExplanation from './examQuestionUI/ExamResultExplanation'
+import useExamValidation from '@/hooks/examResult/useExamValidation'
+import ExamOption from '@/hooks/examResult/useExamOption'
 
 interface CheckBoxTypeProps {
   options: string[]
@@ -43,32 +46,23 @@ export default function CheckBoxType({
     if (onSelect) onSelect(newSelected)
   }
   /* 정답 확인 */
-  const ISCORRECT =
-    is_result &&
-    correct_answer.length === student_answer.length &&
-    correct_answer.every((answer) => student_answer.includes(answer))
-  /* 오답 확인 */
-  const ISWRONG = is_result && !ISCORRECT
+  const { IS_WRONG_CHECK } = useExamValidation(
+    is_result,
+    correct_answer,
+    student_answer
+  )
 
   return (
     <>
       <div className="flex h-[144px] w-[1000px] flex-col pr-[26px] pl-8">
         {options.map((option, index) => {
-          const optionKey = getOptionKey(option)
-          /* 결과 창일 때 체크 여부 확인 */
-          const ISCHECKED = is_result
-            ? student_answer.includes(optionKey)
-            : selected.includes(optionKey)
-
-          const ISCORRECT_OPTION =
-            is_result && correct_answer.includes(optionKey)
-          const ISWRONG_OPTION = is_result && ISCHECKED && !ISCORRECT_OPTION
-
-          const TEXTCOLOR = ISCORRECT_OPTION
-            ? 'text-[#14c786]'
-            : ISWRONG_OPTION
-              ? 'text-[#ec0037]'
-              : 'text-[#222222]'
+          const { IS_CHECKED, TEXT_COLOR } = ExamOption(
+            option,
+            is_result,
+            student_answer,
+            selected,
+            correct_answer
+          )
 
           const checkboxId = `${question_Id}-${index}`
           return (
@@ -80,7 +74,7 @@ export default function CheckBoxType({
               >
                 <div className="relative mt-[4.5px] mr-3 mb-[4.5px] h-[18px] w-[18px]">
                   <input
-                    checked={is_result ? ISCHECKED : selected.includes(option)}
+                    checked={is_result ? IS_CHECKED : selected.includes(option)}
                     id={checkboxId}
                     type="checkbox"
                     name={`question-${question_Id}`}
@@ -98,7 +92,7 @@ export default function CheckBoxType({
                     />
                   </div>
                 </div>
-                <span className={`text-base font-medium ${TEXTCOLOR}`}>
+                <span className={`text-base font-medium ${TEXT_COLOR}`}>
                   {option}
                 </span>
               </label>
@@ -106,14 +100,11 @@ export default function CheckBoxType({
           )
         })}
       </div>
-      <div
-        className={`mt-5 ml-8 flex h-20 w-242 items-center px-6 py-4 ${ISWRONG ? 'wrong-text result-wrong-box' : 'correct-text result-correct-box'}`}
-      >
-        <div className="mr-3 shrink-0 text-2xl">{ISWRONG ? '❌' : '🟢'}</div>
-        <div className="text-base leading-[1.4] tracking-[-0.03em] break-words">
-          {explanation}
-        </div>
-      </div>
+      <ExamResultExplanation
+        IS_WRONG_CHECK={IS_WRONG_CHECK}
+        explanation={explanation}
+        is_result={is_result}
+      />
     </>
   )
 }
