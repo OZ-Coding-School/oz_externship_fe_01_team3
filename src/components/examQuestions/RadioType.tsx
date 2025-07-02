@@ -61,31 +61,29 @@ export default function RadioType({
           const radioId = `${question_Id}-${index}`
 
           return (
-            <div key={radioId}>
-              <label
-                key={radioId}
-                htmlFor={radioId}
-                className={`flex h-[27px] w-[942px] cursor-pointer items-center ${index !== 0 ? 'mt-3' : ''}`}
-              >
-                <div className="relative mt-[4.5px] mr-3 mb-[4.5px] flex h-[18px] w-[18px] gap-5">
-                  <input
-                    id={radioId}
-                    type="radio"
-                    name={`question-${question_Id}`}
-                    value={optionKey}
-                    checked={IS_CHECKED}
-                    onChange={() => handleChange(optionKey)}
-                    className="peer h-full w-full appearance-none rounded-full border-1 border-[#BDBDBD] checked:border-[#6200FF] checked:bg-[#6200FF]"
-                    disabled={disabled || is_result}
-                  />
-                  <div className="absolute top-1/2 left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-[#ECECEC] transition-opacity duration-200 peer-checked:opacity-0" />
-                  <div className="absolute top-1/2 left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-white opacity-0 transition-opacity duration-200 peer-checked:opacity-100" />
-                </div>
-                <span className={`text-base font-medium ${TEXT_COLOR}`}>
-                  {option}
-                </span>
-              </label>
-            </div>
+            <label
+              key={radioId}
+              htmlFor={radioId}
+              className={`flex h-[27px] w-[942px] cursor-pointer items-center ${index !== 0 ? 'mt-3' : ''}`}
+            >
+              <div className="relative mt-[4.5px] mr-3 mb-[4.5px] flex h-[18px] w-[18px] gap-5">
+                <input
+                  id={radioId}
+                  type="radio"
+                  name={`question-${question_Id}`}
+                  value={optionKey}
+                  checked={IS_CHECKED}
+                  onChange={() => handleChange(optionKey)}
+                  className="peer h-full w-full appearance-none rounded-full border-1 border-[#BDBDBD] checked:border-[#6200FF] checked:bg-[#6200FF]"
+                  disabled={disabled || is_result}
+                />
+                <div className="absolute top-1/2 left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-[#ECECEC] transition-opacity duration-200 peer-checked:opacity-0" />
+                <div className="absolute top-1/2 left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-white opacity-0 transition-opacity duration-200 peer-checked:opacity-100" />
+              </div>
+              <span className={`text-base font-medium ${TEXT_COLOR}`}>
+                {option}
+              </span>
+            </label>
           )
         })}
       </div>
