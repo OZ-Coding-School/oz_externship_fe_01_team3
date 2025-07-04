@@ -158,11 +158,12 @@ export default function OxType({
           )
         })}
       </div>
-      <ExamResultExplanation
-        IS_WRONG_CHECK={IS_WRONG_CHECK}
-        explanation={explanation}
-        is_result={is_result}
-      />
+      {is_result && (
+        <ExamResultExplanation
+          IS_WRONG_CHECK={IS_WRONG_CHECK}
+          explanation={explanation}
+        />
+      )}
     </>
   )
 }
