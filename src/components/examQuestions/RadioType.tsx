@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ExamResultExplanation from './examQuestionUI/ExamResultExplanation'
-import useExamValidation from '@/hooks/examResult/useExamValidation'
-import ExamOption from '@/hooks/examResult/useExamOption'
+import useExamValidation from '@/hooks/examResult/ExamValidation'
+import ExamOption from '@/hooks/examResult/ExamOption'
 
 interface RadioTypeProps {
   options: string[]
@@ -50,13 +50,13 @@ export default function RadioType({
     <>
       <div className="flex h-[144px] w-[1000px] flex-col pr-[26px] pl-8">
         {options.map((option, index) => {
-          const { optionKey, IS_CHECKED, TEXT_COLOR } = ExamOption(
+          const { optionKey, IS_CHECKED, TEXT_COLOR } = ExamOption({
             option,
             is_result,
             student_answer,
             selected,
-            correct_answer
-          )
+            correct_answer,
+          })
 
           const radioId = `${question_Id}-${index}`
 

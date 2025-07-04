@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import ExamResultExplanation from './examQuestionUI/ExamResultExplanation'
-import useExamValidation from '@/hooks/examResult/useExamValidation'
+import useExamValidation from '@/hooks/examResult/ExamValidation'
 
 interface QuestionEmptyTextProps {
   placeholder?: string

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
 import ExamResultExplanation from './examQuestionUI/ExamResultExplanation'
-import useExamValidation from '@/hooks/examResult/useExamValidation'
-import ExamOption from '@/hooks/examResult/useExamOption'
+import useExamValidation from '@/hooks/examResult/ExamValidation'
+import ExamOption from '@/hooks/examResult/ExamOption'
 interface OxTypeProps {
   options: string[]
   question_Id: number
@@ -53,11 +53,13 @@ export default function OxType({
           const inputId = `question-${question_Id}-${index}`
 
           const { IS_CHECKED, IS_WRONG_OPTION, IS_CORRECT_OPTION } = ExamOption(
-            option,
-            is_result,
-            student_answer,
-            selected,
-            correct_answer
+            {
+              option,
+              is_result,
+              student_answer,
+              selected,
+              correct_answer,
+            }
           )
 
           //함수는 다 빼자
