@@ -1,10 +1,18 @@
 /** POST: ModalRequest Types */
 export type ModalRequest = { access_code: string }
 
+export type QuestionType =
+  | 'multiple_choice_single'
+  | 'multiple_choice_multiple'
+  | 'ox'
+  | 'ordering'
+  | 'short_answer'
+  | 'fill_in_blank'
+
 /** 200 OK: ModalSuccessResponse Types */
 export type QuestionSnapshot = {
   question_id: number
-  type: 'multiple_choice' | 'ox' | 'ordering' | 'fill_in_blank'
+  type: QuestionType
   question: string
   prompt: string | null
   blank_count: number | null
