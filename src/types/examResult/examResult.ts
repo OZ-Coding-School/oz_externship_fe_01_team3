@@ -26,3 +26,11 @@ export type ExamQuestion = {
   point: number
   explanation: string
 }
+
+export type CommonPropsType = {
+  disabled: boolean
+  student_answer: string[]
+  correct_answer: string[]
+  explanation: string
+  is_result: boolean
+}
