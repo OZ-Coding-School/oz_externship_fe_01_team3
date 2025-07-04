@@ -1,12 +1,17 @@
-/* 훅은 아닌데 유틸 폴더가 없어서 일단 임의로 훅 폴더에에 넣어둠 */
-
-export default function ExamOption(
-  option: string,
-  is_result: boolean,
-  student_answer: string[],
-  selected: string | string[] | null,
+interface ExamOptionProps {
+  option: string
+  is_result: boolean
+  student_answer: string[]
+  selected: string | string[] | null
   correct_answer: string[]
-) {
+}
+export default function ExamOption({
+  option,
+  is_result,
+  student_answer,
+  selected,
+  correct_answer,
+}: ExamOptionProps) {
   const getOptionKey = (option: string) => option.split('.')[0].trim()
   const optionKey = getOptionKey(option)
 
