@@ -3,6 +3,7 @@ import ProtectedRoute from '@/components/ProtectedRoute'
 import { createBrowserRouter, Outlet } from 'react-router'
 import LandingPage from './LandingPage'
 import { Header } from '@/components/common/Header'
+import ExamResult from './ExamResult'
 
 // TODO: 임시 컴포넌트들 - 실제 컴포넌트 구현 후 교체 예정입니다. (각자 파트로 교체 해주세요 😀)
 const AuthPage = () => <div>Auth Page - 구현 예정</div>
@@ -74,7 +75,7 @@ export const router = createBrowserRouter([
         path: 'quiz/:quizId/result',
         element: (
           <ProtectedRoute requireAuth>
-            <QuizResult />
+            <ExamResult />
           </ProtectedRoute>
         ),
       },
