@@ -8,6 +8,69 @@ import QuestionTitle from '@/components/examQuestions/QuestionTitle'
 import RadioType from '@/components/examQuestions/RadioType'
 import ReorderQuestion from '@/components/examQuestions/ReorderQuestion'
 import examResultData from '@/mock/examResultData'
+import type {
+  CommonPropsType,
+  ExamQuestion,
+} from '@/types/examResult/examResult'
+
+const getContext = (
+  type: string,
+  question: ExamQuestion,
+  COMMON_PROPS: CommonPropsType
+) => {
+  switch (type) {
+    case 'multiple_choice_single':
+      return (
+        <RadioType
+          {...COMMON_PROPS}
+          options={question.options_json}
+          question_Id={question.question_id}
+        />
+      )
+    case 'multiple_choice_multiple':
+      return (
+        <CheckBoxType
+          {...COMMON_PROPS}
+          options={question.options_json}
+          question_Id={question.question_id}
+        />
+      )
+    case 'ox':
+      return (
+        <OxType
+          {...COMMON_PROPS}
+          options={question.options_json}
+          question_Id={question.question_id}
+        />
+      )
+    case 'ordering':
+      return (
+        <ReorderQuestion
+          {...COMMON_PROPS}
+          options_json={question.options_json}
+          question_Id={question.question_id}
+        />
+      )
+    case 'fill_in_blank':
+      return (
+        <QuestionTextarea
+          {...COMMON_PROPS}
+          question_Id={question.question_id}
+          prompt={question.prompt as string}
+        />
+      )
+    case 'short_answer':
+      return (
+        <QuestionEmptyText
+          {...COMMON_PROPS}
+          blank_count={question.blank_count ?? 0}
+          prompt={question.prompt as string}
+        />
+      )
+    default:
+      return <div className="text-red-500">지원하지 않는 문제 타입입니다.</div>
+  }
+}
 
 export default function ExamResult() {
   return (
@@ -20,13 +83,11 @@ export default function ExamResult() {
       <QuestionResultSubBanner />
       <div className="mt-20 ml-90 flex flex-col gap-25">
         {examResultData.deployment.questions_snapshot_json.map(
-          (question, index) => {
+          (question: ExamQuestion, index: number) => {
             const userAnswer =
               examResultData.answers_json[question.question_id.toString()] ?? []
 
-            let questionComponent = null
-
-            const COMMON_PROPS = {
+            const COMMON_PROPS: CommonPropsType = {
               disabled: true,
               student_answer: userAnswer,
               correct_answer: question.answer,
@@ -34,68 +95,6 @@ export default function ExamResult() {
               is_result: true,
             }
 
-            switch (question.type) {
-              case 'multiple_choice_single':
-                questionComponent = (
-                  <RadioType
-                    {...COMMON_PROPS}
-                    options={question.options_json}
-                    question_Id={question.question_id}
-                  />
-                )
-                break
-              case 'multiple_choice_multiple':
-                questionComponent = (
-                  <CheckBoxType
-                    {...COMMON_PROPS}
-                    options={question.options_json}
-                    question_Id={question.question_id}
-                  />
-                )
-                break
-              case 'ox':
-                questionComponent = (
-                  <OxType
-                    {...COMMON_PROPS}
-                    options={question.options_json}
-                    question_Id={question.question_id}
-                  />
-                )
-                break
-              case 'ordering':
-                questionComponent = (
-                  <ReorderQuestion
-                    options_json={question.options_json}
-                    question_Id={question.question_id}
-                    {...COMMON_PROPS}
-                  />
-                )
-                break
-              case 'fill_in_blank':
-                questionComponent = (
-                  <QuestionTextarea
-                    {...COMMON_PROPS}
-                    question_Id={question.question_id}
-                    prompt={question.prompt as string}
-                  />
-                )
-                break
-              case 'short_answer':
-                questionComponent = (
-                  <QuestionEmptyText
-                    {...COMMON_PROPS}
-                    blank_count={question.blank_count ?? 0}
-                    prompt={question.prompt as string}
-                  />
-                )
-                break
-              default:
-                questionComponent = (
-                  <div className="text-red-500">
-                    지원하지 않는 문제 타입입니다.
-                  </div>
-                )
-            }
             return (
               <div key={question.question_id} className="mb-8">
                 <QuestionTitle
@@ -104,7 +103,7 @@ export default function ExamResult() {
                   score={question.point}
                   type={question.type}
                 />
-                {questionComponent}
+                {getContext(question.type, question, COMMON_PROPS)}
               </div>
             )
           }
