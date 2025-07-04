@@ -165,11 +165,12 @@ export default function ReorderQuestion({
         <input type="hidden" name="answer" value={answerString} />
       </div>
 
-      <ExamResultExplanation
-        IS_WRONG_CHECK={IS_WRONG_CHECK}
-        explanation={explanation}
-        is_result={is_result}
-      />
+      {is_result && (
+        <ExamResultExplanation
+          IS_WRONG_CHECK={IS_WRONG_CHECK}
+          explanation={explanation}
+        />
+      )}
     </>
   )
 }
