@@ -21,7 +21,7 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
 
   useEffect(() => {
     if (isSuccess && data) {
-      navigate(`/exam/${data.test_id}`, { state: data })
+      navigate(`/exam/${data.test.id}`, { state: data })
     }
   }, [isSuccess, data, navigate])
 

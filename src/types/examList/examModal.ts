@@ -1,5 +1,6 @@
-/** POST: ModalRequest Types */
-export type ModalRequest = { access_code: string }
+export interface ExamModalRequest {
+  access_code: string
+}
 
 export type QuestionType =
   | 'multiple_choice_single'
@@ -9,8 +10,7 @@ export type QuestionType =
   | 'short_answer'
   | 'fill_in_blank'
 
-/** 200 OK: ModalSuccessResponse Types */
-export type QuestionSnapshot = {
+export interface QuestionSnapshot {
   question_id: number
   type: QuestionType
   question: string
@@ -20,21 +20,30 @@ export type QuestionSnapshot = {
   point: number
 }
 
-/** 200 OK: ModalSuccessResponse Types */
-export type ModalSuccessResponse = {
+export interface Subject {
   id: number
-  generation: {
-    id: number
-  }
+  title: string
+}
+
+export interface Test {
+  id: number
+  title: string
+  subject: Subject
   thumbnail_img_url: string
-  test: {
-    id: number
-    title: string
-    subject: {
-      id: number
-      title: string
-    }
-  }
+}
+
+export interface Generation {
+  id: number
+}
+
+/** 200 OK: ModalSuccessResponse Types */
+export interface ModalSuccessResponse {
+  id: number
+  test: Test
   duration_time: number
   questions_snapshot_json: QuestionSnapshot[]
+}
+
+export interface ModalErrorResponse {
+  detail: string
 }
