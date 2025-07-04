@@ -1,6 +1,6 @@
 export default function QuestionResultSubBanner() {
   return (
-    <div className="flex h-[118px] min-w-[1920px] flex-col items-start justify-center gap-[12px] bg-[#efe6fc]">
+    <div className="flex h-[118px] flex-col items-start justify-center gap-[12px] bg-[#efe6fc]">
       <div className="ml-[360px]">
         <div className="text-[32px] leading-[1.4] font-bold tracking-[-0.03em] text-[#000000]">
           쪽지시험 응시 결과

@@ -48,7 +48,7 @@ body {
   @apply leading-[1.4] tracking-[-0.03em] text-[#121212];
 }
 /* 자간, 줄 간격격 */
-@utility text-balance {
+@utility text-balance-space {
   @apply leading-[1.4] tracking-[-0.03em];
 }
 /* 문제 번호, 타이틀 */
@@ -71,20 +71,20 @@ body {
 
 /* 결과 페이지 틀린 문제 설명 박스 */
 @utility result-wrong-box {
-  @apply bg-red-primary text-[16px] font-normal text-balance;
-}
-
-/* 결과 페이지 맞춘 문제 설명 박스 */
-@utility result-correct-box {
-  @apply bg-green-primary text-[16px] font-normal text-balance;
+  @apply bg-red-primary text-[16px] font-normal;
 }
 
 /* 오답 부분 텍스트 */
 @utility wrong-text {
-  @apply text-red-danger font-normal text-balance;
+  @apply text-balance-space font-normal;
+}
+
+/* 결과 페이지 맞춘 문제 설명 박스 */
+@utility result-correct-box {
+  @apply bg-green-primary text-[16px] font-normal;
 }
 
 /* 정답 부분 텍스트*/
 @utility correct-text {
-  @apply text-green-correct font-normal text-balance;
+  @apply text-balance-space font-normal;
 }
