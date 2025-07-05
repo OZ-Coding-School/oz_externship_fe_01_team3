@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ExamResultExplanation from './examQuestionUI/ExamResultExplanation'
 import useExamValidation from '@/hooks/examResult/ExamValidation'
-import ExamOption from '@/hooks/examResult/ExamOption'
+import ExamOption from '@/hooks/examResult/useExamOption'
 
 interface RadioTypeProps {
   options: string[]
@@ -50,7 +50,7 @@ export default function RadioType({
     <>
       <div className="flex h-[144px] w-[1000px] flex-col pr-[26px] pl-8">
         {options.map((option, index) => {
-          const { optionKey, IS_CHECKED, TEXT_COLOR } = ExamOption({
+          const { optionKey, isChecked, textColor } = ExamOption({
             option,
             is_result,
             student_answer,
@@ -72,7 +72,7 @@ export default function RadioType({
                   type="radio"
                   name={`question-${question_Id}`}
                   value={optionKey}
-                  checked={IS_CHECKED}
+                  checked={isChecked}
                   onChange={() => handleChange(optionKey)}
                   className="peer h-full w-full appearance-none rounded-full border-1 border-[#BDBDBD] checked:border-[#6200FF] checked:bg-[#6200FF]"
                   disabled={disabled || is_result}
@@ -80,7 +80,7 @@ export default function RadioType({
                 <div className="absolute top-1/2 left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-[#ECECEC] transition-opacity duration-200 peer-checked:opacity-0" />
                 <div className="absolute top-1/2 left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-white opacity-0 transition-opacity duration-200 peer-checked:opacity-100" />
               </div>
-              <span className={`text-base font-medium ${TEXT_COLOR}`}>
+              <span className={`text-base font-medium ${textColor}`}>
                 {option}
               </span>
             </label>

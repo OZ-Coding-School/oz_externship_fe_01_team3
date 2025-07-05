@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
 import ExamResultExplanation from './examQuestionUI/ExamResultExplanation'
 import useExamValidation from '@/hooks/examResult/ExamValidation'
-import ExamOption from '@/hooks/examResult/ExamOption'
+import ExamOption from '@/hooks/examResult/useExamOption'
 interface OxTypeProps {
   options: string[]
   question_Id: number
@@ -52,31 +52,29 @@ export default function OxType({
           // 얘네 차피 다 공통 아님? 다 뺄 수 있지 않나?
           const inputId = `question-${question_Id}-${index}`
 
-          const { IS_CHECKED, IS_WRONG_OPTION, IS_CORRECT_OPTION } = ExamOption(
-            {
-              option,
-              is_result,
-              student_answer,
-              selected,
-              correct_answer,
-            }
-          )
+          const { isChecked, isWrongCheck, isCorrectCheck } = ExamOption({
+            option,
+            is_result,
+            student_answer,
+            selected,
+            correct_answer,
+          })
 
           //함수는 다 빼자
 
           const getBgColor = () => {
             if (is_result) {
-              if (IS_CORRECT_OPTION) return 'bg-[#E9FBF3]'
-              if (IS_WRONG_OPTION) return 'bg-[#FDECEF]'
+              if (isCorrectCheck) return 'bg-[#E9FBF3]'
+              if (isWrongCheck) return 'bg-[#FDECEF]'
               return 'bg-[#F2F3F5]'
             }
-            return IS_CHECKED ? 'bg-[#EFE6FC]' : 'bg-[#F2F3F5]'
+            return isChecked ? 'bg-[#EFE6FC]' : 'bg-[#F2F3F5]'
           }
 
           const getTextColor = () => {
             if (is_result) {
-              if (IS_CORRECT_OPTION) return 'text-[#14C786]'
-              if (IS_WRONG_OPTION) return 'text-[#EC0037]'
+              if (isCorrectCheck) return 'text-[#14C786]'
+              if (isWrongCheck) return 'text-[#EC0037]'
             }
             return 'text-black'
           }
@@ -84,16 +82,16 @@ export default function OxType({
           const getIconColor = () => {
             if (option !== 'X') {
               if (is_result) {
-                if (IS_CORRECT_OPTION) return 'border-[#14C786]'
-                if (IS_CHECKED) return 'border-[#EC0037]'
+                if (isCorrectCheck) return 'border-[#14C786]'
+                if (isChecked) return 'border-[#EC0037]'
               }
-              return IS_CHECKED ? 'border-[#6200FF]' : 'border-[#BDBDBD]'
+              return isChecked ? 'border-[#6200FF]' : 'border-[#BDBDBD]'
             }
             if (is_result) {
-              if (IS_CORRECT_OPTION) return 'text-[#14C786]'
-              if (IS_WRONG_OPTION) return 'text-[#EC0037]'
+              if (isCorrectCheck) return 'text-[#14C786]'
+              if (isWrongCheck) return 'text-[#EC0037]'
             }
-            return IS_CHECKED ? 'text-[#EC0037]' : 'text-[#BDBDBD]'
+            return isChecked ? 'text-[#EC0037]' : 'text-[#BDBDBD]'
           }
 
           return (
@@ -106,7 +104,7 @@ export default function OxType({
                 type="radio"
                 name={`question-${question_Id}`}
                 value={option}
-                checked={IS_CHECKED}
+                checked={isChecked}
                 onChange={() => handleSelect(option)}
                 className="peer hidden"
                 disabled={disabled || is_result}
@@ -134,23 +132,23 @@ export default function OxType({
 
                 <div className="flex items-center">
                   {is_result ? (
-                    IS_CORRECT_OPTION ? (
+                    isCorrectCheck ? (
                       <img
                         src="/src/assets/check-correct.svg"
                         className="w-5"
                       />
-                    ) : IS_WRONG_OPTION ? (
+                    ) : isWrongCheck ? (
                       <img src="/src/assets/check-wrong.svg" className="w-5" />
                     ) : null
                   ) : (
                     <>
                       <img
                         src="/src/assets/check-OX.svg"
-                        className={`w-5 ${IS_CHECKED ? 'hidden' : 'block'}`}
+                        className={`w-5 ${isChecked ? 'hidden' : 'block'}`}
                       />
                       <img
                         src="/src/assets/check-OX-answer.svg"
-                        className={`w-5 ${IS_CHECKED ? 'block' : 'hidden'}`}
+                        className={`w-5 ${isChecked ? 'block' : 'hidden'}`}
                       />
                     </>
                   )}
