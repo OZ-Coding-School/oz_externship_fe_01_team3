@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ExamResultExplanation from './examQuestionUI/ExamResultExplanation'
+import ExamOption from '@/hooks/examResult/useExamOption'
 import useExamValidation from '@/hooks/examResult/ExamValidation'
-import ExamOption from '@/hooks/examResult/ExamOption'
 
 interface CheckBoxTypeProps {
   options: string[]
@@ -26,9 +26,6 @@ export default function CheckBoxType({
 }: CheckBoxTypeProps) {
   const [selected, setSelected] = useState<string[]>([])
 
-  // 옵션 문자열에서 첫 번째 문자열만 빼오는 상수
-  const getOptionKey = (option: string) => option.split('.')[0].trim()
-
   useEffect(() => {
     if (student_answer) {
       setSelected(student_answer)
@@ -46,17 +43,17 @@ export default function CheckBoxType({
     if (onSelect) onSelect(newSelected)
   }
   /* 정답 확인 */
-  const { IS_WRONG_CHECK } = useExamValidation(
+  const { isWrongCheck } = useExamValidation({
     is_result,
     correct_answer,
-    student_answer
-  )
+    student_answer,
+  })
 
   return (
     <>
       <div className="flex h-[144px] w-[1000px] flex-col pr-[26px] pl-8">
         {options.map((option, index) => {
-          const { IS_CHECKED, TEXT_COLOR } = ExamOption({
+          const { isChecked, textColor } = ExamOption({
             option,
             is_result,
             student_answer,
@@ -74,7 +71,7 @@ export default function CheckBoxType({
               >
                 <div className="relative mt-[4.5px] mr-3 mb-[4.5px] h-[18px] w-[18px]">
                   <input
-                    checked={is_result ? IS_CHECKED : selected.includes(option)}
+                    checked={is_result ? isChecked : selected.includes(option)}
                     id={checkboxId}
                     type="checkbox"
                     name={`question-${question_Id}`}
@@ -92,7 +89,7 @@ export default function CheckBoxType({
                     />
                   </div>
                 </div>
-                <span className={`text-base font-medium ${TEXT_COLOR}`}>
+                <span className={`text-base font-medium ${textColor}`}>
                   {option}
                 </span>
               </label>
@@ -102,7 +99,7 @@ export default function CheckBoxType({
       </div>
       {is_result && (
         <ExamResultExplanation
-          IS_WRONG_CHECK={IS_WRONG_CHECK}
+          IS_WRONG_CHECK={isWrongCheck}
           explanation={explanation}
         />
       )}
