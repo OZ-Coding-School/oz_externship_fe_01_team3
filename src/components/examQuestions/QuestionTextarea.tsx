@@ -40,11 +40,11 @@ export default function QuestionTextarea({
     return 'text-[#EC0037]'
   }
 
-  const { IS_WRONG_CHECK } = useExamValidation(
+  const { isWrongCheck } = useExamValidation({
     is_result,
     correct_answer,
-    student_answer
-  )
+    student_answer,
+  })
 
   return (
     <>
@@ -66,7 +66,7 @@ export default function QuestionTextarea({
       </div>
       {is_result && (
         <ExamResultExplanation
-          IS_WRONG_CHECK={IS_WRONG_CHECK}
+          IS_WRONG_CHECK={isWrongCheck}
           explanation={explanation}
         />
       )}

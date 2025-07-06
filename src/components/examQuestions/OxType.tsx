@@ -39,11 +39,11 @@ export default function OxType({
 
   const padding = 'pt-[10px] pr-[16px] pb-[10px] pl-[16px]'
 
-  const { IS_WRONG_CHECK } = useExamValidation(
+  const { isWrongCheck } = useExamValidation({
     is_result,
     correct_answer,
-    student_answer
-  )
+    student_answer,
+  })
 
   return (
     <>
@@ -160,7 +160,7 @@ export default function OxType({
       </div>
       {is_result && (
         <ExamResultExplanation
-          IS_WRONG_CHECK={IS_WRONG_CHECK}
+          IS_WRONG_CHECK={isWrongCheck}
           explanation={explanation}
         />
       )}
