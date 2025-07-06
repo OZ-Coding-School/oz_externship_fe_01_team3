@@ -52,11 +52,11 @@ export default function QuestionEmptyText({
   const getAlphaLabel = (i: number) => String.fromCharCode(65 + i)
 
   /* 정답, 오답 확인 */
-  const { IS_WRONG_CHECK } = useExamValidation(
+  const { isWrongCheck } = useExamValidation({
     is_result,
     correct_answer,
-    student_answer
-  )
+    student_answer,
+  })
 
   return (
     <>
@@ -92,7 +92,7 @@ export default function QuestionEmptyText({
       </div>
       {is_result && (
         <ExamResultExplanation
-          IS_WRONG_CHECK={IS_WRONG_CHECK}
+          IS_WRONG_CHECK={isWrongCheck}
           explanation={explanation}
         />
       )}
