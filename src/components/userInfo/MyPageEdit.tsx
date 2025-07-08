@@ -1,6 +1,7 @@
 import { mockMyPageData } from '@/mock/myPageData'
 import { useState } from 'react'
 import Timer from '../common/Timer'
+import Camera from '@/assets/camera.svg'
 
 export default function MyPageEdit() {
   const [timer, setTimer] = useState(false)
@@ -47,8 +48,8 @@ export default function MyPageEdit() {
               alt="프로필 사진"
               className="h-46 w-46 rounded-full bg-purple-300"
             />
-            <div className="absolute right-0 bottom-0 flex h-8 w-8 items-center justify-center rounded-full border border-white bg-[#d9d9d9]">
-              카메라
+            <div className="absolute right-0 bottom-0 flex h-13 w-13 items-center justify-center rounded-full border-[4px] border-white bg-[#bdbdbd]">
+              <img src={Camera} alt="이미지 변경 아이콘" />
             </div>
           </div>
         </div>
