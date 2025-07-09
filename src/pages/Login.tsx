@@ -4,74 +4,30 @@ import DeactivatedAccountInfoModal from '@/components/Login/DeactivatedModal'
 import FindIdContent from '@/components/Login/FindIdContent'
 import FindModal from '@/components/Login/FindModal'
 import FindPwContent from '@/components/Login/FindPwContent'
-import type { ToastProps } from '@/types/common/Toast'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router'
+import { useLoginForm } from '@/hooks/login/useLoginForm'
+
 // 지향 파트 (짧아지는게 목적이긴한데, 그렇다고 극단적으로 다 지울필요는 없어요.)
 // TODO: 컴포넌트를 세분화해서 쪼개는게 일단 우선이긴한데,,
 // 생각보다 쪼개야하는 컴포넌트의 수가 많아서, 로그인, 회원가입 언제까지 가능할지...
 
 export default function Login() {
-  const navigate = useNavigate()
-  const [toast, setToast] = useState<ToastProps | null>(null)
-
-  const showToast = (options: ToastProps) => {
-    setToast(options)
-    setTimeout(() => {
-      setToast(null)
-    }, 3000)
-  }
-
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    errors,
+    inputValue,
+    isAllFieldsFilled,
+    isModalOpen,
+    modalContentType,
+    openModal,
+    closeModal,
+    onSubmit,
+    navigate,
     watch,
-    reset,
-  } = useForm({ mode: 'onChange' })
-
-  const onSubmit = (data: any) => {
-    const { email, password } = data
-    //임시 로직 (가짜 아이디 비밀번호 성공시, ui구현)
-    if (email === 'test@test.com' && password === 'QWERTY12!') {
-      showToast({
-        message: '로그인 성공!',
-        type: 'success',
-        layout: 'centered',
-        subMessage: '메인 페이지로 이동합니다.',
-        className: '',
-      })
-      navigate('/') //랜딩페이지로 이동 (근데 로그인 상태 유지는? 모르겠음)
-    } //탈퇴회원일 경우 로직
-    else if (email === 'test1@test.com' && password === 'QWERTY12!!') {
-      setIsModalOpen(true)
-      setModalContentType('deactivatedInfo')
-    } else {
-      // 로그인 정보 없어서 실패 시
-      showToast({
-        message: '로그인 실패!',
-        type: 'error',
-        layout: 'centered',
-        subMessage: '이메일 또는 비밀번호를 확인해주세요.',
-      })
-      reset() //인풋창 리셋 시켜버림
-    }
-  }
-  //이후에 로그인 성공 시, 메인 페이지로 이동 / 로그인 실패시, 오류시 오류 구현 필요
-  //onSubmit 함수에, 탈퇴회원 로직도 추가 필요
-
-  const emailValue = watch('email')
-  const passwordValue = watch('password')
-
-  const isAllFieldsFilled = !!emailValue && !!passwordValue
-
-  //모달 관련 상태
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const [modalContentType, setModalContentType] = useState<
-    'findIdType' | 'findPwType' | 'deactivatedInfo'
-  >('findIdType') //모달에 어떤  찾기 화면 보여줄지 상태(아이디찾기, 비밀번호 찾기)
+    setModalType,
+    toast,
+    showToast,
+  } = useLoginForm()
 
   return (
     <div className="flex flex-col items-center pt-20">
@@ -171,8 +127,7 @@ export default function Login() {
           <button
             type="button"
             onClick={() => {
-              setIsModalOpen(true)
-              setModalContentType('findIdType')
+              openModal('findIdType')
             }}
             className="mr-[8px]"
           >
@@ -184,11 +139,11 @@ export default function Login() {
           {isModalOpen && (
             <FindModal
               onClose={() => {
-                setIsModalOpen(false)
+                closeModal()
               }}
             >
               {modalContentType === 'findIdType' && (
-                <FindIdContent setModalContentType={setModalContentType} />
+                <FindIdContent setModalContentType={setModalType} />
               )}
               {modalContentType === 'findPwType' && <FindPwContent />}
               {modalContentType === 'deactivatedInfo' && (
@@ -202,8 +157,7 @@ export default function Login() {
           <button
             type="button"
             onClick={() => {
-              setIsModalOpen(true)
-              setModalContentType('findPwType')
+              openModal('findPwType')
             }}
           >
             비밀번호 찾기
