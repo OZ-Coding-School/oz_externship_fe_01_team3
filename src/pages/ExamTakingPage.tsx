@@ -57,7 +57,7 @@ export default function ExamTakingPage() {
         <div className="flex justify-center">
           <QuestionAlert
             className="mt-8 mb-20"
-            message="탭이나 창을 이동하면 부정행위로 처리돼 시험이 중단될 수 있어요. 안정적인 환경에서 시험을 이어가 주세요."
+            message="탭이나 창을 이동하면 부정행위로 간주되어 시험이 중단될 수 있어요. 3초 이상 돌아오지 않으면 부정행위가 추가로 기록됩니다."
           />
         </div>
 
