@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 const sideTabs = [
   { id: 'exam', label: '쪽지시험' },
   { id: 'info', label: '내 정보' },
@@ -7,10 +5,12 @@ const sideTabs = [
 ]
 
 type SideTab = 'exam' | 'info' | 'password'
+interface SideBarProps {
+  activeTab: SideTab
+  setActiveTab: (tab: SideTab) => void
+}
 
-export default function SideBar() {
-  const [activeTab, setActiveTab] = useState<SideTab>('exam')
-
+export default function SideBar({ activeTab, setActiveTab }: SideBarProps) {
   return (
     <div>
       <nav>
