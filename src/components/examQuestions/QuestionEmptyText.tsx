@@ -31,7 +31,10 @@ export default function QuestionEmptyText({
   )
 
   useEffect(() => {
-    if (student_answer) {
+    if (
+      student_answer &&
+      JSON.stringify(student_answer) !== JSON.stringify(values)
+    ) {
       setValues(student_answer)
     }
   }, [student_answer])
