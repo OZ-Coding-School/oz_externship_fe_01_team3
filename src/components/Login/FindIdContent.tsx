@@ -1,73 +1,34 @@
 // 아이디 찾기 내용 컴포넌트
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import CommonButton from './CommonButton'
+import { useFindForm } from '@/hooks/FindIdPw/useFindForm'
+import AuthLabel from '../AuthForm/AuthLabel'
+import AuthInput from '../AuthForm/AuthInput'
+import ValidateButton from '../AuthForm/ValidateButton'
 
 type FindIdContentProps = {
   setModalContentType: (
     value: 'findIdType' | 'findPwType' | 'deactivatedInfo'
   ) => void
 }
-interface FindIdContentsPropsType {
-  name: string
-  phone: string
-  phoneCode: string
-}
 
 export default function FindIdContent({
   setModalContentType,
 }: FindIdContentProps) {
   const {
+    maskEmailDomain,
     register,
     handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<FindIdContentsPropsType>({ mode: 'onChange' })
-
-  const nameValue = watch('name')
-  const phoneValue = watch('phone')
-  const phoneCodeValue = watch('phoneCode')
-
-  const [errorMessage, setErrorMessage] = useState('')
-  const [successFindId, setSuccessFindId] = useState(false) //성공시 모달 보여줄 용
-  const [foundId, setFoundId] = useState('') //백엔드 연결 전 가짜 아이디 저장용
-
-  //누르면, 비밀번호 찾기 화면 상태로 바꾸는 함수
-  const handleClickFindPw = () => {
-    setModalContentType('findPwType')
-  }
-
-  //백엔드 전 임시 (오류메세지 설정용)
-  const findId = (data: any) => {
-    console.log('제출된 데이터:', data)
-
-    if (data.name === '홍길동') {
-      setErrorMessage('')
-      setSuccessFindId(true)
-      setFoundId('hong123@ozcoding.com')
-      // 성공 시 처리
-    } else {
-      setErrorMessage(
-        '입력한 이름과 휴대폰 번호로 등록된\n 이메일이 존재하지 않습니다. '
-      )
-      setSuccessFindId(false)
-    }
-  }
-
-  // 이메일 도메인 마스킹 처리하는 함수
-  function maskEmailDomain(email: string) {
-    const [localPart, domain] = email.split('@')
-
-    // domain 예: example.com
-    // domain을 '.' 기준으로 나눠서 앞부분과 뒷부분 분리
-    const [domainName, domainExt] = domain.split('.')
-
-    // domainName은 앞 3글자만 남기고 나머지는 *로 마스킹
-    const maskedDomainName =
-      domainName.slice(0, 3) + '*'.repeat(domainName.length - 3)
-
-    return `${localPart}@${maskedDomainName}.${domainExt}`
-  }
+    errors,
+    nameValue,
+    phoneValue,
+    phoneCodeValue,
+    handleClickFindPw,
+    errorMessage,
+    successFindId,
+    foundId,
+    findId,
+  } = useFindForm(setModalContentType)
 
   return (
     <div>
@@ -113,18 +74,18 @@ export default function FindIdContent({
       ) : (
         <div className="mr-[24px] ml-[24px] flex flex-col justify-center">
           <div className="flex items-center">
-            <label
-              htmlFor="name"
-              className="mr-[16px] mb-[20px] text-[16px] text-[#121212]"
-            >
-              이름<span className="text-[#EC0037]">*</span>
-            </label>
+            <AuthLabel htmlFor="name" className="text-[16px]">
+              이름
+            </AuthLabel>
           </div>
           <div>
-            <input
+            <AuthInput
               {...register('name', { required: '이름은 필수입니다.' })}
-              className={`h-[48px] w-[348px] rounded-[4px] border-[1px] pt-[10px] pr-[16px] pb-[10px] pl-[16px] text-[#333] placeholder-[#BDBDBD] ${errors.name ? 'border-[#EC0037]' : nameValue ? 'border-[#14C786]' : 'border-[#BDBDBD]'} focus:border-[#6201E0] focus:outline-none`}
               placeholder="이름을 입력해주세요"
+              variant={
+                errors.name ? 'error' : nameValue ? 'success' : 'default'
+              }
+              className="w-[348px]"
             />
             {errors.name && (
               <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
@@ -133,18 +94,15 @@ export default function FindIdContent({
             {/*휴대전화*/}
 
             <div className="mt-[32px] flex items-center">
-              <label
-                htmlFor="phone"
-                className="mr-[16px] mb-[20px] text-[16px] text-[#121212]"
-              >
-                휴대전화<span className="text-[#EC0037]">*</span>
-              </label>
+              <AuthLabel htmlFor="phone" className="text-[16px]">
+                휴대전화
+              </AuthLabel>
             </div>
             <div className="flex">
               <div className="flex items-center">
-                <input
+                <AuthInput
                   {...register('phone', {
-                    required: '번호를 입력해주세요.',
+                    required: '번호를 입력해주세요',
                     pattern: {
                       value: /^[0-9]{11}$/,
                       message: '11자리 숫자를 입력해주세요.',
@@ -152,25 +110,22 @@ export default function FindIdContent({
                   })}
                   maxLength={11}
                   inputMode="numeric"
+                  placeholder="숫자만 입력해주세요"
+                  variant={
+                    errors.phone ? 'error' : phoneValue ? 'success' : 'default'
+                  }
+                  className="w-[228px]"
                   onInput={(e: any) =>
                     (e.target.value = e.target.value.replace(/[^0-9]/g, ''))
                   }
-                  className={`h-[48px] w-[228px] rounded-[4px] border-[1px] pt-[10px] pr-[16px] pb-[10px] pl-[16px] text-[#333] placeholder-[#BDBDBD] focus:border-[#6201E0] focus:outline-none ${
-                    errors.phone
-                      ? 'border-red-500' // 에러가 있으면 빨간색
-                      : watch('phone') && !errors.phone // 값이 있고 에러가 없으면 (성공 시) 녹색
-                        ? 'border-green-500'
-                        : 'border-[#BDBDBD]' // 그 외 기본 색상
-                  }`}
-                  placeholder="숫자만 입력해주세요"
                 />
               </div>
-              <button
-                className={`ml-[8px] h-[48px] w-[112px] rounded-[4px] border ${phoneValue ? 'border-[#6201E0] bg-[#EFE6FC] text-[#6201E0]' : 'border-[#BDBDBD] bg-[#ECECEC] text-[#888]'} `}
-                onClick={() => alert('전송버튼 클릭됨!')}
+              <ValidateButton
+                variant={phoneValue ? 'active' : 'inactive'}
+                className="w-[112px]"
               >
                 인증번호전송
-              </button>
+              </ValidateButton>
             </div>
             {errors.phone && (
               <p className="mt-1 text-sm text-red-500">
@@ -181,18 +136,27 @@ export default function FindIdContent({
             {/*휴대전화 인증 번호*/}
 
             <div className="mt-[16px] flex">
-              <input
+              <AuthInput
                 {...register('phoneCode', {
                   required: '인증코드를 입력해주세요.',
                 })}
-                className={`h-[48px] w-[228px] rounded-[4px] border-[1px] border-[#BDBDBD] pt-[10px] pr-[16px] pb-[10px] pl-[16px] text-[#333] placeholder-[#BDBDBD] focus:border-[#6201E0] focus:outline-none`}
                 placeholder="인증번호 6자리를 입력해주세요"
+                variant={
+                  errors.phoneCode
+                    ? 'error'
+                    : phoneCodeValue
+                      ? 'success'
+                      : 'default'
+                }
+                className="w-[228px]"
+                maxLength={6}
               />
-              <button
-                className={`ml-[8px] h-[48px] w-[112px] rounded-[4px] border ${phoneCodeValue ? 'border-[#6201E0] bg-[#EFE6FC] text-[#6201E0]' : 'border-[#BDBDBD] bg-[#ECECEC] text-[#888]'} `}
+              <ValidateButton
+                variant={phoneValue ? 'active' : 'inactive'}
+                className="w-[112px]"
               >
                 인증번호확인
-              </button>
+              </ValidateButton>
             </div>
             {errors.phoneCode && (
               <p className="mt-1 text-sm text-red-500">
