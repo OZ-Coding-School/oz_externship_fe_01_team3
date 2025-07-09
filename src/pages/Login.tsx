@@ -4,6 +4,7 @@ import DeactivatedAccountInfoModal from '@/components/Login/DeactivatedModal'
 import FindIdContent from '@/components/Login/FindIdContent'
 import FindModal from '@/components/Login/FindModal'
 import FindPwContent from '@/components/Login/FindPwContent'
+import LoginHeader from '@/components/Login/LoginHeader'
 import { useLoginForm } from '@/hooks/login/useLoginForm'
 
 // 지향 파트 (짧아지는게 목적이긴한데, 그렇다고 극단적으로 다 지울필요는 없어요.)
@@ -31,22 +32,8 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center pt-20">
-      <img
-        src="src/assets/logo_black.png"
-        alt="오즈코딩스쿨 로고"
-        className="mb-[27px] w-[180px]"
-      />
-      <div className="flex gap-3 text-[16px]">
-        <p className="text-[#4D4D4D]"> 아직 회원이 아니신가요?</p>
-        <p
-          className="cursor-pointer text-[#6201E0]"
-          onClick={() => navigate('/join')}
-        >
-          회원가입 하기
-        </p>
-      </div>
-      <br />
-      <br />
+      {/*로그인 헤더*/}
+      <LoginHeader navigate={navigate} />
 
       {/* 카카오로 회원가입 버튼  */}
       <SocialButton
