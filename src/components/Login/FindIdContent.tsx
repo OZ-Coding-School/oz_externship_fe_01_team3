@@ -5,6 +5,7 @@ import { useFindForm } from '@/hooks/FindIdPw/useFindForm'
 import AuthLabel from '../AuthForm/AuthLabel'
 import AuthInput from '../AuthForm/AuthInput'
 import ValidateButton from '../AuthForm/ValidateButton'
+import FindIdHeader from './FindIdHeader'
 
 type FindIdContentProps = {
   setModalContentType: (
@@ -32,26 +33,9 @@ export default function FindIdContent({
 
   return (
     <div>
-      <div className="mt-[10px] flex flex-col items-center justify-center">
-        <img
-          src="src/assets/FindIdicon.png"
-          alt="find"
-          className="mb-[16px] h-[28px] w-[28px]"
-        />
-        <p className="mb-[16px] text-[20px] leading-none font-bold text-[#121212]">
-          아이디 찾기
-        </p>
-        {foundId && (
-          <p className="4 mb-[32px] text-center text-sm leading-none whitespace-pre-line">
-            입력하신 정보와 일치하는 아이디입니다.
-          </p>
-        )}
-        {errorMessage && (
-          <p className="text-center text-sm whitespace-pre-line text-[#EC0037]">
-            {errorMessage}
-          </p>
-        )}
-      </div>
+      {/* 상단 아이콘과 제목, 에러메시지 영억  */}
+      <FindIdHeader errorMessage={errorMessage} foundId={foundId} />
+
       {successFindId ? (
         <div className="flex flex-col items-center justify-center">
           <div className="mb-[24px] flex h-[93px] w-[348px] items-center justify-center rounded-[4px] border border-[#BDBDBD] bg-[#ECECEC] px-4 py-10">
