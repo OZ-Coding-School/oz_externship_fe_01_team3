@@ -66,6 +66,7 @@ export default function Login() {
             type="button"
             onClick={() => {
               openModal()
+              setModalType('findIdType')
             }}
             className="mr-[8px]"
           >
@@ -96,6 +97,7 @@ export default function Login() {
             type="button"
             onClick={() => {
               openModal()
+              setModalType('findPwType')
             }}
           >
             비밀번호 찾기
