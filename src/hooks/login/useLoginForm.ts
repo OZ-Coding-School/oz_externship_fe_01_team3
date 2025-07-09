@@ -1,6 +1,7 @@
 //로그인 관련 상태, 정규식, 함수를 모아둔 커스텀 훅
 
 import type { ToastProps } from '@/types/common/Toast'
+import type { RegisterFormData } from '@/types/login/register'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
@@ -12,7 +13,7 @@ export const useLoginForm = () => {
     formState: { errors },
     watch,
     reset,
-  } = useForm({ mode: 'onChange' })
+  } = useForm<RegisterFormData>({ mode: 'onChange' })
 
   //로그인 페이지 인풋 종류
   const inputValue = {
