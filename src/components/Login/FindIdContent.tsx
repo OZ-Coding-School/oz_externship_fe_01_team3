@@ -1,11 +1,8 @@
 // 아이디 찾기 내용 컴포넌트
-import { useState } from 'react'
 import CommonButton from './CommonButton'
 import { useFindForm } from '@/hooks/FindIdPw/useFindForm'
-import AuthLabel from '../AuthForm/AuthLabel'
-import AuthInput from '../AuthForm/AuthInput'
-import ValidateButton from '../AuthForm/ValidateButton'
 import FindIdHeader from './FindIdHeader'
+import FindIdInitialSection from './FindIdInitialSection'
 
 type FindIdContentProps = {
   setModalContentType: (
@@ -57,97 +54,15 @@ export default function FindIdContent({
         </div>
       ) : (
         <div className="mr-[24px] ml-[24px] flex flex-col justify-center">
-          <div className="flex items-center">
-            <AuthLabel htmlFor="name" className="text-[16px]">
-              이름
-            </AuthLabel>
-          </div>
-          <div>
-            <AuthInput
-              {...register('name', { required: '이름은 필수입니다.' })}
-              placeholder="이름을 입력해주세요"
-              variant={
-                errors.name ? 'error' : nameValue ? 'success' : 'default'
-              }
-              className="w-[348px]"
-            />
-            {errors.name && (
-              <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
-            )}
+          {/* 아이디찾기 첫 모달 기본 화면(찾는 화면 이메일, 비밀번호 입력하는 칸)  */}
+          <FindIdInitialSection
+            register={register}
+            errors={errors}
+            nameValue={nameValue}
+            phoneValue={phoneValue}
+            phoneCodeValue={phoneCodeValue}
+          />
 
-            {/*휴대전화*/}
-
-            <div className="mt-[32px] flex items-center">
-              <AuthLabel htmlFor="phone" className="text-[16px]">
-                휴대전화
-              </AuthLabel>
-            </div>
-            <div className="flex">
-              <div className="flex items-center">
-                <AuthInput
-                  {...register('phone', {
-                    required: '번호를 입력해주세요',
-                    pattern: {
-                      value: /^[0-9]{11}$/,
-                      message: '11자리 숫자를 입력해주세요.',
-                    },
-                  })}
-                  maxLength={11}
-                  inputMode="numeric"
-                  placeholder="숫자만 입력해주세요"
-                  variant={
-                    errors.phone ? 'error' : phoneValue ? 'success' : 'default'
-                  }
-                  className="w-[228px]"
-                  onInput={(e: any) =>
-                    (e.target.value = e.target.value.replace(/[^0-9]/g, ''))
-                  }
-                />
-              </div>
-              <ValidateButton
-                variant={phoneValue ? 'active' : 'inactive'}
-                className="w-[112px]"
-              >
-                인증번호전송
-              </ValidateButton>
-            </div>
-            {errors.phone && (
-              <p className="mt-1 text-sm text-red-500">
-                {errors.phone.message}
-              </p>
-            )}
-
-            {/*휴대전화 인증 번호*/}
-
-            <div className="mt-[16px] flex">
-              <AuthInput
-                {...register('phoneCode', {
-                  required: '인증코드를 입력해주세요.',
-                })}
-                placeholder="인증번호 6자리를 입력해주세요"
-                variant={
-                  errors.phoneCode
-                    ? 'error'
-                    : phoneCodeValue
-                      ? 'success'
-                      : 'default'
-                }
-                className="w-[228px]"
-                maxLength={6}
-              />
-              <ValidateButton
-                variant={phoneValue ? 'active' : 'inactive'}
-                className="w-[112px]"
-              >
-                인증번호확인
-              </ValidateButton>
-            </div>
-            {errors.phoneCode && (
-              <p className="mt-1 text-sm text-red-500">
-                {errors.phoneCode.message}
-              </p>
-            )}
-          </div>
           <CommonButton onClick={handleSubmit(findId)} text="아이디 찾기" />
           {/*아이디 찾기 버튼에는, 이름  */}
         </div>
