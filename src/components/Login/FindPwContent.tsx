@@ -2,57 +2,29 @@
 
 import { useState } from 'react'
 import CommonButton from './CommonButton'
-import { useForm } from 'react-hook-form'
-import type { ToastProps } from '@/types/common/Toast'
 import { Toast } from '../common/Toast'
 import Timer from '../common/Timer'
+import { usePwForm } from '@/hooks/login/usePwForm'
 
-interface FindPwContentProps {
-  email: string
-  emailCode: string
-  password: string
-  passwordConfirm: string
-}
 export default function FindPwContent() {
-  const [toast, setToast] = useState<ToastProps | null>(null)
-  const [showTimer, setShowTimer] = useState(false)
-
-  const showToast = (options: ToastProps) => {
-    setToast(options)
-    setTimeout(() => {
-      setToast(null)
-    }, 3000)
-  }
-
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    errors,
+    setValue,
+    emailValue,
+    emailCodeValue,
+    passwordValue,
+    passwordConfirmValue,
+    isPasswordMatch,
+    isVerifiedCodeDisabled,
+    isPasswordValid,
+    isDisabled,
     watch,
-  } = useForm<FindPwContentProps>({ mode: 'onBlur' })
-  const emailValue = watch('email')
-  const emailCodeValue = watch('emailCode')
-  const passwordValue = watch('password')
-  const passwordConfirmValue = watch('passwordConfirm')
-
-  // 비밀번호와 비밀번호 확인 일치 여부
-  const isPasswordMatch = passwordValue === passwordConfirmValue
-  // 비밀번호 유효성 검사 통과 여부
-  const isPasswordValid =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-])[A-Za-z\d!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-]{6,15}$/.test(
-      passwordValue
-    )
-
-  //인증 코드 설정 버튼 disabled 조건 (여기에 나중에는 우선 값이 )
-  const isVerifiedCodeDisabled = !emailCodeValue
-
-  // 비밀번호 재설정 버튼 disabled 조건
-  const isDisabled = !(
-    isPasswordValid &&
-    isPasswordMatch &&
-    !errors.password &&
-    !errors.passwordConfirm
-  )
+    toast,
+    showTimer,
+    sendVerified,
+  } = usePwForm()
 
   const [emailVerified, setEmailVerified] = useState(false) //인증코드 성공 여부 (추후 백엔드 연결시, 서버에서 "성공!"이라고 오면 이 emailVerified값이 true )
   const handleVerifyCode = () => {
@@ -63,17 +35,6 @@ export default function FindPwContent() {
       ;<p className="text-sm text-red-500">{errors.emailCode?.message}</p>
       // 실패 처리
     }
-  }
-
-  //인증번호 코드 전송! 함수 (토스트 띄우기, 타이머)
-  const sendVerified = () => {
-    showToast({
-      message: '전송 완료! 이메일을 확인 해주세요.',
-      type: 'success',
-      layout: 'inline',
-      className: '',
-    })
-    setShowTimer(true)
   }
 
   return (
