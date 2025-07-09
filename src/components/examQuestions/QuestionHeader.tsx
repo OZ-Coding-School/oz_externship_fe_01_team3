@@ -7,6 +7,7 @@ interface QuestionHeaderProps {
   subTitle?: string
   time?: number
   showOption?: boolean
+  cheating?: number
 }
 
 export default function QuestionHeader({
@@ -14,6 +15,7 @@ export default function QuestionHeader({
   subTitle,
   time,
   showOption,
+  cheating,
 }: QuestionHeaderProps) {
   const containerClass = containerStyle(showOption || false)
   const leftContainerClass = leftContainerStyle(showOption || false)
@@ -35,7 +37,9 @@ export default function QuestionHeader({
         </div>
       </div>
 
-      {showOption && <ShowOptionHeader time={time || 0} />}
+      {showOption && (
+        <ShowOptionHeader cheatingCount={cheating ?? 0} time={time || 0} />
+      )}
     </div>
   )
 }
