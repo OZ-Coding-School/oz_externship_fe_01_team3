@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { User } from 'lucide-react'
+import StudentRegisterContent from '../Login/RegiserContent'
 
 export const Header = () => {
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false) // 로그인 상태 관리
+  const [isModalOpen, setIsModalOpen] = useState(false) // 수강생 등록 모달 열고 닫는 상태
 
   const toggleLoginModal = () => {
     setShowLoginModal(!showLoginModal)
@@ -88,14 +90,50 @@ export const Header = () => {
                       </p>
 
                       <div className="w-full font-medium text-gray-700">
-                        <div className="cursor-pointer py-3.5 font-medium text-gray-700 hover:text-purple-600">
+                        <div
+                          onClick={() => setIsModalOpen(true)}
+                          className="cursor-pointer py-3.5 font-medium text-gray-700 hover:bg-[#EFE6FC] hover:text-purple-600"
+                        >
                           수강생 등록
+                          {/* 수강생 등록 모달 */}
+                          {isModalOpen && (
+                            <div
+                              className="fixed inset-0 flex items-center justify-center"
+                              style={{
+                                backgroundColor: 'rgba(18, 18, 18, 0.6)',
+                              }}
+                            >
+                              {/* 모달 내용 박스  */}
+                              <div
+                                className="w-[396px] rounded-[12px] bg-white"
+                                style={{
+                                  top: '280px',
+                                  bottom: '278px',
+                                  left: '762px',
+                                  right: '762px',
+                                }}
+                              >
+                                <div className="mt-[24px] mr-[24px] mb-[24px] ml-[24px] flex justify-end">
+                                  <img
+                                    src="src/assets/closeIcon.png"
+                                    alt="close"
+                                    onClick={(e) => {
+                                      e.stopPropagation()
+                                      setIsModalOpen(false)
+                                    }}
+                                    className="h-[12px] w-[12px]"
+                                  />
+                                </div>
+                                <StudentRegisterContent />
+                              </div>
+                            </div>
+                          )}
                         </div>
-                        <div className="cursor-pointer py-3.5 font-medium text-gray-700 hover:text-purple-600">
+                        <div className="cursor-pointer py-3.5 font-medium text-gray-700 hover:bg-[#EFE6FC] hover:text-purple-600">
                           마이페이지
                         </div>
                         <div
-                          className="cursor-pointer py-3.5 font-medium text-gray-700 hover:text-purple-600"
+                          className="cursor-pointer py-3.5 font-medium text-gray-700 hover:bg-[#EFE6FC] hover:text-purple-600"
                           onClick={handleLogout}
                         >
                           로그아웃
