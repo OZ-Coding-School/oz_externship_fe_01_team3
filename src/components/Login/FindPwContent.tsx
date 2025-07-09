@@ -32,7 +32,7 @@ export default function FindPwContent() {
     if (emailCodeValue === '000000') {
       setEmailVerified(true)
     } else {
-      ;<p className="text-sm text-red-500">{errors.emailCode?.message}</p>
+      alert('error!')
       // 실패 처리
     }
   }
