@@ -7,7 +7,6 @@ export default function useCheatingWatcher(onCheating: () => void) {
     let delayedTrigger: NodeJS.Timeout | null = null
 
     const triggerCheating = () => onCheating()
-    // TODO: 함수 hooks, or util로 빼기
     const handleBlur = () => {
       isFocused = false
       triggerCheating()
