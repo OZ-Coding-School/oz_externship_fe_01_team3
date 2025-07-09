@@ -1,10 +1,10 @@
-import SocialButton from '@/components/common/SocialButton'
 import { Toast } from '@/components/common/Toast'
 import DeactivatedAccountInfoModal from '@/components/Login/DeactivatedModal'
 import FindIdContent from '@/components/Login/FindIdContent'
 import FindModal from '@/components/Login/FindModal'
 import FindPwContent from '@/components/Login/FindPwContent'
 import LoginButtonSection from '@/components/Login/LoginButtonSection'
+import LoginEmailSection from '@/components/Login/LoginEmailSection'
 import LoginHeader from '@/components/Login/LoginHeader'
 import { useLoginForm } from '@/hooks/login/useLoginForm'
 
@@ -39,34 +39,19 @@ export default function Login() {
       {/*소셜 로그인 섹션*/}
       <LoginButtonSection />
 
-      {/* 여기에 Toast 컴포넌트를 추가합니다 */}
+      {/* 여기에 Toast 컴포넌트를 추가 */}
       {toast && <Toast toast={toast} />}
 
-      {/*아이디*/}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col items-center"
       >
         {/* 이메일 인풋 */}
-        <div className="mb-[16px]">
-          <input
-            {...register('email', {
-              required: '이메일을 입력해주세요.',
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: '유효한 이메일 주소를 입력해주세요.',
-              },
-            })}
-            className={`autofill h-[48px] w-[348px] rounded-[4px] border-[1px] px-[16px] py-[10px] text-sm text-[#333] placeholder-[#BDBDBD] focus:border-[#6201E0] focus:outline-none ${
-              errors.email
-                ? 'border-red-500' // 에러가 있으면 빨간색
-                : watch('email') && !errors.email // 값이 있고 에러가 없으면 (성공 시) 녹색
-                  ? 'border-green-500'
-                  : 'border-[#BDBDBD]' // 그 외 기본 색상
-            }`}
-            placeholder="아이디 (example@gmail.com)"
-          />
-        </div>
+        <LoginEmailSection
+          register={register}
+          errors={errors}
+          inputValue={inputValue}
+        />
 
         {/* 비밀번호 인풋 */}
         <div className="mb-[16px]">
