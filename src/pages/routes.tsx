@@ -4,6 +4,9 @@ import { createBrowserRouter, Outlet } from 'react-router'
 import LandingPage from './LandingPage'
 import { Header } from '@/components/common/Header'
 import ExamResult from './ExamResult'
+import Join from './Join'
+import Login from './Login'
+import Register from './Register'
 
 // TODO: 임시 컴포넌트들 - 실제 컴포넌트 구현 후 교체 예정입니다. (각자 파트로 교체 해주세요 😀)
 const AuthPage = () => <div>Auth Page - 구현 예정</div>
@@ -85,12 +88,30 @@ export const router = createBrowserRouter([
     path: '/',
     element: <LayoutWithHeader />,
     children: [
-      // 로그인/회원가입 - 로그인 안한 사람만
+      //회원가입 메인 - 로그인 안한 사람만
       {
-        path: 'auth',
+        path: 'join',
         element: (
           <ProtectedRoute requireAuth={false}>
-            <AuthPage />
+            <Join />
+          </ProtectedRoute>
+        ),
+      },
+      // 로그인 - 로그인 안한 사람만
+      {
+        path: 'login',
+        element: (
+          <ProtectedRoute requireAuth={false}>
+            <Login />
+          </ProtectedRoute>
+        ),
+      },
+      //회원가입 일반회원 - 로그인 안한 사람만
+      {
+        path: 'register',
+        element: (
+          <ProtectedRoute requireAuth={false}>
+            <Register />
           </ProtectedRoute>
         ),
       },
