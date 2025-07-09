@@ -62,6 +62,17 @@ export const usePwForm = () => {
     setShowTimer(true)
   }
 
+  const [emailVerified, setEmailVerified] = useState(false) //인증코드 성공 여부 (추후 백엔드 연결시, 서버에서 "성공!"이라고 오면 이 emailVerified값이 true )
+  const handleVerifyCode = () => {
+    // 현재는 UI용 임시 코드
+    if (inputValues.emailCodeValue === '000000') {
+      setEmailVerified(true)
+    } else {
+      alert('error!')
+      // 실패 처리
+    }
+  }
+
   return {
     register,
     handleSubmit,
@@ -75,6 +86,8 @@ export const usePwForm = () => {
     toast,
     showTimer,
     sendVerified,
+    emailVerified,
+    handleVerifyCode,
     ...inputValues,
   }
 }
