@@ -48,9 +48,8 @@ export const useLoginForm = () => {
   const [modalContentType, setModalContentType] =
     useState<ModalContentType>('findIdType')
 
-  const openModal = (type: ModalContentType) => {
+  const openModal = () => {
     setIsModalOpen(true)
-    setModalContentType(type)
   }
 
   const closeModal = () => {
