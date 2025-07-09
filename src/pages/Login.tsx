@@ -6,6 +6,7 @@ import FindPwContent from '@/components/Login/FindPwContent'
 import LoginButtonSection from '@/components/Login/LoginButtonSection'
 import LoginEmailSection from '@/components/Login/LoginEmailSection'
 import LoginHeader from '@/components/Login/LoginHeader'
+import LoginPasswordSection from '@/components/Login/LoginPasswordSection'
 import { useLoginForm } from '@/hooks/login/useLoginForm'
 
 // 지향 파트 (짧아지는게 목적이긴한데, 그렇다고 극단적으로 다 지울필요는 없어요.)
@@ -54,27 +55,11 @@ export default function Login() {
         />
 
         {/* 비밀번호 인풋 */}
-        <div className="mb-[16px]">
-          <input
-            type="password"
-            {...register('password', {
-              required: '비밀번호를 입력해주세요.',
-              pattern: {
-                value:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()[\]{};:'",.<>/?\\|~`_\-=+]).{6,15}$/,
-                message: '6~15자, 영문/숫자/특수문자를 모두 포함해야 합니다.',
-              },
-            })}
-            className={`autofill h-[48px] w-[348px] rounded-[4px] border-[1px] px-[16px] py-[10px] text-sm text-[#333] placeholder-[#BDBDBD] focus:border-[#6201E0] focus:outline-none ${
-              errors.password
-                ? 'border-red-500' // 에러가 있으면 빨간색
-                : watch('password') && !errors.password // 값이 있고 에러가 없으면 (성공 시) 녹색
-                  ? 'border-green-500'
-                  : 'border-[#BDBDBD]' // 그 외 기본 색상
-            }`}
-            placeholder="비밀번호 (6~15자의 영문 대소문자, 숫자, 특수문자)"
-          />
-        </div>
+        <LoginPasswordSection
+          register={register}
+          errors={errors}
+          watch={watch}
+        />
 
         <div className="flex w-full justify-start text-sm text-[#4D4D4D]">
           <button
