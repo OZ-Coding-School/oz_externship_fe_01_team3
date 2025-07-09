@@ -7,6 +7,7 @@ import ExamResult from './ExamResult'
 import Join from './Join'
 import Login from './Login'
 import Register from './Register'
+import ExamTakingPage from './ExamTakingPage'
 
 // TODO: 임시 컴포넌트들 - 실제 컴포넌트 구현 후 교체 예정입니다. (각자 파트로 교체 해주세요 😀)
 
@@ -68,8 +69,8 @@ export const router = createBrowserRouter([
       {
         path: 'exam/:id',
         element: (
-          <ProtectedRoute requireAuth>
-            <ExamPage />
+          <ProtectedRoute requireAuth={false}>
+            <ExamTakingPage />
           </ProtectedRoute>
         ),
       },
@@ -77,7 +78,7 @@ export const router = createBrowserRouter([
       {
         path: 'quiz/:quizId/result',
         element: (
-          <ProtectedRoute requireAuth>
+          <ProtectedRoute requireAuth={false}>
             <ExamResult />
           </ProtectedRoute>
         ),
