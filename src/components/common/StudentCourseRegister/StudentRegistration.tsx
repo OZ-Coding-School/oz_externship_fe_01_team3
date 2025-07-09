@@ -1,5 +1,5 @@
 import StudentRegisterModal from './RegiserModal'
-import StudentRegisterContent from './RegiserContent'
+import StudentRegisterContent from '../../Login/RegiserContent'
 import { useState } from 'react'
 
 // //수강생 등록 모달 내용
