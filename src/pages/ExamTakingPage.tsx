@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useLocation, useParams } from 'react-router'
 import Cheating from '@/components/examQuestions/Cheating'
 import CheckBoxType from '@/components/examQuestions/CheckBoxType'
@@ -36,7 +36,7 @@ export default function ExamTakingPage() {
     })
   }
   useCheatingWatcher(triggerCheating)
-
+  console.log({ id })
   return (
     <>
       <div className="flex w-full flex-col justify-center">
@@ -45,7 +45,6 @@ export default function ExamTakingPage() {
           hidden={hidden}
           onClose={() => setHidden(true)}
         />
-
         <QuestionHeader
           time={examData.duration_time}
           title={examData.test.title}
@@ -71,7 +70,6 @@ export default function ExamTakingPage() {
                       <RadioType
                         question_Id={data.question_id}
                         options={data.options_json}
-                        onSelect={(value) => console.log(value)}
                       />
                     )
                   case '다중선택':
@@ -101,7 +99,6 @@ export default function ExamTakingPage() {
                       <QuestionEmptyText
                         blank_count={data.blank_count ?? 0}
                         prompt={data.prompt ?? ''}
-                        onChange={(value) => console.log(value)}
                       />
                     )
                   case '주관식':
@@ -109,7 +106,6 @@ export default function ExamTakingPage() {
                       <QuestionTextarea
                         prompt={data.prompt ?? ''}
                         question_Id={data.question_id}
-                        onChange={(value) => console.log(value)}
                       />
                     )
                 }
