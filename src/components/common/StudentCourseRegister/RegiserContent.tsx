@@ -1,5 +1,5 @@
+import CommonButton from '@/components/Login/CommonButton'
 import { useState } from 'react'
-import CommonButton from './CommonButton'
 
 //모달 내용
 export default function StudentRegisterContent() {

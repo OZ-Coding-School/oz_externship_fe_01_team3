@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { User } from 'lucide-react'
-import StudentRegisterContent from '../Login/RegiserContent'
+import StudentRegisterContent from './StudentCourseRegister/RegiserContent'
 
 export const Header = () => {
   const [showLoginModal, setShowLoginModal] = useState(false)
