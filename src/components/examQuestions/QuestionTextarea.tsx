@@ -25,8 +25,10 @@ export default function QuestionTextarea({
   const [value, setValue] = useState(student_answer[0] ?? '')
 
   useEffect(() => {
-    setValue(student_answer[0] ?? '')
-  }, [student_answer])
+    if (is_result) {
+      setValue(student_answer[0] ?? '')
+    }
+  }, [student_answer, is_result])
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value
