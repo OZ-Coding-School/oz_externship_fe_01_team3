@@ -24,7 +24,7 @@ export default function FindPwResetSection({
   errors,
   passwordValue,
   passwordConfirmValue,
-  isPasswordValid,
+  // isPasswordValid,
   isPasswordMatch,
 }: FindPwResetSectionProps) {
   return (

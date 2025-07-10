@@ -1,11 +1,15 @@
-import type { FieldErrors, UseFormRegister } from 'react-hook-form'
+import type {
+  FieldErrors,
+  UseFormRegister,
+  UseFormWatch,
+} from 'react-hook-form'
 import AuthInput from '../AuthForm/AuthInput'
 import type { RegisterFormData } from '@/types/login/register'
 
 interface LoginPasswordSectionProps {
   register: UseFormRegister<RegisterFormData>
   errors: FieldErrors<RegisterFormData>
-  watch
+  watch: UseFormWatch<RegisterFormData>
 }
 
 export default function LoginPasswordSection({
