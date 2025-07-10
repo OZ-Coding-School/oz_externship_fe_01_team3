@@ -1,4 +1,3 @@
-import type React from 'react'
 import { type UseFormRegister, type FieldErrors } from 'react-hook-form'
 import AuthInput from '@/components/AuthForm/AuthInput'
 import AuthLabel from '@/components/AuthForm/AuthLabel'

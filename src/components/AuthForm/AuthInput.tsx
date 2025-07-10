@@ -1,13 +1,16 @@
-interface AuthInputProps {
+interface AuthInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder: string
   variant: string
-  className: string
+  className?: string
 }
 
 export default function AuthInput({
   placeholder,
   variant,
   className,
+  type = 'text',
+  maxLength,
+  inputMode,
   ...rest
 }: AuthInputProps) {
   const baseStyle =
@@ -23,7 +26,10 @@ export default function AuthInput({
       <input
         className={`${baseStyle} ${variantStyle} ${className ?? ''}`}
         placeholder={placeholder}
+        type={type}
         {...rest}
+        maxLength={maxLength}
+        inputMode={inputMode}
       />
     </div>
   )

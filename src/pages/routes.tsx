@@ -9,10 +9,10 @@ import Login from './Login'
 import Register from './Register'
 
 // TODO: 임시 컴포넌트들 - 실제 컴포넌트 구현 후 교체 예정입니다. (각자 파트로 교체 해주세요 😀)
-const AuthPage = () => <div>Auth Page - 구현 예정</div>
+
 const RestoreAccount = () => <div>Restore Account - 구현 예정</div>
 const StudentRegistration = () => <div>Student Registration - 구현 예정</div>
-const QuizResult = () => <div>Quiz Result - 구현 예정</div>
+
 const ExamPage = () => <div>Exam Page - 구현 예정</div>
 
 const LayoutWithHeader = () => {
