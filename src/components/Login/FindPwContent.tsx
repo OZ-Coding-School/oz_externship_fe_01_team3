@@ -1,6 +1,3 @@
-// 비밀번호 찾기 내용 컴포넌트
-
-import { useState } from 'react'
 import CommonButton from './CommonButton'
 import { Toast } from '../common/Toast'
 import { usePwForm } from '@/hooks/login/usePwForm'
@@ -13,14 +10,14 @@ export default function FindPwContent() {
     register,
     handleSubmit,
     errors,
-    setValue,
     emailValue,
     emailCodeValue,
-    passwordValue,
-    passwordConfirmValue,
-    isPasswordMatch,
+    // setValue,
+    // passwordValue,
+    // passwordConfirmValue,
+    // isPasswordMatch,
+    // isPasswordValid,
     isVerifiedCodeDisabled,
-    isPasswordValid,
     isDisabled,
     watch,
     toast,
