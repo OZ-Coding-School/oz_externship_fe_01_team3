@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function RegisterHeader() {
   return (
     <div className="mb-[27px] flex flex-col flex-wrap items-center gap-2">

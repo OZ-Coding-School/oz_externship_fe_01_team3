@@ -13,7 +13,6 @@ export default function Register() {
     register,
     handleSubmit,
     errors,
-    setValue,
     nameValue,
     nicknameValue,
     birthValue,

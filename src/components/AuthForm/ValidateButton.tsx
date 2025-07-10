@@ -1,4 +1,3 @@
-import type { HtmlHTMLAttributes } from 'react'
 import type React from 'react'
 
 interface ValidateButtonProps
