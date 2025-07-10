@@ -3,8 +3,11 @@ import MyPage from './MyPage'
 import { useState } from 'react'
 import MyPageEdit from './MyPageEdit'
 
+type SideTab = 'exam' | 'info' | 'password'
+
 export default function MyPageContainer() {
   const [myPage, setMyPage] = useState(true)
+  const [activeTab, setActiveTab] = useState<SideTab>('exam')
 
   const handleMyPageEdit = () => {
     setMyPage(false)
@@ -16,7 +19,7 @@ export default function MyPageContainer() {
         <div className="flex flex-col lg:flex-row">
           <div className="w-full border-gray-200 lg:min-h-screen lg:w-64">
             <div className="px-6 py-8">
-              <SideBar />
+              <SideBar activeTab={activeTab} setActiveTab={setActiveTab} />
             </div>
           </div>
 
