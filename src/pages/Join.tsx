@@ -1,7 +1,9 @@
 import SocialButton from '@/components/common/SocialButton'
-import React from 'react'
+import { useNavigate } from 'react-router'
 
 function Join() {
+  const navigate = useNavigate()
+
   return (
     <div className="flex flex-col items-center pt-20">
       <img
@@ -11,7 +13,13 @@ function Join() {
       />
       <div className="flex gap-3 text-[16px]">
         <p className="text-[#4D4D4D]"> 회원 이신가요?</p>
-        <p className="text-[#6201E0]"> 로그인 하기</p>
+        <p
+          className="cursor-pointer text-[#6201E0]"
+          onClick={() => navigate('/login')}
+        >
+          {' '}
+          로그인 하기
+        </p>
       </div>
       <br />
       <br />
@@ -40,7 +48,13 @@ function Join() {
         네이버로 가입하기
       </SocialButton>
 
-      <p className="text-[#4D4D4D] underline"> 일반회원 가입</p>
+      <p
+        className="cursor-pointer text-[#4D4D4D] underline"
+        onClick={() => navigate('/register')}
+      >
+        {' '}
+        일반회원 가입
+      </p>
     </div>
   )
 }
