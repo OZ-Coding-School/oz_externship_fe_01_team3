@@ -3,6 +3,7 @@ import AuthInput from '@/components/AuthForm/AuthInput'
 import AuthLabel from '@/components/AuthForm/AuthLabel'
 import ValidateButton from '@/components/AuthForm/ValidateButton'
 import type { RegisterFormData } from '@/types/login/register'
+import { api } from '@/api/axiosInstance'
 
 interface PhoneVerificationSectionProps {
   register: UseFormRegister<RegisterFormData>
@@ -17,6 +18,51 @@ export default function PhoneVerificationSection({
   phoneValue,
   phoneCode,
 }: PhoneVerificationSectionProps) {
+  //휴대폰 인증 코드 전송 함수
+  const handlePhoneCheck = async () => {
+    console.log(phoneValue)
+    try {
+      const res = await api.post('/api/v1/auth/phone/send-code/', {
+        phone: phoneValue,
+      })
+
+      console.log(res.data)
+      alert(res.data.message) // 예: "인증 코드가 이메일로 전송되었습니다."
+    } catch (error) {
+      console.error(error)
+
+      // 서버 에러 메시지 보여주기
+      if (error.response?.data?.message) {
+        alert(error.response.data.message)
+      } else {
+        alert('코드 전송에 실패했습니다.')
+      }
+    }
+  }
+
+  // 휴대폰 인증번호 검증 코드
+
+  const handlePhoneCodeCheck = async () => {
+    try {
+      const res = await api.post('/api/v1/auth/phone/verify-code/', {
+        phone: phoneValue,
+        code: phoneCode,
+      })
+
+      console.log(res.data.message)
+      alert(res.data.message) // 예: "인증 코드가 이메일로 전송되었습니다."
+    } catch (error) {
+      console.error(error)
+
+      // 서버 에러 메시지 보여주기
+      if (error.response?.data?.message) {
+        alert(error.response.data.message)
+      } else {
+        alert('코드 전송에 실패했습니다.')
+      }
+    }
+  }
+
   return (
     <div className="space-y-4">
       {/* 휴대전화 */}
@@ -62,7 +108,10 @@ export default function PhoneVerificationSection({
               className="ml-[4px] h-[48px] w-[108px] rounded border border-[#BDBDBD] p-2 text-center"
             />
           </div>
-          <ValidateButton variant={phoneValue ? 'active' : 'inactive'}>
+          <ValidateButton
+            variant={phoneValue ? 'active' : 'inactive'}
+            onClick={handlePhoneCheck}
+          >
             인증번호전송
           </ValidateButton>
         </div>
@@ -85,7 +134,10 @@ export default function PhoneVerificationSection({
             className="w-[356px]"
             maxLength={6}
           />
-          <ValidateButton variant={phoneValue ? 'active' : 'inactive'}>
+          <ValidateButton
+            variant={phoneValue ? 'active' : 'inactive'}
+            onClick={handlePhoneCodeCheck}
+          >
             인증번호확인
           </ValidateButton>
         </div>

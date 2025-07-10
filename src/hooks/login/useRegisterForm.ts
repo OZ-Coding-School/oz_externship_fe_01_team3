@@ -29,9 +29,12 @@ export const useRegisterForm = () => {
     emailCodeValue: watch('emailCode'),
     passwordValue: watch('password'),
     passwordConfirmValue: watch('passwordConfirm'),
-    phoneValue: watch('phone1', 'phone2'),
+    phoneValueFirst: watch('phone1'),
+    phoneValueSecond: watch('phone2'),
     phoneCode: watch('phoneCode'),
   }
+
+  const phoneValue = `010${watchedValues.phoneValueFirst || ''}${watchedValues.phoneValueSecond || ''}`
 
   const validationStates = {
     isPasswordValid: VALIDATION_PATTENS.password.test(
@@ -63,5 +66,6 @@ export const useRegisterForm = () => {
     ...validationStates,
     handleNumberInput,
     onSubmit,
+    phoneValue,
   }
 }
