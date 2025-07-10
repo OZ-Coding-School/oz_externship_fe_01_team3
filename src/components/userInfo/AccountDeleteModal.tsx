@@ -129,7 +129,7 @@ export default function AccountDeleteModal({ onClose }: Props) {
                 className="border-purple-primary text-purple-primary mt-5 h-12 w-36 cursor-pointer rounded-sm border bg-purple-100 text-base font-semibold"
                 onClick={handleDelete}
               >
-                회원 탈퇴하기
+                {deleteAccount ? '탈퇴 처리 중 입니다...' : '회원 탈퇴하기'}
               </button>
             </div>
           )}
