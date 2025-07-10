@@ -1,5 +1,3 @@
-import type React from 'react'
-
 interface SubmitButtonProps {
   isAllFieldsFilled: boolean
 }
