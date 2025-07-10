@@ -14,8 +14,6 @@ import ExamTakingPage from './ExamTakingPage'
 const RestoreAccount = () => <div>Restore Account - 구현 예정</div>
 const StudentRegistration = () => <div>Student Registration - 구현 예정</div>
 
-const ExamPage = () => <div>Exam Page - 구현 예정</div>
-
 const LayoutWithHeader = () => {
   return (
     <div>
