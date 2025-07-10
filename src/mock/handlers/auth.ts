@@ -1,21 +1,21 @@
-import {
-  type NicknameCheckRequest,
-  type NicknameCheckResponse,
-  type ErrorResponse,
-  type EmailSendCodeResponse,
-  type EmailSendCodeRequest,
-  type EmailVerifyCodeRequest,
-  type EmailVerifyCodeResponse,
-  type PhoneSendCodeResponse,
-  type SignupResponse,
-  type SignupRequest,
-  type PhoneSendCodeRequest,
-  type PhoneVerifyCodeRequest,
-  type PhoneVerifyCodeResponse,
-} from '@/types/mock/auth'
 import { http, HttpResponse } from 'msw'
+import type {
+  NicknameCheckRequest,
+  NicknameCheckResponse,
+  ErrorResponse,
+  EmailSendCodeRequest,
+  EmailSendCodeResponse,
+  EmailVerifyCodeRequest,
+  EmailVerifyCodeResponse,
+  PhoneSendCodeRequest,
+  PhoneSendCodeResponse,
+  PhoneVerifyCodeRequest,
+  PhoneVerifyCodeResponse,
+  SignupRequest,
+  SignupResponse,
+} from '@/types/mock/auth'
 
-export const handlers = [
+export const authHandlers = [
   // 닉네임 중복확인
   http.post<never, NicknameCheckRequest>(
     '/api/v1/auth/profile/nickname-check/',
@@ -29,7 +29,7 @@ export const handlers = [
             error: '이미 사용 중인 닉네임입니다.',
             code: 'NICKNAME_ALREADY_EXISTS',
           },
-          { status: 409 }
+          { status: 404 }
         )
       }
 
@@ -44,8 +44,7 @@ export const handlers = [
   http.post<never, EmailSendCodeRequest>(
     '/api/v1/auth/email/send-code',
     async ({ request }) => {
-      const { email, purpose } = await request.json()
-
+      const { email } = await request.json()
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
       if (!emailRegex.test(email)) {
@@ -70,7 +69,7 @@ export const handlers = [
   http.post<never, EmailVerifyCodeRequest>(
     '/api/v1/auth/email/verify-code',
     async ({ request }) => {
-      const { email, verification_code, purpose } = await request.json()
+      const { verification_code } = await request.json()
 
       const correctCode = '123456'
 
@@ -116,13 +115,13 @@ export const handlers = [
       })
     }
   ),
+
   // 휴대전화 인증번호 인증
   http.post<never, PhoneVerifyCodeRequest>(
     '/api/v1/auth/phone/verify-code/',
     async ({ request }) => {
-      const { phone, code } = await request.json()
+      const { code } = await request.json()
 
-      // 올바른 인증번호는 "654321"으로 시뮬레이션
       const correctCode = '654321'
 
       if (code !== correctCode) {
@@ -142,6 +141,7 @@ export const handlers = [
       })
     }
   ),
+
   // 이메일로 가입하기
   http.post<never, SignupRequest>(
     '/api/v1/auth/signup',
