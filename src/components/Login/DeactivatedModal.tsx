@@ -153,7 +153,11 @@ export default function DeactivatedAccountInfoModal() {
           </div>
         )}
         {resetClicked ? (
-          <CommonButton text="확인" disabled={isVerifiedCodeDisabled} />
+          <CommonButton
+            text="확인"
+            disabled={isVerifiedCodeDisabled}
+            onClick={() => {}}
+          />
         ) : (
           <CommonButton onClick={handleReset} text="계정 다시 사용하기" />
         )}
