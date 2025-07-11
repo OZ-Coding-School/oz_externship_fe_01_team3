@@ -1,5 +1,5 @@
 import type { MyPage } from '@/types/mypage/myPage'
-import LabeledInput from './Input'
+import LabeledInput from './LabelInput'
 import Camera from '@/assets/camera.svg'
 
 interface ProfileEditFormProps {
