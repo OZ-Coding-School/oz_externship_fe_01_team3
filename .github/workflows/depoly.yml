@@ -37,3 +37,7 @@ jobs:
           aws s3 cp ./dist s3://oz-coding-3team/ --recursive
 
       - name: CloudFront 캐시 무효화
+        run: |
+          aws cloudfront create-invalidation \
+          --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+          --paths "/*"
