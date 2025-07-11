@@ -52,11 +52,11 @@ jobs:
         run: |
           curl -X POST ${{ secrets.DISCORD_WEBHOOK_URL }} \
             -H "Content-Type: application/json" \
-            -d "{\"content\": \"후 고생했슈 제가 씩씩하게 배포했슈 🚀 (브랜치: ${{ github.ref }})\"}"
+            -d "{\"content\": \"🥳 후 고생했슈 제가 씩씩하게 배포했슈 🚀 (브랜치: ${{ github.ref }})\"}"
 
       - name: Discord Failure Notify
         if: failure()
         run: |
           curl -X POST ${{ secrets.DISCORD_WEBHOOK_URL }} \
             -H "Content-Type: application/json" \
-            -d "{\"content\": \"❌ 아 나 안해 배포 실패유 🔥 (브랜치: ${{ github.ref }})\n확인 필요!\"}"
+            -d "{\"content\": \"😡 아 나 안해 배포 실패유 🔥 (브랜치: ${{ github.ref }})\n확인 필요!\"}"
