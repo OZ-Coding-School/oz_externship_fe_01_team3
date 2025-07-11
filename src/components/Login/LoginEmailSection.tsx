@@ -5,13 +5,13 @@ import type { RegisterFormData } from '@/types/login/register'
 interface LoginEmailSectionProps {
   register: UseFormRegister<RegisterFormData>
   errors: FieldErrors<RegisterFormData>
-  inputValue: { emailValue?: string }
+  emailValue: string
 }
 
 export default function LoginEmailSection({
   register,
   errors,
-  inputValue,
+  emailValue,
 }: LoginEmailSectionProps) {
   return (
     <div className="mb-[16px]">
@@ -24,9 +24,7 @@ export default function LoginEmailSection({
           },
         })}
         placeholder="아이디 (example@gmail.com)"
-        variant={
-          errors.email ? 'error' : inputValue.emailValue ? 'success' : 'default'
-        }
+        variant={errors.email ? 'error' : emailValue ? 'success' : 'default'}
         className="w-[348px] text-[14px]"
       />
     </div>

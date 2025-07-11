@@ -92,7 +92,6 @@ export const useLoginForm = () => {
     register,
     handleSubmit,
     errors,
-    inputValue,
     isAllFieldsFilled,
     isModalOpen,
     modalContentType,
@@ -104,5 +103,6 @@ export const useLoginForm = () => {
     setModalType,
     toast,
     showToast,
+    ...inputValue,
   }
 }
