@@ -3,7 +3,7 @@ name: Build and Deploy Vite App
 on:
   push:
     branches:
-      - dev
+      - develop
 
 jobs:
   build-deploy:
