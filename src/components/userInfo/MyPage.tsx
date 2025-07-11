@@ -8,7 +8,6 @@ export default function MyPage() {
 
   const handleModal = () => {
     setModalOpen(true)
-    console.log('123')
   }
 
   return (
