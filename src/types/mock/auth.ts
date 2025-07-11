@@ -89,6 +89,7 @@ export interface SignupResponse {
 }
 
 export interface ErrorResponse {
-  error: string
-  code: string
+  error?: string
+  code?: string
+  detail?: string
 }
