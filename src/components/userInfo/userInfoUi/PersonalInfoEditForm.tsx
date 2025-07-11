@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import LabeledInput from './Input'
+import LabeledInput from './LabelInput'
 import Timer from '@/components/common/Timer'
 import type { MyPage } from '@/types/mypage/myPage'
 
