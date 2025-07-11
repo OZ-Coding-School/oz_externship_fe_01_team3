@@ -1,3 +1,4 @@
+import { api } from '@/api/axiosInstance'
 import { Toast } from '@/components/common/Toast'
 import DeactivatedAccountInfoModal from '@/components/Login/DeactivatedModal'
 import FindIdContent from '@/components/Login/FindIdContent'
@@ -8,6 +9,7 @@ import LoginEmailSection from '@/components/Login/LoginEmailSection'
 import LoginHeader from '@/components/Login/LoginHeader'
 import LoginPasswordSection from '@/components/Login/LoginPasswordSection'
 import { useLoginForm } from '@/hooks/login/useLoginForm'
+import { token } from '@/lib/token'
 
 // 지향 파트 (짧아지는게 목적이긴한데, 그렇다고 극단적으로 다 지울필요는 없어요.)
 // TODO: 컴포넌트를 세분화해서 쪼개는게 일단 우선이긴한데,,
@@ -18,7 +20,8 @@ export default function Login() {
     register,
     handleSubmit,
     errors,
-    inputValue,
+    emailValue,
+    passwordValue,
     isAllFieldsFilled,
     isModalOpen,
     modalContentType,
@@ -31,6 +34,24 @@ export default function Login() {
     toast,
     // showToast,
   } = useLoginForm()
+
+  const handleLogin = async () => {
+    try {
+      const res = await api.post('/api/v1/auth/login/email', {
+        email: emailValue,
+        password: passwordValue,
+      })
+      const { access, refresh, user } = res.data
+
+      token.set(access)
+      token.refresh.set(refresh)
+
+      // ✅ 이후 로직 (예: 전역 유저 정보 저장, 이동 등)
+      console.log('로그인 성공', user)
+    } catch (error) {
+      console.error('로그인 실패', error)
+    }
+  }
 
   return (
     <div className="flex flex-col items-center pt-20">
@@ -51,7 +72,7 @@ export default function Login() {
         <LoginEmailSection
           register={register}
           errors={errors}
-          inputValue={inputValue}
+          emailValue={emailValue}
         />
 
         {/* 비밀번호 인풋 */}
@@ -109,6 +130,7 @@ export default function Login() {
           type="submit"
           disabled={!!errors.email || !!errors.password}
           className={`mt-[12px] h-[52px] w-[348px] gap-2 rounded-[4px] ${!errors.email && !errors.password && isAllFieldsFilled ? 'bg-[#6201E0] text-white' : 'bg-[#ECECEC] text-[#BDBDBD]'} `}
+          onClick={handleLogin}
         >
           일반회원 로그인
         </button>
