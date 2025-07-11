@@ -43,9 +43,8 @@ export const exampleHandlers = [
   //쪽지시험 모달 인증 번호
   http.post<{ test_deployment_id: string }, ExamSendCodeRequest>(
     '/api/v1/tests/:test_deployment_id/validate/',
-    async ({ request, params }) => {
+    async ({ request }) => {
       const { access_token } = await request.json()
-      const { test_deployment_id } = params
 
       const authHeader = request.headers.get('Authorization')
       if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -54,15 +53,6 @@ export const exampleHandlers = [
             detail: '인증되지 않았습니다.',
           },
           { status: 403 }
-        )
-      }
-
-      if (!test_deployment_id) {
-        return HttpResponse.json<ErrorResponse>(
-          {
-            detail: '유효하지 않은 배포 ID입니다.',
-          },
-          { status: 400 }
         )
       }
 
@@ -80,16 +70,6 @@ export const exampleHandlers = [
         return HttpResponse.json<ErrorResponse>(
           {
             detail: '유효하지 않은 참가코드입니다.',
-          },
-          { status: 400 }
-        )
-      }
-
-      const validDeploymentId = '1'
-      if (test_deployment_id !== validDeploymentId) {
-        return HttpResponse.json<ErrorResponse>(
-          {
-            detail: '유효하지 않은 배포 ID입니다.',
           },
           { status: 400 }
         )
