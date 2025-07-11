@@ -3,6 +3,7 @@ import ExamList from '@/components/examList/ExamList'
 import SideBar from '@/components/examList/SideBar'
 import ExamListModal from '@/components/examList/ExamListModal'
 import ChangePasswordContainer from '../ChangePassword/ChangePasswordContainer'
+import MyPageContainer from '../userInfo/MyPageContainer'
 
 type SideTab = 'exam' | 'info' | 'password'
 
@@ -25,7 +26,7 @@ export default function ExampleListContainer() {
               {activeTab === 'exam' && (
                 <ExamList setIsModalOpen={setIsModalOpen} />
               )}
-              {activeTab === 'info' && <div>My page!</div>}
+              {activeTab === 'info' && <MyPageContainer />}
               {activeTab === 'password' && <ChangePasswordContainer />}
             </div>
           </div>
