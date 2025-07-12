@@ -9,7 +9,7 @@ interface Tab {
 }
 
 interface ExamListProps {
-  setIsModalOpen: (isModalOpen: boolean) => void
+  setIsModalOpen: (deploymentId: string) => void
 }
 
 const tabs: Tab[] = [
@@ -40,8 +40,7 @@ export default function ExamList({ setIsModalOpen }: ExamListProps) {
 
   const handleTakeExam = (examId: number) => {
     console.log('응시하기:', examId)
-    // 미응시 시험의 응시하기 버튼 클릭 시 모달 열기
-    setIsModalOpen(true)
+    setIsModalOpen(examId.toString())
   }
 
   const handleViewDetails = (examId: number) => {
