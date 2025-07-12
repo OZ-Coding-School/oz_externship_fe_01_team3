@@ -26,12 +26,6 @@ export interface SideBarProps {
 }
 
 // 유틸리티 컴포넌트 Props
-export interface TechIconProps {
-  title: string
-  thumbnailUrl?: string
-  className?: string
-}
-
 export interface StatusBadgeProps {
   status: 'submitted' | 'not_submitted'
 }

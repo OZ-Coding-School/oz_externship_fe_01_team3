@@ -1,22 +1,28 @@
 import { useExamModalQuery } from '@/hooks/examList/useExamModalQuery'
 import { X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import Button from '../common/Button'
 
 interface ModalProps {
   setIsModalClose: (isModalOpen: boolean) => void
+  deploymentId: string
 }
 const MAX_LENGTH = 6
 
-export default function ExamListModal({ setIsModalClose }: ModalProps) {
+export default function ExamListModal({
+  setIsModalClose,
+  deploymentId,
+}: ModalProps) {
   const [examCode, setExamCode] = useState('')
   const [error, setError] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const navigate = useNavigate()
-  const { data, isSuccess, isError } = useExamModalQuery(
+
+  const { data, isSuccess, isError, isLoading } = useExamModalQuery(
     examCode,
-    submitted && examCode.length === MAX_LENGTH
+    submitted && examCode.length === MAX_LENGTH,
+    deploymentId
   )
 
   useEffect(() => {
@@ -33,7 +39,6 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
   }, [isError, submitted])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // TODO: 참가 코드를 입력 시, POST 요청 후 데이터를 받아서 navigate로 보내주기
     e.preventDefault()
 
     if (examCode.length !== MAX_LENGTH) {
@@ -41,9 +46,11 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
       setExamCode('')
       return
     }
+
     setError(false)
-    setSubmitted(true)
+    setSubmitted(true) // 이것만 하면 useQuery가 자동 실행
   }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Regex:숫자만 허용하고 6자리까지만 제한
     const regex = /^[0-9]*$/
@@ -106,8 +113,16 @@ export default function ExamListModal({ setIsModalClose }: ModalProps) {
           </div>
         )}
         {/* 시험시작 버튼 */}
-        <button className="h-[48px] w-full rounded-[4px] bg-[#6201E0] text-[16px] font-semibold text-white">
-          시험시작
+        <button
+          type="submit"
+          disabled={isLoading}
+          className={`h-[48px] w-full rounded-[4px] text-[16px] font-semibold text-white ${
+            isLoading
+              ? 'cursor-not-allowed bg-gray-400'
+              : 'bg-[#6201E0] hover:bg-[#4E01B3]'
+          }`}
+        >
+          {isLoading ? '검증 중...' : '시험시작'}
         </button>
       </form>
     </div>
