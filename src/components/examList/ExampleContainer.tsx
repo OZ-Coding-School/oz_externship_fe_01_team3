@@ -10,7 +10,19 @@ type SideTab = 'exam' | 'info' | 'password'
 export default function ExampleListContainer() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [activeTab, setActiveTab] = useState<SideTab>('exam')
+  const [selectedDeploymentId, setSelectedDeploymentId] = useState('')
 
+  const handleModalOpen = (deploymentId: string) => {
+    setSelectedDeploymentId(deploymentId)
+    setIsModalOpen(true)
+  }
+
+  const handleModalClose = (isOpen: boolean) => {
+    setIsModalOpen(isOpen)
+    if (!isOpen) {
+      setSelectedDeploymentId('')
+    }
+  }
   return (
     <div className="mt-[108px] min-h-screen">
       <div className="container mx-auto min-h-screen max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-24">
@@ -24,7 +36,7 @@ export default function ExampleListContainer() {
           <div className="flex-1 lg:min-h-screen">
             <div className="px-4 py-6 sm:px-6 lg:px-8">
               {activeTab === 'exam' && (
-                <ExamList setIsModalOpen={setIsModalOpen} />
+                <ExamList setIsModalOpen={handleModalOpen} />
               )}
               {activeTab === 'info' && <MyPageContainer />}
               {activeTab === 'password' && <ChangePasswordContainer />}
@@ -33,7 +45,12 @@ export default function ExampleListContainer() {
         </div>
       </div>
 
-      {isModalOpen && <ExamListModal setIsModalClose={setIsModalOpen} />}
+      {isModalOpen && (
+        <ExamListModal
+          setIsModalClose={handleModalClose}
+          deploymentId={selectedDeploymentId}
+        />
+      )}
     </div>
   )
 }
