@@ -1,18 +1,19 @@
-import { token } from '@/lib/token'
-import type { ExamResult } from '@/types/examResult/examResult'
-import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
+import { token } from '@/lib/token'
 
 const getExamResult = async (submissionId: string) => {
-  const access_code = token.get()
-  const response = await axios.get<ExamResult>(
+  const accessToken = token.get()
+
+  const response = await axios.get(
     `/api/v1/test/submissions/${submissionId}/result/`,
     {
       headers: {
-        Authorization: `Bearer ${access_code}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     }
   )
+
   return response.data
 }
 
