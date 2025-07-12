@@ -79,6 +79,10 @@ export default function ExamResult() {
 
   const { data, isLoading, isError, error } = useExamResultQuery(quizId || '')
 
+  const handleComplete = () => {
+    console.log('123')
+  }
+
   if (isLoading) return <p className="text-center"> 결과 불러오는 중...</p>
   if (isError)
     return <p className="text-center text-red-500">에러: {error.message}</p>
@@ -127,9 +131,7 @@ export default function ExamResult() {
       <div className="flex items-center justify-center">
         <button
           className="mt-30 mb-24 flex h-16 w-23 cursor-pointer items-center justify-center rounded-[4px] border border-[#4e01b3] bg-[#6201E0] px-4 py-7 text-xl font-semibold text-purple-100 hover:bg-[#4E01B3] active:bg-[#3B0186]"
-          onClick={() => {
-            console.log('완료 버튼 클릭')
-          }}
+          onClick={handleComplete}
         >
           완료
         </button>
