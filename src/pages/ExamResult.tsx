@@ -7,11 +7,13 @@ import QuestionTextarea from '@/components/examQuestions/QuestionTextarea'
 import QuestionTitle from '@/components/examQuestions/QuestionTitle'
 import RadioType from '@/components/examQuestions/RadioType'
 import ReorderQuestion from '@/components/examQuestions/ReorderQuestion'
-import examResultData from '@/mock/examResultData'
+import { useExamResultQuery } from '@/hooks/examResult/useExamResultQuery'
+
 import type {
-  CommonPropsType,
   ExamQuestion,
+  CommonPropsType,
 } from '@/types/examResult/examResult'
+import { useParams } from 'react-router'
 
 const getContext = (
   type: string,
@@ -73,25 +75,38 @@ const getContext = (
 }
 
 export default function ExamResult() {
+  const { quizId } = useParams<{ quizId: string }>()
+
+  const { data, isLoading, isError, error } = useExamResultQuery(quizId || '')
+
+  if (isLoading) return <p className="text-center"> 결과 불러오는 중...</p>
+  if (isError)
+    return <p className="text-center text-red-500">에러: {error.message}</p>
+  if (!data) {
+    return <p className="text-center text-red-500">데이터가 없습니다.</p>
+  }
+
+  const { deployment, cheating_count, answers_json } = data
+
   return (
     <>
       <QuestionHeader
-        title={examResultData.deployment.test.title}
-        subTitle={`임시 서브 타이틀 / 부정 행위 ${examResultData.cheating_count}`}
+        title={deployment?.test.title}
+        subTitle={`임시 서브 타이틀 / 부정 행위 ${cheating_count}`}
         showOption={false}
       />
       <QuestionResultSubBanner />
       <div className="mt-20 ml-90 flex flex-col gap-25">
-        {examResultData.deployment.questions_snapshot_json.map(
+        {deployment?.questions_snapshot_json.map(
           (question: ExamQuestion, index: number) => {
             const userAnswer =
-              examResultData.answers_json[question.question_id.toString()] ?? []
+              answers_json[question?.question_id?.toString()] ?? []
 
             const COMMON_PROPS: CommonPropsType = {
               disabled: true,
               student_answer: userAnswer,
-              correct_answer: question.answer,
-              explanation: question.explanation,
+              correct_answer: question?.answer,
+              explanation: question?.explanation,
               is_result: true,
             }
 
@@ -113,7 +128,7 @@ export default function ExamResult() {
         <button
           className="mt-30 mb-24 flex h-16 w-23 cursor-pointer items-center justify-center rounded-[4px] border border-[#4e01b3] bg-[#6201E0] px-4 py-7 text-xl font-semibold text-purple-100 hover:bg-[#4E01B3] active:bg-[#3B0186]"
           onClick={() => {
-            console.log(123)
+            console.log('완료 버튼 클릭')
           }}
         >
           완료
