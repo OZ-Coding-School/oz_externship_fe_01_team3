@@ -7,6 +7,7 @@ import type {
 } from 'react-hook-form'
 import { api } from '@/api/axiosInstance'
 import Button from '../common/Button'
+import { useState } from 'react'
 
 interface FindPwInitialSection {
   register: UseFormRegister<RegisterFormData>
@@ -29,7 +30,7 @@ export default function FindPwInitialSection({
 }: FindPwInitialSection) {
   const handleSendCode = async () => {
     try {
-      const res = await api.post('/api/v1/auth/email/send-code', {
+      const res = await api.post('/api/v1/auth/account/send-reset-code/', {
         email: emailValue,
         purpose: 'signup',
       })
@@ -50,7 +51,7 @@ export default function FindPwInitialSection({
 
   async function handleCheckCode() {
     try {
-      const res = await api.post('/api/v1/auth/email/verify-code', {
+      const res = await api.post('/api/v1/auth/account/verify-code/', {
         email: emailValue,
         verification_code: emailCodeValue,
         purpose: 'signup',
@@ -58,6 +59,8 @@ export default function FindPwInitialSection({
 
       // 200이면 성공
       alert('인증 성공!')
+      // 비밀번호 재설정 화면으로 전환
+      setEmailCodeSuccess(true)
     } catch (error) {
       // 400이면 서버에서 에러 메시지가 응답으로 옴
       const errorMessage =
