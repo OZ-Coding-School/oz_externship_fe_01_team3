@@ -4,6 +4,7 @@ import AuthInput from '@/components/AuthForm/AuthInput'
 import AuthLabel from '@/components/AuthForm/AuthLabel'
 import ValidateButton from '@/components/AuthForm/ValidateButton'
 import type { RegisterFormData } from '@/types/login/register'
+import { api } from '@/api/axiosInstance'
 
 interface PersonalInfoSectionProps {
   register: UseFormRegister<RegisterFormData>
@@ -24,6 +25,26 @@ export default function PersonalInfoSection({
   isValidBirth,
   handleNumberInput,
 }: PersonalInfoSectionProps) {
+  const handlerNickname = async () => {
+    try {
+      const res = await api.post('/api/v1/auth/profile/nickname-check/', {
+        nickname: nicknameValue,
+      })
+
+      console.log(res.data)
+      alert(res.data.message) // 예: "인증 코드가 이메일로 전송되었습니다."
+    } catch (error) {
+      console.error(error)
+
+      // 서버 에러 메시지 보여주기
+      if (error.response?.data?.message) {
+        alert(error.response.data.message)
+      } else {
+        alert('이미 사용중인 닉네임 입니다앙 !')
+      }
+    }
+  }
+
   return (
     <div className="space-y-11">
       {/* 이름 */}
@@ -57,7 +78,10 @@ export default function PersonalInfoSection({
             }
             className="w-[356px]"
           />
-          <ValidateButton variant={nicknameValue ? 'active' : 'inactive'}>
+          <ValidateButton
+            variant={nicknameValue ? 'active' : 'inactive'}
+            onClick={handlerNickname}
+          >
             중복확인
           </ValidateButton>
         </div>
