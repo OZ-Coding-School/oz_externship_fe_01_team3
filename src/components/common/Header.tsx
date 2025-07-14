@@ -1,26 +1,21 @@
 import { useState } from 'react'
 import { User } from 'lucide-react'
 import StudentRegisterContent from './StudentCourseRegister/RegiserContent'
+import { useUser } from '@/hooks/mypage/useMyProfile'
+import { useNavigate } from 'react-router'
+import { useAuthStore } from '@/stores/useLoginStore'
+import logo from '@/assets/logo.png'
 
 export const Header = () => {
   const [showLoginModal, setShowLoginModal] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false) // 로그인 상태 관리
   const [isModalOpen, setIsModalOpen] = useState(false) // 수강생 등록 모달 열고 닫는 상태
+  const navigate = useNavigate()
+
+  const { isLoggedIn, user, logout } = useAuthStore()
+  const { data: USER } = useUser()
 
   const toggleLoginModal = () => {
     setShowLoginModal(!showLoginModal)
-  }
-
-  // TODO: 로그인 처리 함수
-  const handleLogin = () => {
-    setIsLoggedIn(true)
-    setShowLoginModal(false)
-  }
-
-  //  TODO: 로그아웃 처리 함수 (예시)
-  const handleLogout = () => {
-    setIsLoggedIn(false)
-    setShowLoginModal(false)
   }
 
   return (
@@ -38,7 +33,12 @@ export const Header = () => {
             <div className="flex items-center">
               {/* 로고 */}
               <div className="flex items-center">
-                <h1>LOGO</h1>
+                <img
+                  src={logo}
+                  alt="logo"
+                  className="cursor-pointer"
+                  onClick={() => navigate('/')}
+                />
               </div>
 
               {/* 메인 메뉴 */}
@@ -57,7 +57,8 @@ export const Header = () => {
               {/* 로그인 전 - 텍스트 메뉴 */}
               {!isLoggedIn && (
                 <div className="flex items-center space-x-4 text-sm text-gray-600">
-                  <button onClick={handleLogin}>로그인</button>
+                  {/* 실제 로그인 페이지로 이동 */}
+                  <button onClick={() => navigate('/login')}>로그인</button>
                   <span className="text-gray-300">|</span>
                   <a href="#">회원가입</a>
                 </div>
@@ -83,10 +84,10 @@ export const Header = () => {
                     {/* 프로필 섹션 */}
                     <div className="p-4">
                       <h3 className="mb-2 text-left font-semibold text-gray-900">
-                        오즈오즈
+                        {user?.nickname || USER?.nickname}
                       </h3>
                       <p className="mb-3 text-left text-sm text-gray-500">
-                        ozschool1234@gmail.com
+                        {user?.email || USER?.email}
                       </p>
 
                       <div className="w-full font-medium text-gray-700">
@@ -129,12 +130,18 @@ export const Header = () => {
                             </div>
                           )}
                         </div>
-                        <div className="cursor-pointer py-3.5 font-medium text-gray-700 hover:bg-[#EFE6FC] hover:text-purple-600">
+                        <div
+                          className="cursor-pointer py-3.5 font-medium text-gray-700 hover:bg-[#EFE6FC] hover:text-purple-600"
+                          onClick={() => navigate('my-quiz')}
+                        >
                           마이페이지
                         </div>
                         <div
                           className="cursor-pointer py-3.5 font-medium text-gray-700 hover:bg-[#EFE6FC] hover:text-purple-600"
-                          onClick={handleLogout}
+                          onClick={() => {
+                            logout()
+                            setShowLoginModal(false)
+                          }}
                         >
                           로그아웃
                         </div>
