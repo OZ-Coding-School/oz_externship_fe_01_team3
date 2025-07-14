@@ -14,7 +14,12 @@ async function enableMocking() {
   const { worker } = await import('./mock/browser')
 
   return worker.start({
-    onUnhandledRequest: 'bypass',
+    onUnhandledRequest(req, print) {
+      if (new URL(req.url).hostname === 'api.ozcoding.site') {
+        return
+      }
+      print.warning()
+    },
   })
 }
 
