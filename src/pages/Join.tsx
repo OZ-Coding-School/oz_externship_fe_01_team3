@@ -1,8 +1,10 @@
 import SocialButton from '@/components/common/SocialButton'
+import { useSocialLogin } from '@/hooks/login/useSocialLogin'
 import { useNavigate } from 'react-router'
 
 function Join() {
   const navigate = useNavigate()
+  const { kakaoLogin, naverLogin } = useSocialLogin()
 
   return (
     <div className="flex flex-col items-center pt-20">
@@ -31,7 +33,7 @@ function Join() {
         iconSrc="src/assets/kakao_brown.svg"
         iconAlt="카카오"
         marginBottom="16px"
-        onClick={() => alert('카카오 로그인 클릭됨')}
+        onClick={kakaoLogin}
       >
         카카오로 3초만에 가입하기
       </SocialButton>
@@ -43,7 +45,7 @@ function Join() {
         iconSrc="src/assets/naver_white.svg"
         iconAlt="네이버"
         marginBottom="25px"
-        onClick={() => alert('네이버 로그인 클릭됨')}
+        onClick={naverLogin}
       >
         네이버로 가입하기
       </SocialButton>
