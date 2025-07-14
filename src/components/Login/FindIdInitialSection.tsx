@@ -3,6 +3,8 @@ import AuthInput from '../AuthForm/AuthInput'
 import AuthLabel from '../AuthForm/AuthLabel'
 import ValidateButton from '../AuthForm/ValidateButton'
 import type { RegisterFormData } from '@/types/login/register'
+import { api } from '@/api/axiosInstance'
+import type { AxiosError } from 'axios'
 
 interface FindIdInitialSectionProps {
   register: UseFormRegister<RegisterFormData>
@@ -19,6 +21,52 @@ export default function FindIdInitialSection({
   phoneValue,
   phoneCodeValue,
 }: FindIdInitialSectionProps) {
+  //휴대전화로 인증코드 전송 api
+  const handSendCode = async () => {
+    try {
+      const res = await api.post('/api/v1/auth/find/email/phone/send/', {
+        phone: phoneValue,
+      })
+
+      console.log(res.data.message)
+      alert(res.data.message) //성공시, "코드 전송 되었습니다!!"
+    } catch (error) {
+      const axiosError = error as AxiosError<any>
+
+      console.error(error)
+
+      // 서버 에러 메시지 보여주기
+      if (axiosError.response?.data?.message) {
+        alert(axiosError.response.data.message)
+      } else {
+        alert('코드 전송에 실패했습니다.')
+      }
+    }
+  }
+
+  //인증코드 확인하는 api
+  const handleCheckCode = async () => {
+    try {
+      const res = await api.post('/api/v1/auth/find/email/phone/verify/', {
+        phone: phoneValue,
+        code: phoneCodeValue,
+      })
+
+      console.log(res.data.message)
+      alert(res.data.message) //성공시, "코드가 일치합니다"
+    } catch (error) {
+      const axiosError = error as AxiosError<any>
+
+      console.error(error)
+
+      // 서버 에러 메시지 보여주기
+      if (axiosError.response?.data?.message) {
+        alert(axiosError.response.data.message)
+      } else {
+        alert('코드가 일치하지 않습니다.')
+      }
+    }
+  }
   return (
     <>
       <div className="flex items-center">
@@ -69,6 +117,7 @@ export default function FindIdInitialSection({
           <ValidateButton
             variant={phoneValue ? 'active' : 'inactive'}
             className="w-[112px]"
+            onClick={handSendCode}
           >
             인증번호전송
           </ValidateButton>
@@ -98,6 +147,7 @@ export default function FindIdInitialSection({
           <ValidateButton
             variant={phoneValue ? 'active' : 'inactive'}
             className="w-[112px]"
+            onClick={handleCheckCode}
           >
             인증번호확인
           </ValidateButton>
