@@ -13,7 +13,7 @@ import type {
   ExamQuestion,
   CommonPropsType,
 } from '@/types/examResult/examResult'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
 const getContext = (
   type: string,
@@ -76,11 +76,12 @@ const getContext = (
 
 export default function ExamResult() {
   const { quizId } = useParams<{ quizId: string }>()
+  const navigate = useNavigate()
 
   const { data, isLoading, isError, error } = useExamResultQuery(quizId || '')
 
   const handleComplete = () => {
-    console.log('123')
+    navigate('/my-quiz')
   }
 
   if (isLoading) return <p className="text-center"> 결과 불러오는 중...</p>
