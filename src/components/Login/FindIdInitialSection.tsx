@@ -12,6 +12,7 @@ interface FindIdInitialSectionProps {
   nameValue: string
   phoneValue: string
   phoneCodeValue: string
+  setSuccessFindId: (v: boolean) => void
 }
 
 export default function FindIdInitialSection({
