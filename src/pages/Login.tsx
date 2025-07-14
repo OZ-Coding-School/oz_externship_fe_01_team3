@@ -27,12 +27,11 @@ export default function Login() {
     modalContentType,
     openModal,
     closeModal,
-    onSubmit,
     navigate,
     watch,
     setModalType,
     toast,
-    // showToast,
+    showToast,
   } = useLoginForm()
 
   const handleLogin = async () => {
@@ -48,8 +47,22 @@ export default function Login() {
 
       // ✅ 이후 로직 (예: 전역 유저 정보 저장, 이동 등)
       console.log('로그인 성공', user)
+      showToast({
+        message: '로그인 성공!',
+        type: 'success',
+        layout: 'centered',
+        subMessage: '메인 페이지로 이동합니다.',
+        className: '',
+      })
     } catch (error) {
       console.error('로그인 실패', error)
+
+      // showToast({
+      //   message: '로그인 실패!',
+      //   type: 'error',
+      //   layout: 'centered',
+      //   subMessage: '이메일 또는 비밀번호를 확인해주세요.',
+      // })
     }
   }
 
@@ -65,7 +78,7 @@ export default function Login() {
       {toast && <Toast toast={toast} />}
 
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleLogin)}
         className="flex flex-col items-center"
       >
         {/* 이메일 인풋 */}
@@ -127,10 +140,8 @@ export default function Login() {
 
         {/* 일반회원 로그인 버튼 : 유효성 검사 미통과시 disabled / 유효성 다 통과하고 값이 있어야만 보라색 활성화 색 */}
         <button
-          type="submit"
           disabled={!!errors.email || !!errors.password}
           className={`mt-[12px] h-[52px] w-[348px] gap-2 rounded-[4px] ${!errors.email && !errors.password && isAllFieldsFilled ? 'bg-[#6201E0] text-white' : 'bg-[#ECECEC] text-[#BDBDBD]'} `}
-          onClick={handleLogin}
         >
           일반회원 로그인
         </button>
