@@ -1,5 +1,7 @@
+import { useWithdrawRequest } from '@/hooks/mypage/useUserDelete'
 import { X } from 'lucide-react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 
 interface Props {
   onClose: () => void
@@ -7,12 +9,21 @@ interface Props {
 
 export default function AccountDeleteModal({ onClose }: Props) {
   const [selectedValue, setSelectedValue] = useState<number | null>(null)
+  const [detailText, setDetailText] = useState('')
   const [open, setOpen] = useState(false)
   const [deleteAccount, setDeleteAccount] = useState(false)
+  const withdrawMutation = useWithdrawRequest()
+  const navigate = useNavigate()
 
   const handleDelete = () => {
+    const selectedLabel =
+      OPTIONS.find((option) => option.value === selectedValue)?.label || ''
+    withdrawMutation.mutate({
+      reason: selectedLabel,
+      detail: detailText,
+    })
     setDeleteAccount(true)
-    console.log('계정 삭제')
+    setTimeout(() => navigate('/'), 3000)
   }
 
   const OPTIONS = [
@@ -117,6 +128,8 @@ export default function AccountDeleteModal({ onClose }: Props) {
                 <textarea
                   name=""
                   id=""
+                  value={detailText}
+                  onChange={(e) => setDetailText(e.target.value)}
                   placeholder="소중한 의견을 반영해 더 좋은 서비스를 위해 노력하겠습니다."
                   className="h-33 w-150 resize-none rounded-sm border border-[#bdbdbd] bg-[#fafafa] outline-none"
                 ></textarea>
