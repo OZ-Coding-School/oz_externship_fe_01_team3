@@ -8,6 +8,8 @@ import Join from './Join'
 import Login from './Login'
 import Register from './Register'
 import ExamTakingPage from './ExamTakingPage'
+import KaKaoCallback from '@/components/Login/callback/KaKaoCallback'
+import NaverCallback from '@/components/Login/callback/NaverCallback'
 
 // TODO: 임시 컴포넌트들 - 실제 컴포넌트 구현 후 교체 예정입니다. (각자 파트로 교체 해주세요 😀)
 
@@ -44,6 +46,15 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <LandingPage />,
+      },
+      // 소셜 로그인 콜백 페이지 (네이버, 카카오)
+      {
+        path: 'auth/kakao/callback',
+        element: <KaKaoCallback />,
+      },
+      {
+        path: 'auth/naver/callback',
+        element: <NaverCallback />,
       },
       // 탈퇴회원 복구 - 로그인 안한 사람만
       {
