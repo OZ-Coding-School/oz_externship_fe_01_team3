@@ -7,6 +7,7 @@ import type {
 } from 'react-hook-form'
 import { api } from '@/api/axiosInstance'
 import { useEffect } from 'react'
+import type { AxiosError } from 'axios'
 
 interface FindPwInitialSection {
   register: UseFormRegister<RegisterFormData>
@@ -24,7 +25,6 @@ export default function FindPwInitialSection({
   register,
   errors,
   emailValue,
-  sendVerified,
   showTimer,
   emailCodeValue,
   watch,
@@ -41,11 +41,13 @@ export default function FindPwInitialSection({
       console.log(res.data.message)
       alert(res.data.message) // 예: "인증 코드가 이메일로 전송되었습니다."
     } catch (error) {
+      const axiosError = error as AxiosError<any>
+
       console.error(error)
 
       // 서버 에러 메시지 보여주기
-      if (error.response?.data?.message) {
-        alert(error.response.data.message)
+      if (axiosError.response?.data?.message) {
+        alert(axiosError.response.data.message)
       } else {
         alert('코드 전송에 실패했습니다.')
       }
@@ -54,7 +56,7 @@ export default function FindPwInitialSection({
 
   async function handleCheckCode() {
     try {
-      const res = await api.post('/api/v1/auth/account/verify-code/', {
+      await api.post('/api/v1/auth/account/verify-code/', {
         email: emailValue,
         code: emailCodeValue,
       })
@@ -65,8 +67,10 @@ export default function FindPwInitialSection({
       // 비밀번호 재설정 화면으로 전환
     } catch (error) {
       // 400이면 서버에서 에러 메시지가 응답으로 옴
+      const axiosError = error as AxiosError<any>
+
       const errorMessage =
-        error.response?.data?.non_field_errors?.[0] ||
+        axiosError.response?.data?.non_field_errors?.[0] ||
         '알 수 없는 에러가 발생했습니다.'
       alert(errorMessage)
     }

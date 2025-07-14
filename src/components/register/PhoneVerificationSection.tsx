@@ -4,6 +4,7 @@ import AuthLabel from '@/components/AuthForm/AuthLabel'
 import ValidateButton from '@/components/AuthForm/ValidateButton'
 import type { RegisterFormData } from '@/types/login/register'
 import { api } from '@/api/axiosInstance'
+import type { AxiosError } from 'axios'
 
 interface PhoneVerificationSectionProps {
   register: UseFormRegister<RegisterFormData>
@@ -29,11 +30,13 @@ export default function PhoneVerificationSection({
       console.log(res.data)
       alert(res.data.message) // 예: "인증 코드가 이메일로 전송되었습니다."
     } catch (error) {
+      const axiosError = error as AxiosError<any>
+
       console.error(error)
 
       // 서버 에러 메시지 보여주기
-      if (error.response?.data?.message) {
-        alert(error.response.data.message)
+      if (axiosError.response?.data?.message) {
+        alert(axiosError.response.data.message)
       } else {
         alert('인증 코드가 일치하지 않습니다.')
       }
@@ -52,11 +55,13 @@ export default function PhoneVerificationSection({
       console.log(res.data.message)
       alert(res.data.message) // 예: "인증 코드가 이메일로 전송되었습니다."
     } catch (error) {
+      const axiosError = error as AxiosError<any>
+
       console.error(error)
 
       // 서버 에러 메시지 보여주기
-      if (error.response?.data?.message) {
-        alert(error.response.data.message)
+      if (axiosError.response?.data?.message) {
+        alert(axiosError.response.data.message)
       } else {
         alert('코드 전송에 실패했습니다.')
       }
