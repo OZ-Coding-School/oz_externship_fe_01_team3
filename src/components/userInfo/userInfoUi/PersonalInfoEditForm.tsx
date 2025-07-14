@@ -2,6 +2,8 @@ import { useState } from 'react'
 import LabeledInput from './LabelInput'
 import Timer from '@/components/common/Timer'
 import type { MyPage } from '@/types/mypage/myPage'
+import { useCheckPhoneNumber } from '@/hooks/mypage/usePhoneCode'
+import { useVerifyCode } from '@/hooks/mypage/useVerifyCode'
 
 interface PersonalInfoEditFormProps {
   USER: MyPage
@@ -18,23 +20,53 @@ export default function PersonalInfoEditForm({
   const [isAuthRequested, setIsAuthRequested] = useState(false)
   const [isExpired, setIsExpired] = useState(false)
   const [code, setCode] = useState('')
+  const [isWrongCode, setIsWrongCode] = useState(false)
+
+  const { mutate: requestCode, isPending: isSending } = useCheckPhoneNumber()
+  const { mutate: verifyCode, isPending: isVerifying } = useVerifyCode()
 
   const handleTimer = () => {
-    setIsAuthRequested(true)
-    setIsExpired(false)
-    setTimer(false)
-    setTimeout(() => setTimer(true), 10)
+    if (!phone) {
+      alert('전화번호를 입력하세요.')
+      return
+    }
+
+    requestCode(phone, {
+      onSuccess: () => {
+        setIsAuthRequested(true)
+        setIsExpired(false)
+        setTimer(false)
+        setTimeout(() => setTimer(true), 10)
+        alert('인증번호가 전송되었습니다.')
+      },
+      onError: () => {
+        alert('인증번호 요청에 실패했습니다.')
+      },
+    })
   }
 
   const handleCheckCode = () => {
-    if (code === '123123') {
-      alert('인증 성공')
-      setTimer(false)
-      setIsAuthRequested(false)
-      setIsExpired(false)
-    } else {
-      alert('인증번호가 틀렸습니다.')
+    if (!code) {
+      alert('인증번호를 입력하세요.')
+      return
     }
+
+    verifyCode(
+      { phone, code },
+      {
+        onSuccess: () => {
+          alert('인증 성공')
+          setTimer(false)
+          setIsAuthRequested(false)
+          setIsExpired(false)
+          setIsWrongCode(false)
+        },
+        onError: () => {
+          setIsWrongCode(true)
+          alert('인증번호가 틀렸습니다.')
+        },
+      }
+    )
   }
 
   const handleTimerExpired = () => {
@@ -64,7 +96,6 @@ export default function PersonalInfoEditForm({
           <div className="relative">
             <LabeledInput
               id="phone"
-              value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder={USER.phone_number}
               className={phoneInputClass}
@@ -77,6 +108,7 @@ export default function PersonalInfoEditForm({
           </div>
           <button
             onClick={handleTimer}
+            disabled={isSending}
             className={`${
               isAuthRequested ? 'w-35' : 'w-28'
             } mt-2 h-12 cursor-pointer rounded-sm border border-[#cecece] bg-[#efe6fc] text-base font-semibold text-purple-600`}
@@ -96,6 +128,7 @@ export default function PersonalInfoEditForm({
             />
             <button
               onClick={handleCheckCode}
+              disabled={isVerifying}
               className="mt-2 h-12 w-35 cursor-pointer rounded-sm border border-[#cecece] bg-[#efe6fc] text-base font-semibold text-[#4d4d4d]"
             >
               인증번호 확인
@@ -106,6 +139,11 @@ export default function PersonalInfoEditForm({
         {isExpired && (
           <p className="text-xs font-normal text-[#ec0037]">
             *인증번호 전송 시간이 초과되었습니다. 인증번호를 재전송해 주세요.
+          </p>
+        )}
+        {isWrongCode && (
+          <p className="text-xs font-normal text-[#ec0037]">
+            *잘못된 인증 번호를 입력하였습니다.
           </p>
         )}
       </div>
