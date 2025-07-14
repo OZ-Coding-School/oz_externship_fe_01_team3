@@ -35,7 +35,7 @@ export default function PhoneVerificationSection({
       if (error.response?.data?.message) {
         alert(error.response.data.message)
       } else {
-        alert('코드 전송에 실패했습니다.')
+        alert('인증 코드가 일치하지 않습니다.')
       }
     }
   }
