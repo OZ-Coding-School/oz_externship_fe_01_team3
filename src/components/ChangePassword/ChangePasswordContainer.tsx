@@ -1,3 +1,5 @@
+import { useChangePassword } from '@/hooks/mypage/useChangePassword'
+import { useUser } from '@/hooks/mypage/useMyProfile'
 import { useForm } from 'react-hook-form'
 
 interface ChangePasswordContainerProps {
@@ -6,6 +8,8 @@ interface ChangePasswordContainerProps {
 }
 
 export default function ChangePasswordContainer() {
+  const { data: USER, isLoading, isError } = useUser()
+
   const {
     register,
     handleSubmit,
@@ -13,8 +17,26 @@ export default function ChangePasswordContainer() {
     watch,
   } = useForm<ChangePasswordContainerProps>({ mode: 'onChange' })
 
-  const handleChange = () => {
-    alert('변경하기 클릭 됨!')
+  const { mutate: changePassword } = useChangePassword()
+
+  const handleChangePassword = () => {
+    if (!USER?.email) return
+
+    changePassword(
+      {
+        email: USER.email,
+        new_password: passwordValue,
+        new_password_confirm: passwordConfirmValue,
+      },
+      {
+        onSuccess: () => {
+          alert('비밀번호가 성공적으로 변경되었습니다.')
+        },
+        onError: () => {
+          alert('비밀번호 변경에 실패했습니다.')
+        },
+      }
+    )
   }
 
   const passwordValue = watch('password')
@@ -25,6 +47,9 @@ export default function ChangePasswordContainer() {
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-])[A-Za-z\d!@#$%^&*()_+\[\]{};':"\\|,.<>\/?`~\-]{6,15}$/.test(
       passwordValue
     )
+
+  if (isLoading) return <div>로딩중...</div>
+  if (isError || !USER) return <div>유저 정보를 불러올 수 없습니다.</div>
 
   return (
     <div>
@@ -81,7 +106,7 @@ export default function ChangePasswordContainer() {
           <div className="mt-[40px] flex justify-end">
             <button
               className="h-[48px] w-[126px] rounded-[4px] bg-[#6201E0] text-[#FFFFFF] hover:bg-[#4E01B3]"
-              onClick={handleSubmit(handleChange)}
+              onClick={handleSubmit(handleChangePassword)}
               disabled={
                 !(
                   !!passwordValue &&
