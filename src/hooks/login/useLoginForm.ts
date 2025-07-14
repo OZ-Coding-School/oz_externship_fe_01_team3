@@ -12,7 +12,6 @@ export const useLoginForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
   } = useForm<RegisterFormData>({ mode: 'onChange' })
 
   //로그인 페이지 인풋 종류

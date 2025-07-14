@@ -5,6 +5,7 @@ import AuthLabel from '@/components/AuthForm/AuthLabel'
 import ValidateButton from '@/components/AuthForm/ValidateButton'
 import type { RegisterFormData } from '@/types/login/register'
 import { api } from '@/api/axiosInstance'
+import type { AxiosError } from 'axios'
 
 interface PersonalInfoSectionProps {
   register: UseFormRegister<RegisterFormData>
@@ -35,10 +36,11 @@ export default function PersonalInfoSection({
       alert(res.data.message) // 예: "인증 코드가 이메일로 전송되었습니다."
     } catch (error) {
       console.error(error)
+      const axiosError = error as AxiosError<any>
 
       // 서버 에러 메시지 보여주기
-      if (error.response?.data?.message) {
-        alert(error.response.data.message)
+      if (axiosError.response?.data?.message) {
+        alert(axiosError.response.data.message)
       } else {
         alert('이미 사용중인 닉네임 입니다앙 !')
       }

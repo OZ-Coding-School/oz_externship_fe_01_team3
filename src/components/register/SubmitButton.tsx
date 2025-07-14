@@ -1,5 +1,6 @@
 import { api } from '@/api/axiosInstance'
 import { useNavigate } from 'react-router'
+import type { AxiosError } from 'axios'
 
 interface SubmitButtonProps {
   isAllFieldsFilled: boolean
@@ -42,11 +43,13 @@ export default function SubmitButton({
       alert(res.data.message) // 예: "인증 코드가 이메일로 전송되었습니다."
       navigate('/login')
     } catch (error) {
+      const axiosError = error as AxiosError<any>
+
       console.error(error)
 
       // 서버 에러 메시지 보여주기
-      if (error.response?.data?.message) {
-        alert(error.response.data.message)
+      if (axiosError.response?.data?.message) {
+        alert(axiosError.response.data.message)
       } else {
         alert('휴대폰 인증을 완료해주세요!')
       }

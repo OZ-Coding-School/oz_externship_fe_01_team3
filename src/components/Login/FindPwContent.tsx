@@ -6,6 +6,7 @@ import FindPwHeaderSection from './FindPwHeaderSection'
 import FindPwResetSection from './FindPwResetSection'
 import { api } from '@/api/axiosInstance'
 import { useNavigate } from 'react-router'
+import type { AxiosError } from 'axios'
 
 export default function FindPwContent() {
   const {
@@ -54,11 +55,13 @@ export default function FindPwContent() {
       alert(res.data.message) //성공시, "재설정되었습니다!"
       navigate('/')
     } catch (error) {
+      const axiosError = error as AxiosError<any>
+
       console.error(error)
 
       // 서버 에러 메시지 보여주기
-      if (error.response?.data?.message) {
-        alert(error.response.data.message)
+      if (axiosError.response?.data?.message) {
+        alert(axiosError.response.data.message)
       } else {
         alert('코드 전송에 실패했습니다.')
       }

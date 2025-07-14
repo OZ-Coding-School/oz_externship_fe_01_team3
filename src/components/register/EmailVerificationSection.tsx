@@ -4,6 +4,7 @@ import AuthLabel from '@/components/AuthForm/AuthLabel'
 import ValidateButton from '@/components/AuthForm/ValidateButton'
 import type { RegisterFormData } from '@/types/login/register'
 import { api } from '@/api/axiosInstance'
+import type { AxiosError } from 'axios'
 
 interface EmailVerificationSectionProps {
   register: UseFormRegister<RegisterFormData>
@@ -28,11 +29,13 @@ export default function EmailVerificationSection({
       console.log(res.data.message)
       alert(res.data.message) // 예: "인증 코드가 이메일로 전송되었습니다."
     } catch (error) {
+      const axiosError = error as AxiosError<any>
+
       console.error(error)
 
       // 서버 에러 메시지 보여주기
-      if (error.response?.data?.message) {
-        alert(error.response.data.message)
+      if (axiosError.response?.data?.message) {
+        alert(axiosError.response.data.message)
       } else {
         alert('코드 전송에 실패했습니다.')
       }
@@ -41,7 +44,7 @@ export default function EmailVerificationSection({
 
   async function handleCheckCode() {
     try {
-      const res = await api.post('/api/v1/auth/email/verify-code', {
+      await api.post('/api/v1/auth/email/verify-code', {
         email: emailValue,
         verification_code: emailCodeValue,
         purpose: 'signup',
@@ -50,9 +53,11 @@ export default function EmailVerificationSection({
       // 200이면 성공
       alert('인증 성공!')
     } catch (error) {
+      const axiosError = error as AxiosError<any>
+
       // 400이면 서버에서 에러 메시지가 응답으로 옴
       const errorMessage =
-        error.response?.data?.non_field_errors?.[0] ||
+        axiosError.response?.data?.non_field_errors?.[0] ||
         '알 수 없는 에러가 발생했습니다.'
       alert(errorMessage)
     }
