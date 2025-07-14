@@ -35,15 +35,6 @@ export default function FindPwResetSection({
         <p className="text-[14px] font-semibold text-[#6201E0]">
           6~15자의 영문 대소문자, 숫자, 특수문자 포함
         </p>
-        {/* <label
-          htmlFor="password"
-          className="mr-[16px] mb-[20px] text-[#121212]"
-        >
-          새 비밀번호<span className="text-[#EC0037]">*</span>
-        </label>
-        <p className="mb-[20px] text-[14px] font-semibold text-[#6201E0]">
-          6~15자의 영문 대소문자, 숫자, 특수문자 포함
-        </p> */}
       </div>
       <AuthInput
         type="password"

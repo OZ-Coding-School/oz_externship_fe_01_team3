@@ -4,6 +4,8 @@ import { usePwForm } from '@/hooks/login/usePwForm'
 import FindPwInitialSection from './FindPwInitialSection'
 import FindPwHeaderSection from './FindPwHeaderSection'
 import FindPwResetSection from './FindPwResetSection'
+import { api } from '@/api/axiosInstance'
+import { useNavigate } from 'react-router'
 
 export default function FindPwContent() {
   const {
@@ -13,8 +15,8 @@ export default function FindPwContent() {
     emailValue,
     emailCodeValue,
     // setValue,
-    // passwordValue,
-    // passwordConfirmValue,
+    passwordValue,
+    passwordConfirmValue,
     // isPasswordMatch,
     // isPasswordValid,
     isVerifiedCodeDisabled,
@@ -28,6 +30,7 @@ export default function FindPwContent() {
     isCodeVerified,
     setIsCodeVerified,
   } = usePwForm()
+  const navigate = useNavigate()
 
   // "비밀번호찾기" 버튼 클릭 시 실행
   const onClickFindPw = () => {
@@ -36,6 +39,29 @@ export default function FindPwContent() {
       setEmailVerified(true)
     } else {
       alert('먼저 인증번호를 확인해주세요!')
+    }
+  }
+  //비밀번호 재설정 코드
+  const resetPw = async () => {
+    try {
+      const res = await api.post('/api/v1/auth/account/change-password/', {
+        email: emailValue,
+        new_password: passwordValue,
+        new_password_confirm: passwordConfirmValue,
+      })
+
+      console.log(res.data.message)
+      alert(res.data.message) //성공시, "재설정되었습니다!"
+      navigate('/')
+    } catch (error) {
+      console.error(error)
+
+      // 서버 에러 메시지 보여주기
+      if (error.response?.data?.message) {
+        alert(error.response.data.message)
+      } else {
+        alert('코드 전송에 실패했습니다.')
+      }
     }
   }
 
@@ -57,11 +83,7 @@ export default function FindPwContent() {
             isPasswordValid="isPasswordValid"
             isPasswordMatch="isPasswordMatch"
           />
-          <CommonButton
-            // onClick={handleVerifyCode}
-            text="확인"
-            disabled={isDisabled}
-          />
+          <CommonButton onClick={resetPw} text="확인" disabled={isDisabled} />
         </div>
       ) : (
         <form onSubmit={handleSubmit(onClickFindPw)}>
