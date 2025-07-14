@@ -10,6 +10,8 @@ import LoginHeader from '@/components/Login/LoginHeader'
 import LoginPasswordSection from '@/components/Login/LoginPasswordSection'
 import { useLoginForm } from '@/hooks/login/useLoginForm'
 import { token } from '@/lib/token'
+import { useAuthStore } from '@/stores/useLoginStore'
+import { useNavigate } from 'react-router'
 
 // 지향 파트 (짧아지는게 목적이긴한데, 그렇다고 극단적으로 다 지울필요는 없어요.)
 // TODO: 컴포넌트를 세분화해서 쪼개는게 일단 우선이긴한데,,
@@ -34,6 +36,9 @@ export default function Login() {
     showToast,
   } = useLoginForm()
 
+  const { login } = useAuthStore()
+  const navigateMain = useNavigate()
+
   const handleLogin = async () => {
     try {
       const res = await api.post('/api/v1/auth/login/email', {
@@ -54,6 +59,10 @@ export default function Login() {
         subMessage: '메인 페이지로 이동합니다.',
         className: '',
       })
+      login(user) // 로그인 성공 시 전역 상태에 저장
+      setTimeout(() => {
+        navigateMain('/')
+      }, 4000)
     } catch (error) {
       console.error('로그인 실패', error)
 
