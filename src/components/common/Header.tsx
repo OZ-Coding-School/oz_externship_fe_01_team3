@@ -68,9 +68,13 @@ export const Header = () => {
               {isLoggedIn && (
                 <button
                   onClick={toggleLoginModal}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-200 transition-colors hover:bg-purple-300"
+                  className="flex h-10 w-10 items-center justify-center"
                 >
-                  <User className="h-6 w-6 text-purple-600" />
+                  <img
+                    src={USER?.profile_image_url}
+                    alt="프로필 사진"
+                    className="rounded-full"
+                  />
                 </button>
               )}
 
