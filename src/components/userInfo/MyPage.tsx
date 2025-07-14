@@ -1,9 +1,12 @@
-import { mockMyPageData } from '@/mock/myPageData'
 import { useState } from 'react'
 import AccountDeleteModal from './AccountDeleteModal'
+import type { MyPage } from '@/types/mypage/myPage'
 
-export default function MyPage() {
-  const USER = mockMyPageData
+interface MyPageProps {
+  USER: MyPage
+}
+
+export default function MyPage({ USER }: MyPageProps) {
   const [modalOpen, setModalOpen] = useState(false)
 
   const handleModal = () => {

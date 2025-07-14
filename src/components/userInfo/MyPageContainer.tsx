@@ -1,17 +1,58 @@
 import MyPage from './MyPage'
 import { useState } from 'react'
 import MyPageEdit from './MyPageEdit'
-import { mockMyPageData } from '@/mock/myPageData'
+import { useQueryClient } from '@tanstack/react-query'
+import { useUser } from '@/hooks/mypage/useMyProfile'
+import { useUpdateProfile } from '@/hooks/mypage/useMyProfileUpdate'
 
 export default function MyPageContainer() {
   const [myPage, setMyPage] = useState(true)
+  const { data: USER, isLoading, isError } = useUser()
 
-  const USER = mockMyPageData
-  const [nickname, setNickname] = useState(USER.nickname ?? '')
-  const [phone, setPhone] = useState(USER.phone_number ?? '')
+  const [nickname, setNickname] = useState('')
+  const [phone, setPhone] = useState('')
   const [profileImage, setProfileImage] = useState<File | null>(null)
 
-  const handleMyPageEdit = () => setMyPage(false)
+  const { mutate: updateProfile } = useUpdateProfile()
+
+  const queryClient = useQueryClient()
+
+  const handleMyPageEdit = () => {
+    setNickname(USER?.nickname ?? '')
+    setPhone(USER?.phone_number as string)
+    setProfileImage(null)
+    setMyPage(false)
+  }
+
+  const handleSaveProfile = () => {
+    const payload: {
+      profile_image_file: File | null
+      nickname: string
+      phone_number?: string
+    } = {
+      profile_image_file: profileImage,
+      nickname: nickname,
+    }
+
+    if (phone !== USER?.phone_number) {
+      payload.phone_number = phone
+    }
+
+    updateProfile(payload, {
+      onSuccess: () => {
+        setProfileImage(null)
+        queryClient.invalidateQueries({ queryKey: ['profile'] })
+        alert('프로필이 성공적으로 수정되었습니다.')
+        setMyPage(true)
+      },
+      onError: () => {
+        alert('프로필 수정에 실패했습니다. 휴대폰 인증을 받아주세요')
+      },
+    })
+  }
+
+  if (isLoading) return <div>로딩중...</div>
+  if (isError || !USER) return <div>유저 정보를 불러올 수 없습니다.</div>
 
   return (
     <div className="min-h-screen bg-white">
@@ -27,14 +68,17 @@ export default function MyPageContainer() {
                 수정하기
               </button>
             ) : (
-              <button className="bg-purple-primary h-12 w-32 rounded-sm text-white hover:bg-[#4E01B3] active:bg-[#3B0186]">
+              <button
+                className="bg-purple-primary h-12 w-32 rounded-sm text-white hover:bg-[#4E01B3] active:bg-[#3B0186]"
+                onClick={handleSaveProfile}
+              >
                 저장하기
               </button>
             )}
           </header>
 
           {myPage ? (
-            <MyPage />
+            <MyPage USER={USER} />
           ) : (
             <MyPageEdit
               nickname={nickname}
