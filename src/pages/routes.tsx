@@ -8,6 +8,7 @@ import Join from './Join'
 import Login from './Login'
 import Register from './Register'
 import ExamTakingPage from './ExamTakingPage'
+import KaKaoCallback from '@/components/Login/social/KaKaoCallback'
 
 // TODO: 임시 컴포넌트들 - 실제 컴포넌트 구현 후 교체 예정입니다. (각자 파트로 교체 해주세요 😀)
 
@@ -122,6 +123,10 @@ export const router = createBrowserRouter([
             <ExampleListContainer />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: 'auth',
+        element: <KaKaoCallback />,
       },
     ],
   },
