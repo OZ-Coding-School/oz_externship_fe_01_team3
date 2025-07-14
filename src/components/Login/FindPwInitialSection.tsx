@@ -6,8 +6,7 @@ import type {
   UseFormWatch,
 } from 'react-hook-form'
 import { api } from '@/api/axiosInstance'
-import Button from '../common/Button'
-import { useState } from 'react'
+import { useEffect } from 'react'
 
 interface FindPwInitialSection {
   register: UseFormRegister<RegisterFormData>
@@ -17,6 +16,8 @@ interface FindPwInitialSection {
   sendVerified: () => void
   showTimer: boolean
   emailCodeValue: string
+  setIsCodeVerified: (v: boolean) => void
+  isCodeVerified: boolean
 }
 
 export default function FindPwInitialSection({
@@ -27,6 +28,8 @@ export default function FindPwInitialSection({
   showTimer,
   emailCodeValue,
   watch,
+  setIsCodeVerified,
+  isCodeVerified,
 }: FindPwInitialSection) {
   const handleSendCode = async () => {
     try {
@@ -53,14 +56,13 @@ export default function FindPwInitialSection({
     try {
       const res = await api.post('/api/v1/auth/account/verify-code/', {
         email: emailValue,
-        verification_code: emailCodeValue,
-        purpose: 'signup',
+        code: emailCodeValue,
       })
 
       // 200이면 성공
       alert('인증 성공!')
+      setIsCodeVerified(true)
       // 비밀번호 재설정 화면으로 전환
-      setEmailCodeSuccess(true)
     } catch (error) {
       // 400이면 서버에서 에러 메시지가 응답으로 옴
       const errorMessage =
@@ -69,6 +71,15 @@ export default function FindPwInitialSection({
       alert(errorMessage)
     }
   }
+
+  useEffect(() => {
+    if (isCodeVerified) {
+      // 인증 성공 후 하고 싶은 코드
+      console.log('이제 상태가 true다! 여기서 확실히 true.')
+
+      // 예: 비밀번호 재설정 화면 전환 로직
+    }
+  }, [isCodeVerified])
 
   return (
     <>

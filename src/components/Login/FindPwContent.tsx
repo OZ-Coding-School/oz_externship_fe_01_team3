@@ -24,8 +24,20 @@ export default function FindPwContent() {
     showTimer,
     sendVerified,
     emailVerified,
-    handleVerifyCode,
+    setEmailVerified,
+    isCodeVerified,
+    setIsCodeVerified,
   } = usePwForm()
+
+  // "비밀번호찾기" 버튼 클릭 시 실행
+  const onClickFindPw = () => {
+    if (isCodeVerified) {
+      // 인증번호가 성공적으로 확인된 상태여야 전환 가능
+      setEmailVerified(true)
+    } else {
+      alert('먼저 인증번호를 확인해주세요!')
+    }
+  }
 
   return (
     <div>
@@ -46,13 +58,13 @@ export default function FindPwContent() {
             isPasswordMatch="isPasswordMatch"
           />
           <CommonButton
-            onClick={handleVerifyCode}
+            // onClick={handleVerifyCode}
             text="확인"
             disabled={isDisabled}
           />
         </div>
       ) : (
-        <form onSubmit={handleSubmit(handleVerifyCode)}>
+        <form onSubmit={handleSubmit(onClickFindPw)}>
           <div className="ml-[24px]">
             <FindPwInitialSection
               register={register}
@@ -62,9 +74,11 @@ export default function FindPwContent() {
               showTimer={showTimer}
               emailCodeValue={emailCodeValue}
               watch={watch}
+              setIsCodeVerified={setIsCodeVerified}
+              isCodeVerified={isCodeVerified}
             />
             <CommonButton
-              onClick={handleVerifyCode}
+              onClick={onClickFindPw}
               text="비밀번호찾기"
               disabled={isVerifiedCodeDisabled}
             />
