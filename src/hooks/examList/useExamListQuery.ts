@@ -1,17 +1,28 @@
 import { useQuery } from '@tanstack/react-query'
-import type { ExamListResponseItem } from '@/types/examList/examList'
-import axios from 'axios'
 import { token } from '@/lib/token'
+import { api } from '@/API/axiosInstance'
+import { mockExamData } from '@/mock/examListData'
+import {
+  mapApiToExamData,
+  type ExamListApiResponse,
+  type ExamListResponseItem,
+} from '@/types/examList/examList'
 
-// TODO: 실제 API 엔드포인트로 교체
 const fetchExamList = async (): Promise<ExamListResponseItem[]> => {
-  const accessToken = token.get()
-  const response = await axios.get('/api/v1/user/test-list/', {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  })
-  return response.data
+  try {
+    const accessToken = token.get()
+
+    if (!accessToken) return mockExamData
+
+    const response = await api.get<ExamListApiResponse[]>(
+      '/api/v1/test/deployments'
+    )
+
+    return response.data.map(mapApiToExamData)
+  } catch (error) {
+    console.error('API 에러 발생, 목데이터 사용:', error)
+    return mockExamData
+  }
 }
 
 export const useExamListQuery = () => {
