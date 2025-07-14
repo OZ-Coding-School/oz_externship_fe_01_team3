@@ -63,7 +63,16 @@ export default function Register() {
               passwordConfirmValue={passwordConfirmValue}
               isPasswordMatch={isPasswordMatch}
             />
-            <SubmitButton isAllFieldsFilled={isAllFieldsFilled} />
+            <SubmitButton
+              isAllFieldsFilled={isAllFieldsFilled}
+              emailValue={emailValue}
+              passwordValue={passwordValue}
+              passwordConfirmValue={passwordConfirmValue}
+              nameValue={nameValue}
+              nicknameValue={nicknameValue}
+              phoneValue={phoneValue}
+              birthValue={birthValue}
+            />
           </div>
         </div>
       </form>
