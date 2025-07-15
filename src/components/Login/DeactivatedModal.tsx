@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form'
 import type { ToastProps } from '@/types/common/Toast'
 import { Toast } from '../common/Toast'
 import Timer from '../common/Timer'
+import DeactiveReset from '@/assets/DeactiveReset.png'
+import DeactiveIcon from '@/assets/DeactiveIcon.png'
 
 interface ResetFormData {
   email: string
@@ -58,7 +60,7 @@ export default function DeactivatedAccountInfoModal() {
       {toast && <Toast toast={toast} />}
       <div className="mt-[10px] flex flex-col items-center justify-center">
         <img
-          src={`src/assets/${resetClicked ? 'DeactiveReset' : 'DeactiveIcon'}.png`}
+          src={`${resetClicked ? DeactiveReset : DeactiveIcon}`}
           alt="find"
           className="mb-[16px] h-[28px] w-[28px]"
         />

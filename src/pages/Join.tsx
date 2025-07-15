@@ -1,6 +1,9 @@
 import SocialButton from '@/components/common/SocialButton'
 import { useSocialLogin } from '@/hooks/login/useSocialLogin'
 import { useNavigate } from 'react-router'
+import logo_black from '@/assets/logo_black.png'
+import kakao_brown from '@/assets/kakao_brown.svg'
+import naver_white from '@/assets/naver_white.svg'
 
 function Join() {
   const navigate = useNavigate()
@@ -9,7 +12,7 @@ function Join() {
   return (
     <div className="flex flex-col items-center pt-20">
       <img
-        src="src/assets/logo_black.png"
+        src={logo_black}
         alt="오즈코딩스쿨 로고"
         className="mb-[27px] w-[180px]"
       />
@@ -30,7 +33,7 @@ function Join() {
       <SocialButton
         bgColor="#FEE500"
         txtColor="#391C1A"
-        iconSrc="src/assets/kakao_brown.svg"
+        iconSrc={kakao_brown}
         iconAlt="카카오"
         marginBottom="16px"
         onClick={kakaoLogin}
@@ -42,7 +45,7 @@ function Join() {
       <SocialButton
         bgColor="#03C75A"
         txtColor="#FFFFFF"
-        iconSrc="src/assets/naver_white.svg"
+        iconSrc={naver_white}
         iconAlt="네이버"
         marginBottom="25px"
         onClick={naverLogin}
