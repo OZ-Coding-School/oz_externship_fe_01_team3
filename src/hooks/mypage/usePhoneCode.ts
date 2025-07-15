@@ -1,4 +1,4 @@
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 import { useMutation } from '@tanstack/react-query'
 
 interface PhoneNumberCheckResponse {

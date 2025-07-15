@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { token } from '@/lib/token'
 import { useNavigate, useSearchParams } from 'react-router'
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 
 export default function KaKaoCallback() {
   const navigate = useNavigate()

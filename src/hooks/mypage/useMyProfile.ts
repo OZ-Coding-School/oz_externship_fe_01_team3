@@ -1,4 +1,4 @@
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 import type { MyPage } from '@/types/mypage/myPage'
 import { useQuery } from '@tanstack/react-query'
 

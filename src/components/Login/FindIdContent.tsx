@@ -3,7 +3,7 @@ import CommonButton from './CommonButton'
 import { useFindForm } from '@/hooks/FindIdPw/useFindForm'
 import FindIdHeader from './FindIdHeader'
 import FindIdInitialSection from './FindIdInitialSection'
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 import { useState } from 'react'
 import type { AxiosError } from 'axios'
 

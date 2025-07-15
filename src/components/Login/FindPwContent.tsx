@@ -4,7 +4,7 @@ import { usePwForm } from '@/hooks/login/usePwForm'
 import FindPwInitialSection from './FindPwInitialSection'
 import FindPwHeaderSection from './FindPwHeaderSection'
 import FindPwResetSection from './FindPwResetSection'
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 import { useNavigate } from 'react-router'
 import type { AxiosError } from 'axios'
 
