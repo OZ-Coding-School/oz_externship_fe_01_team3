@@ -8,17 +8,17 @@ import {
   type ExamListResponseItem,
 } from '@/types/examList/examList'
 
+interface ExamListApiWrapper {
+  message: string
+  data: ExamListApiResponse[]
+}
 const fetchExamList = async (): Promise<ExamListResponseItem[]> => {
   try {
-    const accessToken = token.get()
+    const {
+      data: { data: examData },
+    } = await api.get<ExamListApiWrapper>('/api/v1/test/deployments')
 
-    if (!accessToken) return mockExamData
-
-    const response = await api.get<ExamListApiResponse[]>(
-      '/api/v1/test/deployments'
-    )
-
-    return response.data.map(mapApiToExamData)
+    return examData.map(mapApiToExamData)
   } catch (error) {
     console.error('API 에러 발생, 목데이터 사용:', error)
     return mockExamData
@@ -29,5 +29,6 @@ export const useExamListQuery = () => {
   return useQuery<ExamListResponseItem[], Error>({
     queryKey: ['examList'],
     queryFn: fetchExamList,
+    staleTime: 5 * 60 * 1000,
   })
 }
