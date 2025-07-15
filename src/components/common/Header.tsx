@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { User } from 'lucide-react'
 import StudentRegisterContent from './StudentCourseRegister/RegiserContent'
 import { useUser } from '@/hooks/mypage/useMyProfile'
 import { useNavigate } from 'react-router'
