@@ -96,6 +96,7 @@ export default function PersonalInfoEditForm({
           <div className="relative">
             <LabeledInput
               id="phone"
+              value={USER.phone_number}
               onChange={(e) => setPhone(e.target.value)}
               placeholder={USER.phone_number}
               className={phoneInputClass}
