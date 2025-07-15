@@ -1,4 +1,4 @@
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 import { Toast } from '@/components/common/Toast'
 import DeactivatedAccountInfoModal from '@/components/Login/DeactivatedModal'
 import FindIdContent from '@/components/Login/FindIdContent'

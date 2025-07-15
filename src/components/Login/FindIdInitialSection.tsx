@@ -3,7 +3,7 @@ import AuthInput from '../AuthForm/AuthInput'
 import AuthLabel from '../AuthForm/AuthLabel'
 import ValidateButton from '../AuthForm/ValidateButton'
 import type { RegisterFormData } from '@/types/login/register'
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 import type { AxiosError } from 'axios'
 
 interface FindIdInitialSectionProps {

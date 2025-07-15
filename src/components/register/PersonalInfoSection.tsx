@@ -4,7 +4,7 @@ import AuthInput from '@/components/AuthForm/AuthInput'
 import AuthLabel from '@/components/AuthForm/AuthLabel'
 import ValidateButton from '@/components/AuthForm/ValidateButton'
 import type { RegisterFormData } from '@/types/login/register'
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 import type { AxiosError } from 'axios'
 
 interface PersonalInfoSectionProps {

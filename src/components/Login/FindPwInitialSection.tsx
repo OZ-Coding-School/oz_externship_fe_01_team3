@@ -5,7 +5,7 @@ import type {
   UseFormRegister,
   UseFormWatch,
 } from 'react-hook-form'
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 import { useEffect } from 'react'
 import type { AxiosError } from 'axios'
 

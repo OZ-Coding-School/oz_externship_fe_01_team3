@@ -1,4 +1,4 @@
-import { api } from '@/api/axiosInstance'
+import { api } from '@/API/axiosInstance'
 import { useNavigate } from 'react-router'
 import type { AxiosError } from 'axios'
 
