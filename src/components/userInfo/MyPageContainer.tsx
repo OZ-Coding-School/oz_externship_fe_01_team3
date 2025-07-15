@@ -4,6 +4,7 @@ import MyPageEdit from './MyPageEdit'
 import { useQueryClient } from '@tanstack/react-query'
 import { useUser } from '@/hooks/mypage/useMyProfile'
 import { useUpdateProfile } from '@/hooks/mypage/useMyProfileUpdate'
+import { useAuthStore } from '@/stores/useLoginStore'
 
 export default function MyPageContainer() {
   const [myPage, setMyPage] = useState(true)
@@ -14,6 +15,7 @@ export default function MyPageContainer() {
   const [profileImage, setProfileImage] = useState<File | null>(null)
 
   const { mutate: updateProfile } = useUpdateProfile()
+  const { user, login } = useAuthStore()
 
   const queryClient = useQueryClient()
 
@@ -42,6 +44,20 @@ export default function MyPageContainer() {
       onSuccess: () => {
         setProfileImage(null)
         queryClient.invalidateQueries({ queryKey: ['profile'] })
+
+        // useAuthStore의 유저 정보도 함께 업데이트
+        if (user) {
+          const updatedUser = {
+            ...user,
+            nickname: nickname,
+            // 프로필 이미지가 있으면 임시 URL 사용 (서버 응답 후 실제 URL로 교체됨)
+            profile_image_url: profileImage
+              ? URL.createObjectURL(profileImage)
+              : user.profile_image_url,
+          }
+          login(updatedUser)
+        }
+
         alert('프로필이 성공적으로 수정되었습니다.')
         setMyPage(true)
       },
