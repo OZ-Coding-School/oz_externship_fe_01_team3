@@ -1,5 +1,6 @@
 import { useChangePassword } from '@/hooks/mypage/useChangePassword'
 import { useUser } from '@/hooks/mypage/useMyProfile'
+import { useAuthStore } from '@/stores/useLoginStore'
 import { useForm } from 'react-hook-form'
 
 interface ChangePasswordContainerProps {
@@ -8,7 +9,8 @@ interface ChangePasswordContainerProps {
 }
 
 export default function ChangePasswordContainer() {
-  const { data: USER, isLoading, isError } = useUser()
+  const { isLoggedIn } = useAuthStore()
+  const { data: USER, isLoading, isError } = useUser(isLoggedIn)
 
   const {
     register,

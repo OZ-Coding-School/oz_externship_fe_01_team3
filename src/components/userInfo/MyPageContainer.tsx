@@ -8,14 +8,14 @@ import { useAuthStore } from '@/stores/useLoginStore'
 
 export default function MyPageContainer() {
   const [myPage, setMyPage] = useState(true)
-  const { data: USER, isLoading, isError } = useUser()
+  const { user, login, isLoggedIn } = useAuthStore()
+  const { data: USER, isLoading, isError } = useUser(isLoggedIn)
 
   const [nickname, setNickname] = useState('')
   const [phone, setPhone] = useState('')
   const [profileImage, setProfileImage] = useState<File | null>(null)
 
   const { mutate: updateProfile } = useUpdateProfile()
-  const { user, login } = useAuthStore()
 
   const queryClient = useQueryClient()
 

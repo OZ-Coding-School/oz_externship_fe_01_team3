@@ -11,7 +11,7 @@ export const Header = () => {
   const navigate = useNavigate()
 
   const { isLoggedIn, user, logout } = useAuthStore()
-  const { data: USER } = useUser()
+  const { data: USER } = useUser(isLoggedIn)
 
   const toggleLoginModal = () => {
     setShowLoginModal(!showLoginModal)

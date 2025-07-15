@@ -7,9 +7,13 @@ const fetchUserProfile = async (): Promise<MyPage> => {
   return response.data
 }
 /* 유저 프로필 */
-export const useUser = () => {
+export const useUser = (isLoggedIn: boolean) => {
   return useQuery({
     queryKey: ['profile'],
-    queryFn: () => fetchUserProfile(),
+    queryFn: fetchUserProfile,
+    enabled: isLoggedIn,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
   })
 }
