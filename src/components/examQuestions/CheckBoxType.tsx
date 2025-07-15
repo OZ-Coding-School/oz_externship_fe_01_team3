@@ -52,7 +52,7 @@ export default function CheckBoxType({
   return (
     <>
       <div className="flex h-[144px] w-[1000px] flex-col pr-[26px] pl-8">
-        {options.map((option, index) => {
+        {options?.map((option, index) => {
           const { isChecked, textColor } = ExamOption({
             option,
             is_result,

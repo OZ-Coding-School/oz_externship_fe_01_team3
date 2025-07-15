@@ -20,14 +20,15 @@ export default function ExamListModal({
   const navigate = useNavigate()
 
   const { data, isSuccess, isError, isLoading } = useExamModalQuery(
+    deploymentId,
     examCode,
-    submitted && examCode.length === MAX_LENGTH,
-    deploymentId
+    submitted && examCode.length === MAX_LENGTH
   )
 
   useEffect(() => {
     if (isSuccess && data) {
-      navigate(`/exam/${data.test.id}`, { state: data })
+      const examId = data.id
+      navigate(`/exam/${examId}`, { state: data })
     }
   }, [isSuccess, data, navigate])
 
@@ -52,12 +53,10 @@ export default function ExamListModal({
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Regex:숫자만 허용하고 6자리까지만 제한
-    const regex = /^[0-9]*$/
+    const regex = /^[A-Za-z0-9]*$/
     if (regex.test(e.target.value) && e.target.value.length <= 6) {
       setExamCode(e.target.value)
       setError(false)
-      return
     }
   }
 

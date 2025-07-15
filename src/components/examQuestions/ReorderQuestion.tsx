@@ -125,7 +125,7 @@ export default function ReorderQuestion({
         {/* 상단 보기 박스 */}
         <div className="mb-5 ml-8 h-[228px] w-[648px] rounded-[4px] bg-[#F2F3F5] pt-5 pr-4 pb-5 pl-4">
           <div className="flex h-[188px] w-[276px] flex-col justify-start">
-            {options.map((option, index) => (
+            {options?.map((option, index) => (
               <div
                 key={option.id}
                 draggable={!disabled}

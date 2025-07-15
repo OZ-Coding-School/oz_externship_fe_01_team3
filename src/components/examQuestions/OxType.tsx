@@ -48,7 +48,7 @@ export default function OxType({
   return (
     <>
       <div className="flex h-auto w-[340px] flex-col pl-8">
-        {options.map((option, index) => {
+        {options?.map((option, index) => {
           // 얘네 차피 다 공통 아님? 다 뺄 수 있지 않나?
           const inputId = `question-${question_Id}-${index}`
 

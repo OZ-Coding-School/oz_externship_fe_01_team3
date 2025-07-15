@@ -1,28 +1,21 @@
+import { api } from '@/API/axiosInstance'
 import type { ModalSuccessResponse } from '@/types/examList/examModal'
 import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import { token } from '@/lib/token'
 
 // TODO: 7.12 MSW로 작업해둠, 실제 API가 들어오면 교체해야함 (아직까지 안 들어왔습니다.)
 const fetchExamModal = async (
-  access_code: string,
-  deployment_id: string
+  test_deployment_id: string,
+  access_code: string
 ): Promise<ModalSuccessResponse> => {
   try {
-    const accessToken = token.get()
-    const response = await axios.post<ModalSuccessResponse>(
-      `/api/v1/tests/${deployment_id}/validate/`,
-      {
-        access_token: access_code,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-      }
+    const {
+      data: { data: response },
+    } = await api.post<{ message: string; data: ModalSuccessResponse }>(
+      `/api/v1/test/submissions/${test_deployment_id}/start/`,
+      { access_code }
     )
-    return response.data
+
+    return response
   } catch (error) {
     console.error(error)
     throw error
@@ -30,13 +23,13 @@ const fetchExamModal = async (
 }
 
 export const useExamModalQuery = (
+  test_deployment_id: string,
   access_code: string,
-  enabled: boolean,
-  deployment_id: string
+  enabled: boolean = true
 ) => {
   return useQuery<ModalSuccessResponse>({
-    queryKey: ['examModal', access_code, deployment_id],
-    queryFn: () => fetchExamModal(access_code, deployment_id),
+    queryKey: ['examModal', test_deployment_id],
+    queryFn: () => fetchExamModal(test_deployment_id, access_code),
     enabled,
   })
 }

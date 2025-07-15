@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { token } from '@/lib/token'
 import { api } from '@/API/axiosInstance'
 import { mockExamData } from '@/mock/examListData'
 import {
