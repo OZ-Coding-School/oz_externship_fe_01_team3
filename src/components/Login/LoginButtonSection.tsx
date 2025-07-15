@@ -1,5 +1,7 @@
 import SocialButton from '../common/SocialButton'
 import { useSocialLogin } from '@/hooks/login/useSocialLogin'
+import kakao_brown from '@/assets/kakao_brown.svg'
+import naver_white from '@/assets/naver_white.svg'
 
 export default function LoginButtonSection() {
   const { kakaoLogin, naverLogin } = useSocialLogin()
@@ -10,7 +12,7 @@ export default function LoginButtonSection() {
       <SocialButton
         bgColor="#FEE500"
         txtColor="#391C1A"
-        iconSrc="src/assets/kakao_brown.svg"
+        iconSrc={kakao_brown}
         iconAlt="카카오"
         marginBottom="16px"
         onClick={kakaoLogin}
@@ -22,7 +24,7 @@ export default function LoginButtonSection() {
       <SocialButton
         bgColor="#03C75A"
         txtColor="#FFFFFF"
-        iconSrc="src/assets/naver_white.svg"
+        iconSrc={naver_white}
         iconAlt="네이버"
         marginBottom="25px"
         onClick={naverLogin}

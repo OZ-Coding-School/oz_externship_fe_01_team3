@@ -1,3 +1,4 @@
+import FindIDicon from '@/assets/FindIdicon.png'
 interface FindIdHeaderProps {
   errorMessage: string
   foundId: string
@@ -10,7 +11,7 @@ export default function FindIdHeader({
   return (
     <div className="mt-[10px] flex flex-col items-center justify-center">
       <img
-        src="src/assets/FindIdicon.png"
+        src={FindIDicon}
         alt="find"
         className="mb-[16px] h-[28px] w-[28px]"
       />

@@ -1,3 +1,4 @@
+import FindPwicon from '@/assets/FindPwicon.png'
 interface FindPwHeaderSectionProps {
   emailVerified: boolean
 }
@@ -8,7 +9,7 @@ export default function FindPwHeaderSection({
   return (
     <div className="mt-[10px] flex flex-col items-center justify-center">
       <img
-        src="src/assets/FindPwicon.png"
+        src={FindPwicon}
         alt="find"
         className="mb-[16px] h-[28px] w-[28px]"
       />

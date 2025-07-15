@@ -1,5 +1,9 @@
 import CommonButton from '@/components/Login/CommonButton'
 import { useState } from 'react'
+import CheckPurple from '@/assets/CheckPurple.svg'
+import DropdownUp from '@/assets/DropdownUp.png'
+import DropdownDown from '@/assets/DropdownDown.png'
+import DropCheck from '@/assets/DropCheck.png'
 
 //모달 내용
 export default function StudentRegisterContent() {
@@ -35,7 +39,7 @@ export default function StudentRegisterContent() {
   return (
     <div className="mt-[10px] flex flex-col items-center justify-center text-left font-normal">
       <img
-        src="src/assets/CheckPurple.svg"
+        src={CheckPurple}
         alt="register"
         className="mb-[16px] h-[28px] w-[28px]"
       />
@@ -60,9 +64,9 @@ export default function StudentRegisterContent() {
               {selected || '수강중인 과정을 선택해 주세요.'}
             </span>
             {isOpen ? (
-              <img src="src/assets/DropdownUp.png" className="h-5 w-5" />
+              <img src={DropdownUp} className="h-5 w-5" />
             ) : (
-              <img src="src/assets/DropdownDown.png" className="h-5 w-5" />
+              <img src={DropdownDown} className="h-5 w-5" />
             )}
           </div>
         </button>
@@ -81,7 +85,7 @@ export default function StudentRegisterContent() {
                 {option}
                 {selected === option && (
                   <img
-                    src="src/assets/DropCheck.png" // 선택 표시용 이미지 (체크 아이콘 등)
+                    src={DropCheck} // 선택 표시용 이미지 (체크 아이콘 등)
                     alt="selected"
                     className="h-4 w-4"
                   />
@@ -105,9 +109,9 @@ export default function StudentRegisterContent() {
           <div className="flex w-full items-center justify-between px-4">
             <span className="text-sm">{numSelected}</span>
             {isNumOpen ? (
-              <img src="src/assets/DropdownUp.png" className="h-5 w-5" />
+              <img src={DropdownUp} className="h-5 w-5" />
             ) : (
-              <img src="src/assets/DropdownDown.png" className="h-5 w-5" />
+              <img src={DropdownDown} className="h-5 w-5" />
             )}
           </div>
         </button>
@@ -126,7 +130,7 @@ export default function StudentRegisterContent() {
                 <span>{num}</span>
                 {numSelected === num && (
                   <img
-                    src="src/assets/DropCheck.png" // 선택 표시용 이미지 (체크 아이콘 등)
+                    src={DropCheck} // 선택 표시용 이미지 (체크 아이콘 등)
                     alt="selected"
                     className="h-4 w-4"
                   />
