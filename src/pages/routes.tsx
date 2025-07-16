@@ -49,11 +49,11 @@ export const router = createBrowserRouter([
       },
       // 소셜 로그인 콜백 페이지 (네이버, 카카오)
       {
-        path: 'auth/kakao/callback',
+        path: 'auth/callback/kakao',
         element: <KaKaoCallback />,
       },
       {
-        path: 'auth/naver/callback',
+        path: 'auth/callback/naver',
         element: <NaverCallback />,
       },
       // 탈퇴회원 복구 - 로그인 안한 사람만
